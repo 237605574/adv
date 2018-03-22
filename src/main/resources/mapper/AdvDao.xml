@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定我们的到具体的bean -->
+<mapper namespace="com.adv.dao.AdvDao">
+    <insert id="addAdv">
+        INSERT IGNORE INTO
+            `adv`
+            (`id`, `file_url`, `name`, `valid_date`, `type`, `homepage`, `display_detail`)
+        VALUES
+            (#{advObj.id}, #{advObj.fileUrl}, #{advObj.name}, #{advObj.validDate}, #{advObj.type}, #{advObj.homepage},
+             #{advObj.displayDetail})
+    </insert>
+    <select id="checkNameCount" resultType="Integer">
+        SELECT count(*)
+        FROM
+            `adv`
+        WHERE
+            `name` = #{advObj.name}
+    </select>
+</mapper>

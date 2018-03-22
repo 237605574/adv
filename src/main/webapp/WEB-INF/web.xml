@@ -24,9 +24,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <!--<listener>-->
-        <!--<listener-class>com.ssm.demo.Main</listener-class>-->
-    <!--</listener>-->
+    <listener>
+        <listener-class>com.adv.Init</listener-class>
+    </listener>
     <!-- 如果是用maven命令生成的xml，需要修改servlet版本为3.1 -->
     <!-- 配置DispatcherServlet -->
     <servlet>

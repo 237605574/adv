@@ -1,20 +1,52 @@
 package com.adv.pojo;
 
+import java.util.List;
+
 /**
  * @author lurongzhi
  */
 public class User {
-    private String name;
-    private String password;
+    private List<Long> tagIds;
+    private List<Long> advIds;
     private Integer id;
-    private String nextUrl;
 
-    public String getNextUrl() {
-        return nextUrl;
+
+    public void removeAdv(Long advId) {
+        this.advIds.remove(advId);
     }
 
-    public void setNextUrl(String nextUrl) {
-        this.nextUrl = nextUrl;
+    public void addAdv(Long advId) {
+        if (this.advIds.contains(advId)) {
+            return;
+        }
+        this.tagIds.add(advId);
+    }
+
+    public void removeTag(Long tagId) {
+        this.tagIds.remove(tagId);
+    }
+
+    public void addTag(Long tagId) {
+        if (this.tagIds.contains(tagId)) {
+            return;
+        }
+        this.tagIds.add(tagId);
+    }
+
+    public List<Long> getAdvIds() {
+        return advIds;
+    }
+
+    public void setAdvIds(List<Long> advIds) {
+        this.advIds = advIds;
+    }
+
+    public List<Long> getTagIds() {
+        return tagIds;
+    }
+
+    public void setTagIds(List<Long> tagIds) {
+        this.tagIds = tagIds;
     }
 
     public Integer getId() {
@@ -23,25 +55,5 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean checkEqual(User user) {
-        return this.name.equals(user.name) && this.password.equals(user.password);
     }
 }

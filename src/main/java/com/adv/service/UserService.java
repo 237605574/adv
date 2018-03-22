@@ -1,7 +1,7 @@
 package com.adv.service;
 
-import com.adv.dao.UserDao;
-import com.adv.pojo.User;
+import com.adv.dao.AdministratorDao;
+import com.adv.pojo.Administrator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
     @Autowired
-    private UserDao userDao;
+    private AdministratorDao userDao;
 
-    public User getUser() {
-        System.out.println("2222222222222\n"+userDao);
+    public Administrator getUser() {
+        System.out.println("2222222222222\n" + userDao);
         return userDao.getUser();
     }
 

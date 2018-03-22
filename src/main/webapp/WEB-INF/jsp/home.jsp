@@ -3,16 +3,10 @@
 <%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
-<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/static/js/amazeui.min.js"></script>
-<script type="text/javascript" src="/static/js/app.js"></script>
-<script type="text/javascript" src="/static/js/blockUI.js"></script>
-<script type="text/javascript" src="/static/js/charts/echarts.min.js"></script>
-<script type="text/javascript" src="/static/js/charts/indexChart.js"></script>
+<%--<script type="text/javascript" src="/static/js/jquery-2.1.0.js" ></script>--%>
 
-<script type="text/javascript" src="/static/js/jquery.ajaxfileupload.js"></script>
 
-<%--<script type="text/javascript" src="assets/js/jquery-2.1.0.js" ></script>--%>
+<%--<script type="text/javascript" src="/static/js/jquery-2.1.0.js" ></script>--%>
 <%--<script type="text/javascript" src="assets/js/amazeui.min.js"></script>--%>
 <%--<script type="text/javascript" src="assets/js/app.js" ></script>--%>
 <%--<script type="text/javascript" src="assets/js/blockUI.js" ></script>--%>
@@ -551,7 +545,13 @@
 
 <a href="admin-offcanvas" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
    data-am-offcanvas="{target: '#admin-offcanvas'}"><!--<i class="fa fa-bars" aria-hidden="true"></i>--></a>
-
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="/static/js/amazeui.min.js"></script>
+<script type="text/javascript" src="/static/js/app.js"></script>
+<script type="text/javascript" src="/static/js/blockUI.js"></script>
+<script type="text/javascript" src="/static/js/charts/echarts.min.js"></script>
+<script type="text/javascript" src="/static/js/charts/indexChart.js"></script>
 </body>
 
 </html>

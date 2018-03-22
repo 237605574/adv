@@ -1,5 +1,7 @@
 package com.adv.pojo;
 
+import com.adv.constants.ResultCodes;
+
 /**
  * @author lurongzhi
  */
@@ -13,7 +15,7 @@ public class ResultObj<T> {
         this.msg = msg;
     }
 
-    public ResultObj(int code,T data){
+    public ResultObj(int code, T data) {
         this.code = code;
         this.data = data;
     }
@@ -25,7 +27,7 @@ public class ResultObj<T> {
     }
 
     public ResultObj(int code) {
-        this.code =code;
+        this.code = code;
     }
 
     public T getData() {
@@ -50,5 +52,9 @@ public class ResultObj<T> {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public boolean isSuccess() {
+        return this.code == ResultCodes.SUCCESS;
     }
 }

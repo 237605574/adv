@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定我们的到具体的bean -->
+<mapper namespace="com.adv.dao.UserTagDao">
+    <!-- 更新用户信息 -->
+    <resultMap id="userIds" type="Long">
+    </resultMap>
+    <select id="getUserByTags" resultMap="userIds">
+        SELECT
+        `user_id`
+        FROM
+        `user_id_tag`
+        WHERE
+        `tag_id` IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <select id="checkTagByAdv" resultType="Integer">
+        SELECT count(1)
+        FROM
+        `tag`
+        <choose>
+            <when test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
+                WHERE
+                <foreach item="item" index="index" collection="advObj.userTagIds" separator="and">
+                    exists(SELECT #{item} WHERE tag.tag_id = #{item})
+                </foreach>
+            </when>
+        </choose>
+
+    </select>
+</mapper>
