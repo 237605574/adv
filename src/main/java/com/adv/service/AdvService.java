@@ -8,6 +8,7 @@ import com.adv.dao.UserTagDao;
 import com.adv.idgenerator.IdMgr;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.ResultObj;
+import com.adv.pojo.User;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lurongzhi
@@ -36,7 +38,7 @@ public class AdvService {
         } else if (advObj.getName() == null || advObj.getName().equals("")) {
             //  广告名称为空
             return new ResultObj<>(ResultCodes.EMPTY_NAME_ERROR);
-        } else if (!checkName(advObj)) {
+        } else if (!isValidName(advObj)) {
             //  广告名字重复
             return new ResultObj<>(ResultCodes.ADV_NAME_DUPLICATE, String.format("已经有该广告名字了:%s", advObj.getName()));
         } else {
@@ -76,7 +78,7 @@ public class AdvService {
                 return infoResult;
             }
             //  检查广告是否有效
-            if (advObj.getValidDate().getTime() < new Date().getTime()) {
+            if (advObj.getEndDate().getTime() < new Date().getTime()) {
                 advObj.setValid(false);
             }
             //  检查文件合法性
@@ -118,18 +120,29 @@ public class AdvService {
         }
     }
 
+    public ResultObj<List<AdvObj>> getAdvList(User user) {
+        if (user == null || user.getId() == null) {
+            return new ResultObj<>(ResultCodes.USER_ID_ERROR, "用户ID找不到");
+        }
+        List<AdvObj> advObjList = advDao.getAdvListByUserId(user);
+        return new ResultObj<>(ResultCodes.SUCCESS, advObjList);
+    }
 
     private ResultObj<Void> checkUserTag(AdvObj advObj) {
         int result = userTagDao.checkTagByAdv(advObj);
         if (result <= 0) {
             return new ResultObj<>(ResultCodes.USER_TAG_NOT_FOUND, "用户标签xxx不存在");
-        }else {
+        } else {
             return new ResultObj<>(ResultCodes.SUCCESS);
         }
 
     }
 
-    private boolean checkName(AdvObj advObj) {
+    /**
+     * @return 名字没有重复: true
+     * 名字重复:   false
+     */
+    private boolean isValidName(AdvObj advObj) {
         return advDao.checkNameCount(advObj) == 0;
     }
 }

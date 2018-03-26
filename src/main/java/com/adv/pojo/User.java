@@ -8,8 +8,8 @@ import java.util.List;
 public class User {
     private List<Long> tagIds;
     private List<Long> advIds;
-    private Integer id;
-
+    private Long id;
+    private String psw;
 
     public void removeAdv(Long advId) {
         this.advIds.remove(advId);
@@ -49,11 +49,19 @@ public class User {
         this.tagIds = tagIds;
     }
 
-    public Integer getId() {
+    public String getPsw() {
+        return psw;
+    }
+
+    public void setPsw(String psw) {
+        this.psw = psw;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }

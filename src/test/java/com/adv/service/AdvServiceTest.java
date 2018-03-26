@@ -1,6 +1,6 @@
 package com.adv.service;
 
-import com.adv.dao.DaoMgr;
+import com.adv.dao.DaoFacade;
 import com.adv.dao.IdGeneratorDao;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.ResultObj;
@@ -32,7 +32,7 @@ public class AdvServiceTest {
     private IdGeneratorDao idGeneratorDao;
     @Before
     public void init(){
-        DaoMgr.getInstance().init(idGeneratorDao);
+        DaoFacade.getInstance().init(idGeneratorDao);
     }
     @Test
     public void addAdvTest() throws IOException {

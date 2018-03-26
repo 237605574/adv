@@ -1,10 +1,9 @@
 package com.adv.controller;
 
-import com.adv.constants.LocalAddrs;
-import com.adv.constants.ResultCodes;
-import com.adv.pojo.ResultObj;
+import com.adv.constants.SessionAttribute;
 import com.adv.pojo.Administrator;
-import com.adv.service.UserService;
+import com.adv.pojo.ResultObj;
+import com.adv.service.AdministratorService;
 import com.adv.utils.GsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,33 +22,30 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/userAction")
 public class UserController {
     @Autowired
-    private UserService userService ;
+    private AdministratorService administratorService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String CheckLogin(HttpServletRequest request, HttpServletResponse response, Administrator uncheckedUser, HttpSession session) throws Exception {
-        String resultJson = "";
-        if (uncheckedUser == null) {
-            ResultObj<Void> resultObj = new ResultObj<>(ResultCodes.EMPTY_NAME_ERROR, "登录信息不能为空");
-            resultJson = GsonUtils.toJson(resultObj);
-            return resultJson;
-        } else {
-            Administrator dbUser = userService.getUser();
-            if (dbUser == null) {
-                throw new Exception("没有找到user数据");
-            } else if (!dbUser.checkEqual(uncheckedUser)) {
-                ResultObj<Void> resultObj = new ResultObj<>(ResultCodes.PSW_ERROR, "用户密码错误");
-                resultJson = GsonUtils.toJson(resultObj);
-                return resultJson;
-            } else {  //密码正确
-                session.setAttribute("userInfo", dbUser);
-                dbUser.setNextUrl(LocalAddrs.HOME);
-                ResultObj<Administrator> resultObj = new ResultObj<>(ResultCodes.SUCCESS, dbUser);
-                resultJson = GsonUtils.toJson(resultObj);
-                return resultJson;
-            }
+    public String login(HttpServletRequest request, HttpServletResponse response, Administrator uncheckedUser, HttpSession session) throws Exception {
+        ResultObj<Administrator> resultObj = administratorService.checkAdministrator(uncheckedUser);
+        if (resultObj.isSuccess()) {
+            Administrator dbUser = resultObj.getData();
+            session.setAttribute(SessionAttribute.LOGIN_INFO, dbUser);
         }
+        return GsonUtils.toJson(resultObj);
     }
+    /**
+     *  管理员退出整个系统的时候要调用下列接口，把服务器的session去掉
+     *  否则，切换账号的时候回出现问题
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.POST, produces = {
+            "application/json; charset=utf-8"})
+    @ResponseBody
+    public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+        administratorService.removeAll(session);
+        return "";
+    }
+
 
 }

@@ -1,6 +1,6 @@
 package com.adv.idgenerator;
 
-import com.adv.dao.DaoMgr;
+import com.adv.dao.DaoFacade;
 import com.adv.dao.IdGeneratorDao;
 import com.adv.pojo.IdGenObj;
 
@@ -13,7 +13,7 @@ public class Generator {
     private long genId;
 
     public Generator(IdGenObj idGenPojo) {
-        this.idGeneratorDao = DaoMgr.getInstance().GetIdGenDao();
+        this.idGeneratorDao = DaoFacade.getInstance().GetIdGenDao();
         this.idGenPojo = idGenPojo;
         this.genId = idGenPojo.getCurrentId();
         idGenPojo.nextStep();

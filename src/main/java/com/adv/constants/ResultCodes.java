@@ -16,4 +16,7 @@ public class ResultCodes {
     public static final int EMPTY_FILE = 6;
     public static final int FILE_NAME_ERROR = 7;
 
+    //  获取广告错误码
+    public static final int USER_ID_ERROR = 8;
+
 }

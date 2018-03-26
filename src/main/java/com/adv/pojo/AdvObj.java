@@ -15,7 +15,9 @@ public class AdvObj {
     //  广告文件下载链接
     private String fileUrl;
     //  广告有效截止日期
-    private Date validDate;
+    private Date endDate;
+    //  广告有效开始日期
+    private Date startDate;
     //  点击广告后跳转的商家主页
     private String homepage;
     private Boolean isValid;
@@ -26,7 +28,8 @@ public class AdvObj {
         this.name = "";
         userTagIds = new ArrayList<>();
         fileUrl = "";
-        validDate = new Date();
+        endDate = new Date();
+        startDate = new Date();
         homepage = "";
         isValid = true;
     }
@@ -39,12 +42,20 @@ public class AdvObj {
         this.fileUrl = fileUrl;
     }
 
-    public Date getValidDate() {
-        return validDate;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setValidDate(Date validDate) {
-        this.validDate = validDate;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public String getHomepage() {

@@ -1,7 +1,7 @@
 package com.adv.idgenerator;
 
 
-import com.adv.dao.DaoMgr;
+import com.adv.dao.DaoFacade;
 import com.adv.dao.IdGeneratorDao;
 import com.adv.pojo.IdGenObj;
 
@@ -28,7 +28,7 @@ public class IdMgr {
     }
 
     private void Init() {
-        IdGeneratorDao idgenDao = DaoMgr.getInstance().GetIdGenDao();
+        IdGeneratorDao idgenDao = DaoFacade.getInstance().GetIdGenDao();
         List<IdGenObj> idGenPojos = idgenDao.findAll();
         System.out.println("-------id gen-------------------");
         for (IdGenObj idGenPojo : idGenPojos) {

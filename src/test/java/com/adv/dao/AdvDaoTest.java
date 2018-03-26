@@ -1,12 +1,15 @@
 package com.adv.dao;
 
 import com.adv.pojo.AdvObj;
+import com.adv.pojo.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.List;
 
 /**
  * @author lurongzhi
@@ -32,5 +35,26 @@ public class AdvDaoTest {
         System.out.println("-------------test-------------\n" +
                 result +
                 "\n-------------test-------------");
+    }
+
+    @Test
+    public void getAdvListTest() {
+        User user = new User();
+        Long userID = 44L;
+        user.setId(userID);
+        List<AdvObj> advObjList = advDao.getAdvListByUserId(user);
+        System.out.println("-------------test--------------");
+        System.out.println(advObjList);
+        for (AdvObj advObj : advObjList) {
+            System.out.println("id " + advObj.getId());
+            System.out.println("name " + advObj.getName());
+            System.out.println("file " + advObj.getFileUrl());
+            System.out.println("type " + advObj.getType());
+            System.out.println("isValid " + advObj.getValid());
+            System.out.println("homepage " + advObj.getHomepage());
+            System.out.println("displayDetail " + advObj.getDisplayDetail());
+            System.out.println("**********************************");
+        }
+        System.out.println("-------------test--------------");
     }
 }

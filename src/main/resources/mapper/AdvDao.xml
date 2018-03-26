@@ -18,4 +18,31 @@
         WHERE
             `name` = #{advObj.name}
     </select>
+    <!--resultMap填type-->
+    <select id="getAdvListByUserId" resultMap="AdvObj">
+        SELECT adv.*
+        FROM
+            `adv`, `user_adv`
+        WHERE
+            adv.id = user_adv.adv_id AND user_adv.user_id = #{user.id}
+
+    </select>
+    <!--使用ResultMap来进行返回list<AdvObj> 类型的查询-->
+    <resultMap id="AdvObj" type="com.adv.pojo.AdvObj">
+        <!--
+        字标签属性:id 表示属性
+        column：数据库查询的列的字段，property：自定义数据类型的变量的名字
+        -->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="file_url" property="fileUrl"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="is_valid" property="isValid"/>
+        <result column="homepage" property="homepage"/>
+        <result column="display_detail" property="display_detail"/>
+    </resultMap>
+
+
 </mapper>

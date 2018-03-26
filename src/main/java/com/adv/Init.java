@@ -1,6 +1,6 @@
 package com.adv;
 
-import com.adv.dao.DaoMgr;
+import com.adv.dao.DaoFacade;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -12,7 +12,7 @@ public class Init implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        DaoMgr.getInstance().init(servletContextEvent);
+        DaoFacade.getInstance().init(servletContextEvent);
     }
 
     @Override

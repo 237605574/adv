@@ -4,6 +4,7 @@ import com.adv.constants.ResultCodes;
 import com.adv.constants.SessionStr;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.ResultObj;
+import com.adv.pojo.User;
 import com.adv.service.AdvService;
 import com.adv.utils.GsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,9 @@ public class AdvController {
         return GsonUtils.toJson(resultObj);
     }
 
+    /**
+     * 上传文件之后，客户端再进行一次post提交
+     */
     @RequestMapping(value = "/addAdv", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
@@ -75,6 +79,16 @@ public class AdvController {
         session.removeAttribute(SessionStr.ADV_INFO);
         session.removeAttribute(SessionStr.ADV_FILE);
         return GsonUtils.toJson(resultObj);
+    }
+
+    /**
+     * 用户获取广告流程：用户获取广告列表 -> 客户端根据获取到的广告信息再决定要拉取哪些广告
+     */
+    @RequestMapping(value = "/getAdvList", method = RequestMethod.POST, produces = {
+            "application/json; charset=utf-8"})
+    @ResponseBody
+    public String getAdvList(HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) {
+        return GsonUtils.toJson(advService.getAdvList(user));
     }
 
     private ResultObj<String> checkUserTag(AdvObj advObj) {

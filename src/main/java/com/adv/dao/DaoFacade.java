@@ -9,15 +9,15 @@ import javax.servlet.ServletContextEvent;
  * @author lurongzhi
  */
 //@Service
-public class DaoMgr {
+public class DaoFacade {
     @Autowired
     private IdGeneratorDao idGeneratorDao;
 
-    public static DaoMgr getInstance() {
+    public static DaoFacade getInstance() {
         return SingletonHolder.instance;
     }
 
-    private DaoMgr() {
+    private DaoFacade() {
     }
 
     public void init(ServletContextEvent sce) {
@@ -30,7 +30,7 @@ public class DaoMgr {
     }
 
     private static class SingletonHolder {
-        private static final DaoMgr instance = new DaoMgr();
+        private static final DaoFacade instance = new DaoFacade();
     }
 
     public IdGeneratorDao GetIdGenDao() {

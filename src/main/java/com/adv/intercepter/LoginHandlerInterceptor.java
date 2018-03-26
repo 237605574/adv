@@ -1,6 +1,7 @@
 package com.adv.intercepter;
 
 import com.adv.constants.LocalAddrs;
+import com.adv.constants.SessionAttribute;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
         if (path.matches(NO_INTERCEPTOR_PATH)) {
             //  不拦截
             return true;
-        } else if (request.getSession().getAttribute("userInfo") == null) {
+        } else if (request.getSession().getAttribute(SessionAttribute.LOGIN_INFO) == null) {
             response.sendRedirect(request.getContextPath() + LocalAddrs.LOGIN);
             return false;
         }
