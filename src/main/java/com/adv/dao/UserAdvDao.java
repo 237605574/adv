@@ -20,4 +20,6 @@ public interface UserAdvDao {
     int addAdvByTag(@Param("advObj") AdvObj advObj);
 
     List<Long> getAdvIds(Long userId);
+
+    int removeAdv(@Param("advObj")AdvObj advObj);
 }

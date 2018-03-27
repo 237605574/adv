@@ -22,4 +22,10 @@
             </when>
         </choose>
     </insert>
+    <delete id="removeAdv">
+        DELETE                FROM
+                `user_adv`
+        WHERE
+        `adv_id` = #{advObj.id}
+    </delete>
 </mapper>

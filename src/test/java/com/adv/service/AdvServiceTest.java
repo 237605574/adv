@@ -1,6 +1,7 @@
 package com.adv.service;
 
 import com.adv.dao.DaoFacade;
+import com.adv.dao.FileDao;
 import com.adv.dao.IdGeneratorDao;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.ResultObj;
@@ -14,10 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * @author lurongzhi
@@ -30,16 +28,20 @@ public class AdvServiceTest {
     private AdvService advService;
     @Autowired
     private IdGeneratorDao idGeneratorDao;
+
+    private FileDao fileDao = FileDao.getInstance();
     @Before
-    public void init(){
+    public void init() {
         DaoFacade.getInstance().init(idGeneratorDao);
+        System.out.println("init ");
     }
+
     @Test
     public void addAdvTest() throws IOException {
         MultipartFile advFile;
-        File tempFile = new File("C:\\Users\\admin\\Desktop\\新建文件夹\\test.txt");
+        File tempFile = new File("C:\\Users\\Administrator\\Desktop\\新建文件夹\\test.txt");
         InputStream inputStream = new FileInputStream(tempFile);
-        advFile = new MockMultipartFile("test file",tempFile.getName(),null,inputStream);
+        advFile = new MockMultipartFile("test file", tempFile.getName(), null, inputStream);
         String fileNamePattern = "(.*((gif)|(jpg)|(jpeg)|(txt)))";
         boolean isMatch = "gif".matches(fileNamePattern);
         System.out.println(isMatch);
@@ -47,12 +49,40 @@ public class AdvServiceTest {
         AdvObj advObj = new AdvObj();
         advObj.setName("test adv obj");
         advObj.addTag(5L);
-
         ResultObj resultObj = advService.addAdv(advObj, advFile);
 //        Assert.assertTrue(resultObj.isSuccess());
 //        Assert.assertTrue(true);
         System.out.println(resultObj.getCode());
         System.out.println(resultObj.getMsg());
+        System.out.println(advObj.getFileUrl());
+        ResultObj<File> fileResultObj;
+        System.out.println("========get 1 ==========");
+        fileResultObj = advService.getFile(advObj.getFileUrl());
+        printFileResult(fileResultObj);
+        System.out.println("========get 2 ==========");
+        fileResultObj = advService.getFile(advObj.getFileUrl());
+        printFileResult(fileResultObj);
+        System.out.println("=====del=====");
+        fileDao.deleteFile(advObj.getFileUrl());
+        fileResultObj = advService.getFile(advObj.getFileUrl());
+        printFileResult(fileResultObj);
+
+    }
+
+    private void printFileResult(ResultObj<File> fileResultObj) throws IOException {
+        if (fileResultObj.isSuccess()) {
+            File file = fileResultObj.getData();
+            FileInputStream fileInputStream = new FileInputStream(file);
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } else {
+            System.out.println("code "+fileResultObj.getCode());
+            System.out.println("msg "+fileResultObj.getMsg());
+        }
     }
 
 }

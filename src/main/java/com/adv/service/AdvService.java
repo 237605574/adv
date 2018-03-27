@@ -1,21 +1,19 @@
 package com.adv.service;
 
-import com.adv.constants.FilePaths;
 import com.adv.constants.ResultCodes;
 import com.adv.dao.AdvDao;
+import com.adv.dao.FileDao;
 import com.adv.dao.UserAdvDao;
 import com.adv.dao.UserTagDao;
 import com.adv.idgenerator.IdMgr;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.ResultObj;
 import com.adv.pojo.User;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +29,7 @@ public class AdvService {
     @Autowired
     private UserTagDao userTagDao;
 
+    private FileDao fileDao = FileDao.getInstance();
 
     public ResultObj<Void> checkAdvInfo(AdvObj advObj) {
         if (advObj == null) {
@@ -91,22 +90,9 @@ public class AdvService {
             advObj.setId(advId);
             String uploadFileName = uploadFile.getOriginalFilename();
             String saveFileName = advId + uploadFileName.substring(uploadFileName.indexOf("."));
-            String savePath = FilePaths.ADV_PATH + "/" + saveFileName;
-            File saveFile = new File(savePath);
-            File parentFile = saveFile.getParentFile();
-            if (saveFile.exists()) {
-                saveFile.delete();
-            } else {
-                if (!parentFile.exists()) {
-                    parentFile.mkdirs();
-                }
-            }
-            try {
-                FileUtils.copyInputStreamToFile(uploadFile.getInputStream(), saveFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-                //  todo 记日志
-                return new ResultObj<>(ResultCodes.UNKNOWN_ERROR, "服务器保存文件错误");
+            ResultObj<Void> saveResult = fileDao.saveFile(saveFileName, uploadFile);
+            if (!saveResult.isSuccess()) {
+                return saveResult;
             }
             //  插入到数据库
             advObj.setFileUrl(saveFileName);
@@ -137,6 +123,16 @@ public class AdvService {
         }
 
     }
+
+    public ResultObj<File> getFile(String fileName) {
+        return fileDao.getFile(fileName);
+    }
+
+    public ResultObj<Void> removeAdv(AdvObj advObj){
+
+    }
+
+
 
     /**
      * @return 名字没有重复: true
