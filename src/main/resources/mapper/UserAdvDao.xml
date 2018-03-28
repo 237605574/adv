@@ -20,12 +20,13 @@
                     #{item}
                 </foreach>
             </when>
+
         </choose>
     </insert>
     <delete id="removeAdv">
-        DELETE                FROM
-                `user_adv`
+        DELETE FROM
+            `user_adv`
         WHERE
-        `adv_id` = #{advObj.id}
+            `adv_id` = #{advObj.id}
     </delete>
 </mapper>

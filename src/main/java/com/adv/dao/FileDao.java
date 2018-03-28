@@ -19,14 +19,14 @@ import java.io.IOException;
  * @author Administrator
  */
 
-//todo 使用缓存
+
 public class FileDao {
     private static Logger LOG = LogManager.getLogger(FileDao.class.getName());
     private LoadingCache<String, File> fileCache = CacheBuilder.newBuilder().build(
             new CacheLoader<String, File>() {
                 @Override
-                public File load(String s) throws Exception {
-                    return null;
+                public File load(String fileName) {
+                    return loadFile(fileName);
                 }
             }
     );
@@ -95,10 +95,13 @@ public class FileDao {
     }
 
     public ResultObj<Void> deleteFile(String fileName) {
+        if (fileName == null) {
+            return new ResultObj<>(ResultCodes.PARAM_ERROR, "广告文件名为空");
+        }
         String filePath = getFilePath(fileName);
         File file = new File(filePath);
         if (!file.exists()) {
-            return new ResultObj<>(ResultCodes.UNKNOWN_ERROR, "文件不存在");
+            return new ResultObj<>(ResultCodes.UNKNOWN_ERROR, "广告文件不存在：" + fileName);
         } else {
             file.delete();
             fileCache.invalidate(fileName);
@@ -110,4 +113,15 @@ public class FileDao {
         return FilePaths.ADV_PATH + "/" + fileName;
     }
 
+    private File loadFile(String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+        String filePath = getFilePath(fileName);
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return null;
+        }
+        return file;
+    }
 }

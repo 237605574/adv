@@ -6,9 +6,10 @@
     <insert id="addAdv">
         INSERT IGNORE INTO
             `adv`
-            (`id`, `file_url`, `name`, `start_date`,`end_date`, `type`, `homepage`, `display_detail`)
+            (`id`, `file_url`, `name`, `start_date`, `end_date`, `type`, `homepage`, `display_detail`)
         VALUES
-            (#{advObj.id}, #{advObj.fileUrl}, #{advObj.name}, #{advObj.startDate},  #{advObj.endDate}, #{advObj.type}, #{advObj.homepage},
+            (#{advObj.id}, #{advObj.fileUrl}, #{advObj.name}, #{advObj.startDate}, #{advObj.endDate}, #{advObj.type},
+             #{advObj.homepage},
              #{advObj.displayDetail})
     </insert>
     <select id="checkNameCount" resultType="Integer">
@@ -24,7 +25,7 @@
         FROM
             `adv`, `user_adv`
         WHERE
-            adv.id = user_adv.adv_id AND user_adv.user_id = #{user.id}
+            adv.id = user_adv.adv_id AND user_adv.user_id = #{user.id} AND adv.is_valid = 1;
 
     </select>
     <!--使用ResultMap来进行返回list<AdvObj> 类型的查询-->
@@ -43,6 +44,22 @@
         <result column="homepage" property="homepage"/>
         <result column="display_detail" property="display_detail"/>
     </resultMap>
-
-
+    <select id="getAdv" resultType="com.adv.pojo.AdvObj">
+        SELECT *
+        FROM
+            `adv`
+        WHERE adv.id = #{advId}
+    </select>
+    <delete id="deleteAdv">
+        DELETE FROM `adv`
+        WHERE adv.id = #{advId}
+    </delete>
+    <update id="updateState">
+        UPDATE
+            `adv`
+        SET
+            `is_valid` = 0
+        WHERE
+            NOW() > `end_date` AND `is_valid` = 1
+    </update>
 </mapper>

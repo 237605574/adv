@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定我们的到具体的bean -->
+<mapper namespace="com.adv.dao.AdvTagDao">
+    <insert id="addTag">
+        <choose>
+            <when test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
+                INSERT IGNORE INTO
+                `adv_tag`
+                (`adv_id`, `tag_id`)
+                VALUES
+                <foreach item="item" index="index" collection="advObj.userTagIds" separator=",">
+                    (#{advObj.id} ,#{item})
+                </foreach>
+            </when>
+            <otherwise>
+                SELECT 0
+            </otherwise>
+        </choose>
+    </insert>
+</mapper>

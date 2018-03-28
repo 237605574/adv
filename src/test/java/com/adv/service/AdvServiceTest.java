@@ -1,5 +1,6 @@
 package com.adv.service;
 
+import com.adv.Utils;
 import com.adv.dao.DaoFacade;
 import com.adv.dao.FileDao;
 import com.adv.dao.IdGeneratorDao;
@@ -39,7 +40,7 @@ public class AdvServiceTest {
     @Test
     public void addAdvTest() throws IOException {
         MultipartFile advFile;
-        File tempFile = new File("C:\\Users\\Administrator\\Desktop\\新建文件夹\\test.txt");
+        File tempFile = new File("C:\\Users\\admin\\Desktop\\新建文件夹\\test.txt");
         InputStream inputStream = new FileInputStream(tempFile);
         advFile = new MockMultipartFile("test file", tempFile.getName(), null, inputStream);
         String fileNamePattern = "(.*((gif)|(jpg)|(jpeg)|(txt)))";
@@ -58,31 +59,17 @@ public class AdvServiceTest {
         ResultObj<File> fileResultObj;
         System.out.println("========get 1 ==========");
         fileResultObj = advService.getFile(advObj.getFileUrl());
-        printFileResult(fileResultObj);
+        Utils.printFileResult(fileResultObj);
         System.out.println("========get 2 ==========");
         fileResultObj = advService.getFile(advObj.getFileUrl());
-        printFileResult(fileResultObj);
+        Utils.printFileResult(fileResultObj);
         System.out.println("=====del=====");
         fileDao.deleteFile(advObj.getFileUrl());
         fileResultObj = advService.getFile(advObj.getFileUrl());
-        printFileResult(fileResultObj);
+        Utils.printFileResult(fileResultObj);
 
     }
 
-    private void printFileResult(ResultObj<File> fileResultObj) throws IOException {
-        if (fileResultObj.isSuccess()) {
-            File file = fileResultObj.getData();
-            FileInputStream fileInputStream = new FileInputStream(file);
-            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
-            }
-        } else {
-            System.out.println("code "+fileResultObj.getCode());
-            System.out.println("msg "+fileResultObj.getMsg());
-        }
-    }
+
 
 }

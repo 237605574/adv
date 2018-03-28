@@ -1,5 +1,6 @@
 package com.adv.dao;
 
+import com.adv.Utils;
 import com.adv.constants.FilePaths;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -55,4 +57,11 @@ public class FileDaoTest {
         Assert.assertEquals(expectedN,cache.get(testKey));
 
     }
+    @Test
+    public void testGetFile() throws IOException {
+        FileDao fileDao = FileDao.getInstance();
+//        fileDao.getFile("1002.txt");
+        Utils.printFileResult(fileDao.getFile("1002.txt"));
+    }
+
 }

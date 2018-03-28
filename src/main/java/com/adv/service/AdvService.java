@@ -1,14 +1,14 @@
 package com.adv.service;
 
 import com.adv.constants.ResultCodes;
-import com.adv.dao.AdvDao;
-import com.adv.dao.FileDao;
-import com.adv.dao.UserAdvDao;
-import com.adv.dao.UserTagDao;
+import com.adv.dao.*;
 import com.adv.idgenerator.IdMgr;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.ResultObj;
 import com.adv.pojo.User;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,17 +17,23 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * @author lurongzhi
  */
 @Service
 public class AdvService {
+    private static Logger LOG = LogManager.getLogger(AdvService.class.getName());
+
     @Autowired
     private AdvDao advDao;
     @Autowired
     private UserAdvDao userAdvDao;
     @Autowired
     private UserTagDao userTagDao;
+
+    @Autowired
+    private AdvTagDao advTagDao;
 
     private FileDao fileDao = FileDao.getInstance();
 
@@ -98,7 +104,15 @@ public class AdvService {
             advObj.setFileUrl(saveFileName);
             int advDaoResult = advDao.addAdv(advObj);
             if (advDaoResult <= 0) {
-                return new ResultObj<>(ResultCodes.UNKNOWN_ERROR, "保存广告信息到数据库错误");
+                return new ResultObj<>(ResultCodes.DATABASE_ERROR, "保存广告信息到数据库错误");
+            } else {
+                //  保存广告标签
+                if (advObj.getUserTagIds() != null && advObj.getUserTagIds().size() != 0) {
+                    int advTagDaoResult = advTagDao.addTag(advObj);
+                    if (advTagDaoResult <= 0) {
+                        return new ResultObj<>(ResultCodes.DATABASE_ERROR, "保存广告标签信息到数据库错误");
+                    }
+                }
             }
             //  更新目标用户的广告列表
             int userDaoResult = userAdvDao.addAdvByTag(advObj);
@@ -128,10 +142,42 @@ public class AdvService {
         return fileDao.getFile(fileName);
     }
 
-    public ResultObj<Void> removeAdv(AdvObj advObj){
 
+    /**
+     * 从数据库删除特定广告，流程为：
+     * 更新用户广告映射表 -> 更新广告表 -> 删除保存的文件
+     */
+    public ResultObj<Void> removeAdv(Long advId) {
+        if (advId == null) {
+            return new ResultObj<>(ResultCodes.PARAM_ERROR, "广告ID为空");
+        }
+        AdvObj advObj = advDao.getAdv(advId);
+        if (advObj == null) {
+            return new ResultObj<>(ResultCodes.PARAM_ERROR, "广告ID不存在");
+        }
+        //  删除用户广告映射表中的广告
+        int userAdvResult = userAdvDao.removeAdv(advObj);
+        //  删除广告表格
+        int advResult = advDao.deleteAdv(advId);
+        //  删除失败
+        if (advResult <= 0) {
+            String msg = "广告文件删除失败";
+            LOG.log(Level.ERROR, msg);
+            return new ResultObj<>(ResultCodes.DATABASE_ERROR, msg);
+        } else {
+            // 获取广告文件名字
+            String fileName = advObj.getFileUrl();
+            return fileDao.deleteFile(fileName);
+        }
     }
 
+    /**
+     *  用于定时更新数据库中的过期广告
+     *
+     */
+    public void updateAdvState(){
+        advDao.updateState();
+    }
 
 
     /**

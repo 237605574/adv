@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author lurongzhi
  */
 public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
-    private final String NO_INTERCEPTOR_PATH = ".*/((login)|(reg)|(logout)|(code)|(app)|(weixin)|(static)|(main)|(websocket)).*";    //不对匹配该值的访问路径拦截（正则）
+    private final String NO_INTERCEPTOR_PATH = ".*/((login)|(download)|(logout)).*";    //不对匹配该值的访问路径拦截（正则）
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

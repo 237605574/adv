@@ -19,4 +19,7 @@ public class ResultCodes {
     //  获取广告错误码
     public static final int USER_ID_ERROR = 8;
 
+    //常用错误码
+    public static final int PARAM_ERROR = 20;
+    public static final int DATABASE_ERROR = 21;
 }

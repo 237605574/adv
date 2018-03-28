@@ -57,4 +57,10 @@ public class AdvDaoTest {
         }
         System.out.println("-------------test--------------");
     }
+
+    @Test
+    public void testUpadateState(){
+        int result = advDao.updateState();
+        System.out.println(result);
+    }
 }

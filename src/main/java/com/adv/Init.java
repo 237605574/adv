@@ -11,13 +11,16 @@ import javax.servlet.ServletContextListener;
 public class Init implements ServletContextListener {
 
     @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
-        DaoFacade.getInstance().init(servletContextEvent);
+    public void contextInitialized(ServletContextEvent sce) {
+        DaoFacade.getInstance().init(sce);
+        UpdateTimerTask.getInstance().init(sce);
+        UpdateTimerTask.getInstance().start();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
 
     }
+
 
 }
