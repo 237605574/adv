@@ -1,26 +1,29 @@
 package com.adv;
 
-import com.adv.dao.DaoFacade;
-
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import com.adv.idgenerator.IdMgr;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 
 /**
  * @author lurongzhi
  */
-public class Init implements ServletContextListener {
+//@Component
+public class Init implements ApplicationListener<ContextRefreshedEvent> {
+    private static ApplicationContext applicationContext;
 
     @Override
-    public void contextInitialized(ServletContextEvent sce) {
-        DaoFacade.getInstance().init(sce);
-        UpdateTimerTask.getInstance().init(sce);
-        UpdateTimerTask.getInstance().start();
+    public void onApplicationEvent(ContextRefreshedEvent cre) {
+        if (cre.getApplicationContext().getParent() == null) {
+            applicationContext = cre.getApplicationContext();
+            IdMgr.getInstance().init();
+            UpdateTimerTask.getInstance().init();
+            UpdateTimerTask.getInstance().start();
+        }
     }
 
-    @Override
-    public void contextDestroyed(ServletContextEvent servletContextEvent) {
-
+    public static  <T> T getBean(Class<T> beanClass) {
+        return applicationContext.getBean(beanClass);
     }
-
 
 }

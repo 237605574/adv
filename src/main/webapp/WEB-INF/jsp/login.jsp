@@ -4,20 +4,27 @@
 <%-- 上面这两行是java代码的引用 --%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<script type="text/javascript" src="/static/js/jquery-3.1.1.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.tips.js"></script>
-<script type="text/javascript" src="/static/js/login.js"></script>
+
 <html>
 <head>
-	<title>广告后台管理系统</title>
-		<meta charset="utf-8">
-		<link href="/static/css/login.css" rel='stylesheet' type='text/css' />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <title>广告后台管理系统</title>
+    <meta charset="utf-8">
+    <link href="/static/css/login.css" rel='stylesheet' type='text/css'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
 </head>
+<script type="text/javascript" src="/static/js/login.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tips.js"></script>
+<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
     function checkLoginInfo() {
-        if ("" == $("#u").val()||"输入用户名"==$("#u").val()) {
+        if ("" == $("#u").val() || "输入用户名" == $("#u").val()) {
             $("#u").tips({
                 side: 2,
                 msg: '用户名不得为空',
@@ -70,34 +77,37 @@
     }
 
 
-
 </script>
 <body>
-	 <!-----start-main---->
-	 <div class="main">
-		<div class="login-form">
-			<h1>管理员登录</h1>
-					<div class="head">
-						<img src="/static/images/user.png" alt=""/>
-					</div>
-				<form>
-						<input id="u" type="text" name="name" class="text" value="输入用户名" onfocus="if (this.value == '输入用户名'){this.value = ''};" onblur="if (this.value == '') {this.value = '输入用户名';}" >
-						<input id="p" type="password" name = "password"  placeholder = "输入密码" >
-						<div class="submit">
-							<input  type="button" onclick="webLogin()" value="登录" >
-					</div>	
-					<p><a href="#">帮助</a></p>
-				</form>
-			</div>
-			<!--//End-login-form-->
-			 <!-----start-copyright---->
-   					<div class="copy-right">
-						<p>Copyright &copy; 2014.Company name All rights reserved.
-					</div>
-				<!-----//end-copyright---->
-		</div>
-			 <!-----//end-main---->
-		 		
-<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+<!-----start-main---->
+<div class="main">
+    <div class="login-form">
+        <h1>管理员登录</h1>
+        <div class="head">
+            <img src="/static/images/user.png" alt=""/>
+        </div>
+        <form>
+            <input id="u" type="text" name="name" class="text" value="输入用户名"
+                   onfocus="if (this.value == '输入用户名'){this.value = ''};"
+                   onblur="if (this.value == '') {this.value = '输入用户名';}">
+            <input id="p" type="password" name="password" placeholder="输入密码">
+            <div class="submit">
+                <input type="button" onclick="webLogin()" value="登录">
+            </div>
+            <p><a href="#">帮助</a></p>
+        </form>
+    </div>
+    <!--//End-login-form-->
+    <!-----start-copyright---->
+    <div class="copy-right">
+        <p>Copyright &copy; 2014.Company name All rights reserved.
+    </div>
+    <!-----//end-copyright---->
+</div>
+<!-----//end-main---->
+
+<div style="display:none">
+    <script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
+</div>
 </body>
 </html>

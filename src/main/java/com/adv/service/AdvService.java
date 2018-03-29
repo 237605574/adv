@@ -172,11 +172,10 @@ public class AdvService {
     }
 
     /**
-     *  用于定时更新数据库中的过期广告
-     *
+     * 用于定时更新数据库中的过期广告
      */
-    public void updateAdvState(){
-        advDao.updateState();
+    public int updateAdvState() {
+        return advDao.updateState();
     }
 
 

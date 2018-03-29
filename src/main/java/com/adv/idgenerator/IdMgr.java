@@ -1,7 +1,7 @@
 package com.adv.idgenerator;
 
 
-import com.adv.dao.DaoFacade;
+import com.adv.Init;
 import com.adv.dao.IdGeneratorDao;
 import com.adv.pojo.IdGenObj;
 
@@ -20,18 +20,17 @@ public class IdMgr {
     }
 
     private IdMgr() {
-        Init();
     }
 
     private static class SingletonHolder {
         private static final IdMgr instance = new IdMgr();
     }
 
-    private void Init() {
-        IdGeneratorDao idgenDao = DaoFacade.getInstance().GetIdGenDao();
-        List<IdGenObj> idGenPojos = idgenDao.findAll();
+    public void init() {
+        IdGeneratorDao idgenDao = Init.getBean(IdGeneratorDao.class);
+        List<IdGenObj> idGenObjs = idgenDao.findAll();
         System.out.println("-------id gen-------------------");
-        for (IdGenObj idGenPojo : idGenPojos) {
+        for (IdGenObj idGenPojo : idGenObjs) {
             System.out.println(idGenPojo.getName() + " " +
                     idGenPojo.getCurrentId() + " " +
                     idGenPojo.getStep());

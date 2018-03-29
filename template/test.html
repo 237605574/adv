@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<script type="text/javascript">
+function selValue(){
+    document.getElementById("divValue").style.display = "block";
+}
+function closeDiv(isSave){
+    if(isSave){
+        var result = [];
+        var chk = document.getElementsByName("chk");
+        for(var i=0; i<chk.length; i++){
+            if(chk[i].checked)
+                result.push(chk[i].value);
+        }
+        document.getElementById("txt").value = result.join(",");
+    }
+    document.getElementById("divValue").style.display = "none";
+}
+</script>
+</head>
+ 
+<body>
+<div>
+    测试: <input type="text" id="txt" name="txt" /> <a href="javascript:selValue();">选值</a>
+    <div id="divValue" style="display:none;position:absolute; width:200px; height:130px; border:1px solid #006699; background:#F5F6FB; padding:5px; line-height:22px;">
+        <input type="checkbox" id="chk1" name="chk" value="1" />1<br />
+        <input type="checkbox" id="chk2" name="chk" value="2" />2<br />
+        <input type="checkbox" id="chk3" name="chk" value="3" />3<br />
+        <input type="checkbox" id="chk4" name="chk" value="4" />4<br />
+        <input type="checkbox" id="chk5" name="chk" value="5" />5<br />
+        <a href="javascript:closeDiv(true);">确定</a>  &nbsp;&nbsp;
+        <a href="javascript:closeDiv(false)">取消</a>
+    </div>
+</div>
+</body>
+</html>

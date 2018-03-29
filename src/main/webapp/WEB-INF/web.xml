@@ -21,12 +21,12 @@
         <param-value>classpath:spring/spring-dao.xml</param-value>
     </context-param>
     <!--设置启动的包-->
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    <listener>
-        <listener-class>com.adv.Init</listener-class>
-    </listener>
+    <!--<listener>-->
+        <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+    <!--</listener>-->
+    <!--<listener>-->
+        <!--<listener-class>com.adv.Init</listener-class>-->
+    <!--</listener>-->
     <!-- 如果是用maven命令生成的xml，需要修改servlet版本为3.1 -->
     <!-- 配置DispatcherServlet -->
     <servlet>

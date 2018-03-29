@@ -1,7 +1,6 @@
 package com.adv.service;
 
 import com.adv.Utils;
-import com.adv.dao.DaoFacade;
 import com.adv.dao.FileDao;
 import com.adv.dao.IdGeneratorDao;
 import com.adv.pojo.AdvObj;
@@ -33,7 +32,6 @@ public class AdvServiceTest {
     private FileDao fileDao = FileDao.getInstance();
     @Before
     public void init() {
-        DaoFacade.getInstance().init(idGeneratorDao);
         System.out.println("init ");
     }
 

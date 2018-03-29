@@ -1,10 +1,8 @@
 package com.adv;
 
 import com.adv.config.TimerConfig;
-import com.adv.dao.AdvDao;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+import com.adv.service.AdvService;
 
-import javax.servlet.ServletContextEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,7 +10,7 @@ import java.util.TimerTask;
  * @author lurongzhi
  */
 public class UpdateTimerTask {
-    private AdvDao advDao;
+    private AdvService advService;
     private Timer timer = new Timer();
 
     public static UpdateTimerTask getInstance() {
@@ -26,21 +24,21 @@ public class UpdateTimerTask {
         private static final UpdateTimerTask instance = new UpdateTimerTask();
     }
 
-    public void init(ServletContextEvent sce) {
-        advDao = WebApplicationContextUtils.getRequiredWebApplicationContext(sce.getServletContext()).getBean(AdvDao.class);
+    public void init() {
+        advService = Init.getBean(AdvService.class);
     }
 
     public void start() {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                int result = advDao.updateState();
+                int result = advService.updateAdvState();
                 System.out.println("upadte:" + result);
             }
-        }, 0,TimerConfig.getInstance().getTimeHour()*500);
+        }, 0, TimerConfig.getInstance().getTimeHour() * 500);
     }
 
-    public void restart(){
+    public void restart() {
         timer.cancel();
         start();
     }
