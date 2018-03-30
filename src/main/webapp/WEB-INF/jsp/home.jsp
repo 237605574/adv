@@ -156,32 +156,15 @@
 
             <ul class="am-list admin-sidebar-list">
                 <li><a href="<%=request.getContextPath()%>/adv/home"><span class="am-icon-home"></span> 首页</a></li>
+                <li><a href="<%=request.getContextPath()%>/adv/home"><span class="am-icon-table"></span> 添加</a></li>
                 <li class="admin-parent">
                     <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span>
-                        表格 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                        广告管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                     <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
-                        <li><a href="/static/view/table_basic.html" class="am-cf"> 基本表格</a></li>
-                        <li><a href="/static/view/table_complete.html">完整表格</a></li>
+                        <li><a href="/static/view/table_basic.html" class="am-cf"> 查询/修改/删除</a></li>
                     </ul>
                 </li>
-                <li class="admin-parent">
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><i class="am-icon-line-chart"
-                                                                                      aria-hidden="true"></i> 统计图表 <span
-                            class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
-                        <li><a href="/static/view/chart_line.html" class="am-cf"> 折线图</a></li>
-                        <li><a href="/static/view/chart_columnar.html" class="am-cf"> 柱状图</a></li>
-                        <li><a href="/static/view/chart_pie.html" class="am-cf"> 饼状图</a></li>
-                    </ul>
-                </li>
-                <li class="admin-parent">
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="am-icon-file"></span> 表单
-                        <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-                    <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-                        <li><a href="/static/view/form_basic.html" class="am-cf"> 基本表单</a></li>
-                        <li><a href="/static/view/form_validate.html">表单验证</a></li>
-                    </ul>
-                </li>
+                <li><a href="<%=request.getContextPath()%>/adv/home"><span class="am-icon-home"></span> 退出登录</a></li
             </ul>
         </div>
     </div>
