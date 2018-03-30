@@ -42,7 +42,7 @@ public class AdvDaoTest {
         User user = new User();
         Long userID = 44L;
         user.setId(userID);
-        List<AdvObj> advObjList = advDao.getAdvListByUserId(user);
+        List<AdvObj> advObjList = advDao.getAdvListByUser(user);
         System.out.println("-------------test--------------");
         System.out.println(advObjList);
         for (AdvObj advObj : advObjList) {

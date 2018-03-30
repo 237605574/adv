@@ -18,7 +18,7 @@
 
 
 
-#doc-ta-1,#doc-ds-ipt-1,#doc-select-1{
+#doc-ta-1,#doc-ds-ipt-1,#doc-select-1,#user_tag{
     border: 1px solid #E3E3E3;
     border-radius: 4px;
     color: #565656;
@@ -46,7 +46,7 @@
 }
 
 @media screen and (max-width: 641px){
-	#doc-ipt-pwd-1,#doc-ta-1,#doc-ds-ipt-1,#doc-select-1{
+	#doc-ipt-pwd-1,#doc-ta-1,#doc-ds-ipt-1,#doc-select-1,#user_tag{
 		width: 100%;
 	}
 	

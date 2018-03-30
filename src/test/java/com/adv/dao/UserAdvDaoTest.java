@@ -42,4 +42,9 @@ public class UserAdvDaoTest {
                 result +
                 "\n-------------------test----------------");
     }
+    @Test
+    public void testUpdateState(){
+        int result = userAdvDao.updateAdvState();
+        System.out.println(result);
+    }
 }

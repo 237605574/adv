@@ -19,4 +19,9 @@ public class MainController {
     public String login() {
         return "login";
     }
+
+    @RequestMapping(value = "/addAdv", method = RequestMethod.GET)
+    public String addAdv() {
+        return "addAdv";
+    }
 }

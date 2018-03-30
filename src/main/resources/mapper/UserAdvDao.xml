@@ -24,9 +24,20 @@
         </choose>
     </insert>
     <delete id="removeAdv">
-        DELETE FROM
+        DELETE
             `user_adv`
+        FROM
+            `adv`
         WHERE
             `adv_id` = #{advObj.id}
+    </delete>
+    <delete id="updateAdvState">
+        DELETE `user_adv`
+        FROM
+            `adv`,
+            `user_adv`
+        WHERE
+            adv.id = user_adv.adv_id
+            AND adv.is_valid !=1
     </delete>
 </mapper>

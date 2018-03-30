@@ -6,7 +6,6 @@ import com.adv.pojo.ResultObj;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -79,7 +78,7 @@ public class FileDao {
         }
         fileCache.invalidate(fileName);
         try {
-            FileUtils.copyInputStreamToFile(file.getInputStream(), saveFile);
+            file.transferTo(saveFile);
         } catch (IOException e) {
             e.printStackTrace();
             if (saveFile.exists()) {

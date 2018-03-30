@@ -22,4 +22,7 @@ public interface UserAdvDao {
     List<Long> getAdvIds(Long userId);
 
     int removeAdv(@Param("advObj")AdvObj advObj);
+
+    //用于自动更新删除过期广告映射
+    int updateAdvState();
 }

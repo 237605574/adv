@@ -19,11 +19,13 @@ public interface AdvDao {
 
     int checkNameCount(@Param("advObj") AdvObj advObj);
 
+    int updateAdv(@Param("advObj") AdvObj advObj);
+
     AdvObj getAdv(@Param("advId") Long advId);
 
     int deleteAdv(@Param("advId") Long advId);
 
-    List<AdvObj> getAdvListByUserId(@Param("user") User user);
+    List<AdvObj> getAdvListByUser(@Param("user") User user);
 
     int updateState();
 }

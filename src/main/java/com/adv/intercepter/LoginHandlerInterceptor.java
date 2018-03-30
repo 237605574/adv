@@ -20,7 +20,7 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String path = request.getServletPath();
+        String path = request.getRequestURI();
         if (path.matches(NO_INTERCEPTOR_PATH)) {
             //  不拦截
             return true;

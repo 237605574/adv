@@ -124,7 +124,7 @@ public class AdvService {
         if (user == null || user.getId() == null) {
             return new ResultObj<>(ResultCodes.USER_ID_ERROR, "用户ID找不到");
         }
-        List<AdvObj> advObjList = advDao.getAdvListByUserId(user);
+        List<AdvObj> advObjList = advDao.getAdvListByUser(user);
         return new ResultObj<>(ResultCodes.SUCCESS, advObjList);
     }
 
@@ -142,6 +142,17 @@ public class AdvService {
         return fileDao.getFile(fileName);
     }
 
+    public ResultObj<Void> updateAdv(AdvObj advObj) {
+        ResultObj<Void> infoResult = checkAdvInfo(advObj);
+        if (!infoResult.isSuccess()) {
+            return infoResult;
+        }
+        int result = advDao.updateAdv(advObj);
+        if (result <= 0) {
+            return new ResultObj<>(ResultCodes.DATABASE_ERROR, "更新数据库错误");
+        }
+        return new ResultObj<>(ResultCodes.SUCCESS);
+    }
 
     /**
      * 从数据库删除特定广告，流程为：

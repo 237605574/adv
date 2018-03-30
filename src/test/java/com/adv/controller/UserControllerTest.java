@@ -13,7 +13,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.http.HttpSession;
@@ -37,7 +36,7 @@ public class UserControllerTest {
 
     private MockHttpServletRequest request;
     private MockHttpServletResponse response;
-    private MockMvc mockMvc;
+
 
     @Before
     public void setUp() {
@@ -48,8 +47,6 @@ public class UserControllerTest {
 
     @Test
     public void checkLogout() throws Exception {
-        String loginUrl = "http://localhost:8080/userAction/login";
-        String logoutUrl = "http://localhost:8080/userAction/logout";
         HttpSession session = request.getSession();
         Administrator administrator = new Administrator();
         administrator.setId(0L);

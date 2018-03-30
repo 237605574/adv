@@ -20,7 +20,7 @@
             `name` = #{advObj.name}
     </select>
     <!--resultMap填type-->
-    <select id="getAdvListByUserId" resultMap="AdvObj">
+    <select id="getAdvListByUser" resultMap="AdvObj">
         SELECT adv.*
         FROM
             `adv`, `user_adv`
@@ -61,5 +61,14 @@
             `is_valid` = 0
         WHERE
             NOW() > `end_date` AND `is_valid` = 1
+    </update>
+    <update id="updateAdv">
+        REPLACE INTO
+            `adv`
+            (`id`, `file_url`, `name`, `start_date`, `end_date`, `type`, `homepage`, `display_detail`)
+        VALUES
+            (#{advObj.id}, #{advObj.fileUrl}, #{advObj.name}, #{advObj.startDate}, #{advObj.endDate}, #{advObj.type},
+             #{advObj.homepage},
+             #{advObj.displayDetail})
     </update>
 </mapper>

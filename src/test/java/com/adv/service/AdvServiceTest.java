@@ -3,6 +3,7 @@ package com.adv.service;
 import com.adv.Utils;
 import com.adv.dao.FileDao;
 import com.adv.dao.IdGeneratorDao;
+import com.adv.idgenerator.IdMgr;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.ResultObj;
 import org.junit.Before;
@@ -46,7 +47,7 @@ public class AdvServiceTest {
         System.out.println(isMatch);
 //        advFile.getOriginalFilename()
         AdvObj advObj = new AdvObj();
-        advObj.setName("test adv obj");
+        advObj.setName(IdMgr.getInstance().genAdvId().toString());
         advObj.addTag(5L);
         ResultObj resultObj = advService.addAdv(advObj, advFile);
 //        Assert.assertTrue(resultObj.isSuccess());
