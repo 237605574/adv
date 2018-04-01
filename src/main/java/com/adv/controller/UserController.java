@@ -27,7 +27,7 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String login(HttpServletRequest request, HttpServletResponse response, Administrator uncheckedUser, HttpSession session) throws Exception {
+    public String login(HttpServletRequest request, HttpServletResponse response, Administrator uncheckedUser, HttpSession session){
         ResultObj<Administrator> resultObj = administratorService.checkAdministrator(uncheckedUser);
         if (resultObj.isSuccess()) {
             Administrator dbUser = resultObj.getData();

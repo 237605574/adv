@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author lurongzhi
@@ -27,7 +28,12 @@ public class AdvController {
     @Autowired
     private AdvService advService;
 
-
+//    @InitBinder
+//    public void initBinder(ServletRequestDataBinder bin){
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        CustomDateEditor cust = new CustomDateEditor(sdf,true);
+//        bin.registerCustomEditor(Date.class,cust);
+//    }
     /**
      * 添加广告信息接口
      * 整个添加广告流程为：前端发送信息 -> 后端检验信息 -> 前端上传文件 -> 后端检验文件合法性 -> 保存到数据库
@@ -37,7 +43,24 @@ public class AdvController {
     @RequestMapping(value = "/addInfo", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String addAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, HttpSession session) {
+    public String addAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("tags[]") List<Long> tags, HttpSession session) {
+        // 测试
+        if(tags!=null){
+            advObj.setUserTagIds(tags);
+            System.out.println(tags);
+        }
+        System.out.println(tags);
+        if(advObj!=null){
+            System.out.println("name:"+advObj.getName());
+            System.out.println("file url:"+advObj.getFileUrl());
+            System.out.println("display detail:"+advObj.getDisplayDetail());
+            System.out.println("homepage:"+advObj.getHomepage());
+            System.out.println("user tags:"+advObj.getUserTagIds());
+            System.out.println("start date:"+advObj.getStartDate());
+            System.out.println("end date:"+advObj.getEndDate());
+        }else {
+            System.out.println("adv obj is null");
+        }
         ResultObj resultObj = advService.checkAdvInfo(advObj);
         if (resultObj.getCode() == ResultCodes.SUCCESS) {
             session.setAttribute(SessionStr.ADV_INFO, advObj);
@@ -80,14 +103,4 @@ public class AdvController {
         return GsonUtils.toJson(resultObj);
     }
 
-
-
-
-    private ResultObj<String> checkUserTag(AdvObj advObj) {
-        return new ResultObj<String>(ResultCodes.USER_TAG_NOT_FOUND, "", "用户标签xxx不存在");
-    }
-
-    private boolean checkName(AdvObj advObj) {
-        return false;
-    }
 }

@@ -20,13 +20,13 @@ public class AdministratorService {
     @Autowired
     private AdministratorDao administratorDao;
 
-    public ResultObj<Administrator> checkAdministrator(Administrator uncheckedUser) throws Exception {
+    public ResultObj<Administrator> checkAdministrator(Administrator uncheckedUser){
         if (uncheckedUser == null) {
             return new ResultObj<>(ResultCodes.EMPTY_NAME_ERROR, "登录信息不能为空");
         } else {
             Administrator dbUser = administratorDao.getUser();
             if (dbUser == null) {
-                throw new Exception("没有找到user数据");
+                return new ResultObj<>(ResultCodes.DATABASE_ERROR, "查找数据库错误");
             } else if (!dbUser.checkEqual(uncheckedUser)) {
                 return new ResultObj<>(ResultCodes.PSW_ERROR, "用户密码错误");
             } else {  //密码正确

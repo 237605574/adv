@@ -35,7 +35,7 @@ public class UpdateTimerTask {
                 int result = advService.updateAdvState();
                 System.out.println("upadte:" + result);
             }
-        }, 0, TimerConfig.getInstance().getTimeHour() * 500);
+        }, 0, TimerConfig.getInstance().getTimeHour() * 5000);
     }
 
     public void restart() {

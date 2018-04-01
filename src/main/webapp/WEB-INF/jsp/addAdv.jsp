@@ -73,7 +73,6 @@
 <!-- end page -->
 
 
-
 <div class="admin">
     <jsp:include page="sideBar.jsp"></jsp:include>
     <%--表单--%>
@@ -90,10 +89,7 @@
                                     <span class="am-icon-caret-down"></span>
                                 </a>
                                 <ul class="am-dropdown-content">
-                                    <li>1231234</li>
-                                    <li>1231234</li>
-                                    <li>1231234</li>
-                                    <li>1231234</li>
+                                    <li>这里是说明文档,目前仅支持图片格式的广告上传</li>
                                 </ul>
                             </li>
                         </ul>
@@ -105,15 +101,23 @@
                                 <form class="am-form am-text-sm">
                                     <div class="am-form-group">
                                         <div class="am-g">
-                                            <label class="am-u-md-2 am-md-text-right am-padding-left-0" for="adv_name">名字</label>
-                                            <input class="am-u-md-10 form-control" id="adv_name" placeholder="输入广告名字">
+                                            <label class="am-u-md-2 am-md-text-right am-padding-left-0"
+                                                   for="adv_name">名字</label>
+                                            <div class="am-u-md-10 am-padding-0">
+                                                <input class="am-input-lg am-u-md-10 form-control" id="adv_name"
+                                                       placeholder="输入广告名字" style="width:100%">
+                                                <span class="help-block m-b-none">广告名字要唯一</span>
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="am-form-group">
                                         <div class="am-g">
-                                            <label class="am-u-md-2 am-md-text-right am-padding-left-0  " for="start_time">开始有效时间</label>
-                                            <input class="am-u-md-10 form-control" id="start_time" placeholder="输入开始有效时间">
+                                            <label class="am-u-md-2 am-md-text-right am-padding-left-0  "
+                                                   for="start_time">开始有效时间</label>
+                                            <input class="inputClass am-u-md-10 form-control "
+                                                   style=" width: 83.33333333%;" id="start_time" type="datetime-local"
+                                                   placeholder="输入开始有效时间">
                                         </div>
                                     </div>
 
@@ -121,15 +125,30 @@
                                         <div class="am-g">
                                             <label class="am-u-md-2 am-md-text-right  am-padding-left-0" for="user_tag">目标用户群</label>
                                             <%--<input class="am-u-md-10 form-control" id="user_tag" placeholder="输入开始有效时间">--%>
-                                            <select id="user_tag">
-                                                <option value="option1">选项一...</option>
-                                                <option value="option2">选项二.....</option>
-                                                <option value="option3">选项三........</option>
-                                            </select>
+                                            <input class="am-input-lg am-form-field am-u-md-10" type="text"
+                                                   id="user_tag"
+                                                   placeholder="从下方选择用户群" disabled="">
+                                            <div id="tag-main-container" style="display: none">
+                                                <label class="am-u-md-2 am-md-text-right  am-padding-left-0"
+                                                       for="tag-action-container">选择用户群</label>
+                                                <div id="tag-action-container" class="am-form-field am-u-md-10"
+                                                     style="overflow-y: scroll;overflow-x: scroll; height: 150px">
+                                                </div>
+                                            </div>
                                             <span class="am-form-caret"></span>
-                                            <button type="button" class="am-btn am-btn-primary">选值</button>
                                         </div>
+
+                                        <button id="tag_btn" type="button" onclick="selectTag()"
+                                                class="am-btn am-btn-default">选值
+                                        </button>
                                     </div>
+                                    <div class="am-form-group am-form-file">
+                                        <button type="button" class="am-btn am-btn am-btn-secondary am-btn-sm">
+                                            <i class="am-icon-cloud-upload"></i> 选择要上传的广告文件
+                                        </button>
+                                        <input id="adv-file" type="file" multiple accept="image/*">
+                                    </div>
+                                    <div id="file-list"></div>
                                 </form>
                             </div>
 
@@ -137,242 +156,92 @@
                                 <form class="am-form am-text-sm">
                                     <div class="am-form-group">
                                         <div class="am-g">
-                                            <label class="am-u-md-2 am-md-text-right" for="doc-ds-ipt-1">禁用</label>
-                                            <input class="am-form-field am-u-md-10" type="text" id="doc-ds-ipt-1" placeholder="禁止输入" disabled="">
-                                        </div>
-                                    </div>
-
-                                    <div class="am-form-group">
-                                        <div class="am-g">
-                                            <label class="am-u-md-2 am-md-text-right am-padding-left-0" for="doc-ipt-text-2">说明信息</label>
+                                            <label class="am-u-md-2 am-md-text-right am-padding-left-0"
+                                                   for="adv-type-input">广告类型</label>
                                             <div class="am-u-md-10 am-padding-0">
-                                                <input class="am-u-md-12 form-control am-padding-0" id="doc-ipt-text-2">
-                                                <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                                                <input class="am-form-field am-u-md-10 " type="text" id="adv-type-input"
+                                                       value="图片" disabled="">
+                                                <span class="help-block m-b-none">目前仅支持图片类型</span>
                                             </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <div class="am-g">
+                                            <label class="am-u-md-2 am-md-text-right am-padding-left-0  "
+                                                   for="end_time">有效时间截止</label>
+                                            <input class="inputClass am-u-md-10 form-control "
+                                                   style=" width: 83.33333333%;" id="end_time" type="datetime-local"
+                                                   placeholder="输入截止的时间">
+                                        </div>
+                                    </div>
+                                    <div class="am-form-group">
+                                        <div class="am-g">
+                                            <label class="am-u-md-2 am-md-text-right am-padding-left-0"
+                                                   for="adv_name">跳转URL</label>
+                                            <input class="am-input-lg am-u-md-10 form-control" id="adv-url-input"
+                                                   placeholder="输入点击广告之后要跳转的URL">
                                         </div>
                                     </div>
 
                                     <div class="am-form-group">
                                         <div class="am-g">
-                                            <label class="am-u-md-2 am-md-text-right" for="doc-select-1">下拉选框</label>
-                                            <%--<select id="doc-select-1">--%>
-                                                <%--<option value="option1">选项一...</option>--%>
-                                                <%--<option value="option2">选项二.....</option>--%>
-                                                <%--<option value="option3">选项三........</option>--%>
-                                            <%--</select>--%>
-                                            <span class="am-form-caret"></span>
-                                        </div>
-                                    </div>
+                                            <label class="am-u-md-2 am-md-text-right"
+                                                   for="adv-display-time">播放时间段</label>
 
-                                    <div class="am-form-group">
-                                        <div class="am-g">
-                                            <label class="am-u-md-2 am-md-text-right" for="doc-select-2">多选框</label>
-                                            <div class="am-u-md-10 am-padding-0">
-                                                <select multiple="" class="" id="doc-select-2">
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
+                                            <div class="am-u-md-10 am-input-lg am-padding-0">
+                                                <select multiple="multiple" class="" id="adv-display-time">
+                                                    <option value="0">0:00 —— 1:00</option>
+                                                    <option value="1">1:00 —— 2:00</option>
+                                                    <option value="2">2:00 —— 3:00</option>
+                                                    <option value="3">3:00 —— 4:00</option>
+                                                    <option value="4">4:00 —— 5:00</option>
+                                                    <option value="5">5:00 —— 6:00</option>
+                                                    <option value="6">6:00 —— 7:00</option>
+                                                    <option value="7">7:00 —— 8:00</option>
+                                                    <option value="8">8:00 —— 9:00</option>
+                                                    <option value="9">9:00 —— 10:00</option>
+                                                    <option value="10">10:00 —— 11:00</option>
+                                                    <option value="11">11:00 —— 12:00</option>
+                                                    <option value="12">12:00 —— 13:00</option>
+                                                    <option value="13">13:00 —— 14:00</option>
+                                                    <option value="14">14:00 —— 15:00</option>
+                                                    <option value="15">15:00 —— 16:00</option>
+                                                    <option value="16">16:00 —— 17:00</option>
+                                                    <option value="17">17:00 —— 18:00</option>
+                                                    <option value="18">18:00 —— 19:00</option>
+                                                    <option value="19">19:00 —— 20:00</option>
+                                                    <option value="20">20:00 —— 21:00</option>
+                                                    <option value="21">21:00 —— 22:00</option>
+                                                    <option value="22">22:00 —— 23:00</option>
+                                                    <option value="23">23:00 —— 24:00</option>
                                                 </select>
+                                                <span class="help-block m-b-none">投放时间段以小时为单位，按住CTRL进行多选</span>
                                             </div>
+
                                         </div>
                                     </div>
                                 </form>
+                                <button id="submit-btn" type="button" onclick="submitAdv()"
+                                        class="am-btn am-btn am-btn-primary" style="float:right">确定
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- Row end -->
             </div>
-
-
-            <!-- row start -->
             <div class="am-g">
-                <!-- col start -->
-                <div class="am-u-md-6">
+                <div class="am-u-sm-12">
                     <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">验证状态</h4>
-                        <form action="" class="am-form">
-                            <div class="am-form-group am-form-success am-form-icon am-form-feedback">
-                                <div class="am-g">
-                                    <label class="am-form-label am-u-md-3 am-md-text-right am-padding-right-0" for="doc-ipt-success">验证成功</label>
-                                    <div class="am-u-md-6 am-u-end">
-                                        <input type="text" id="doc-ipt-success" class="am-form-field am-radius">
-                                        <span class="am-icon-check" id="rightPa"></span>
-                                    </div>
-                                </div>
-                            </div>
+                        <h4 class="header-title m-t-0 m-b-30">广告文件预览</h4>
+                        <!-- col start -->
 
-                            <div class="am-form-group am-form-warning">
-                                <div class="am-g">
-                                    <label class="am-form-label am-u-md-3 am-md-text-right am-padding-right-0" for="doc-ipt-warning">验证警告</label>
-                                    <div class="am-u-md-6 am-u-end">
-                                        <input type="text" id="doc-ipt-warning" class="am-form-field am-radius">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="am-form-group am-form-error">
-                                <div class="am-g">
-                                    <label class="am-form-label am-u-md-3 am-md-text-right am-padding-right-0" for="doc-ipt-error">验证失败</label>
-                                    <div class="am-u-md-6 am-u-end">
-                                        <input type="text" id="doc-ipt-error" class="am-form-field am-radius">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="am-form-group am-form-success am-form-icon am-form-feedback">
-                                <div class="am-g">
-                                    <label class="am-form-label am-u-md-3 am-md-text-right am-padding-right-0" for="doc-ipt-success2">验证成功</label>
-                                    <div class="am-u-md-6 am-u-end">
-                                        <input type="text" class="am-form-field am-radius" id="doc-ipt-success2" placeholder="验证成功">
-                                        <span class="am-icon-check" id="rightPa"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="am-form-group am-form-warning am-form-icon am-form-feedback">
-                                <div class="am-g">
-                                    <label class="am-form-label am-u-md-3 am-md-text-right am-padding-right-0" for="doc-ipt-warm2">验证警告</label>
-                                    <div class="am-u-md-6 am-u-end">
-                                        <input type="text" class="am-form-field am-u-md-3 am-md-text-right am-padding-right-0 am-radius" id="doc-ipt-warm2" placeholder="验证警告">
-                                        <span class="am-icon-warning" id="rightPa"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="am-form-group am-form-error am-form-icon am-form-feedback">
-                                <div class="am-g">
-                                    <label class="am-form-label am-u-md-3 am-md-text-right am-padding-right-0" for="doc-ipt-error2">验证失败</label>
-                                    <div class="am-u-md-6 am-u-end">
-                                        <input type="text" class="am-form-field am-u-md-3 am-md-text-right am-padding-right-0 am-radius" id="doc-ipt-error2" placeholder="验证警告">
-                                        <span class="am-icon-times" id="rightPa"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                        </form>
+                        <img id="adv-file-view" src="/static/images/404.jpg" class="am-img-responsive" alt="广告文件">
                     </div>
+
                 </div>
-                <!-- col end -->
-
-                <!-- col start -->
-                <div class="am-u-md-6">
-                    <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">表单域大小 </h4>
-                        <form class="am-form">
-                            <input class="am-form-field am-input-lg am-radius" type="text" placeholder="添加了 .am-input-lg">
-                            <br>
-                            <input class="am-form-field am-radius" type="text" placeholder="默认的 input">
-                            <br>
-                            <input class="am-form-field am-input-sm am-radius" type="text" placeholder="添加了 .am-input-sm">
-                            <br>
-
-                            <div class="am-form-group am-form-select">
-                                <select class=" am-input-lg am-radius">
-                                    <option value="">添加了 .am-input-lg</option>
-                                </select>
-                            </div>
-
-                            <div class="am-form-group am-form-select">
-                                <select class="am-radius">
-                                    <option value="">select 默认大小</option>
-                                </select>
-                            </div>
-
-                            <div class="am-form-group am-form-select">
-                                <select class=" am-input-sm am-radius">
-                                    <option value="">添加了 .am-input-sm</option>
-                                </select>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- col end -->
             </div>
-            <!-- row end -->
-
-
-            <!-- row start -->
-            <div class="am-g">
-                <!-- col start -->
-                <div class="am-u-md-6">
-                    <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">基本示例</h4>
-                        <form class="am-form">
-                            <div class="am-form-group">
-                                <label for="doc-ipt-email-2">邮件</label>
-                                <input type="email" class="am-radius" id="doc-ipt-email-2" placeholder="输入电子邮件">
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="doc-ipt-pwd-2">密码</label>
-                                <input type="password" class="am-radius" id="doc-ipt-pwd-2" placeholder="设置个密码吧">
-                            </div>
-
-                            <div class="am-checkbox">
-                                <label>
-                                    <input type="checkbox"> 记住我
-                                </label>
-                            </div>
-
-                            <button type="submit" class="am-btn am-btn-primary">Submit</button>
-                        </form>
-                    </div>
-                </div>
-                <!-- col end -->
-
-                <!-- col start -->
-                <div class="am-u-md-6">
-                    <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">水平排列</h4>
-                        <form class="am-form am-form-horizontal">
-                            <div class="am-form-group">
-                                <label for="doc-ipt-3" class="am-u-sm-3 am-form-label am-text-right am-padding-right-0">电子邮件</label>
-                                <div class="am-u-sm-9">
-                                    <input type="email" id="doc-ipt-3" placeholder="输入你的电子邮件">
-                                </div>
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="doc-ipt-pwd-2" class="am-u-sm-3 am-form-label am-text-right am-padding-right-0">密码</label>
-                                <div class="am-u-sm-9">
-                                    <input type="password" id="doc-ipt-pwd-2" placeholder="设置一个密码吧">
-                                </div>
-                            </div>
-
-                            <div class="am-form-group">
-                                <label for="doc-ipt-pwd-3" class="am-u-sm-3 am-form-label am-text-right am-padding-right-0">确认密码</label>
-                                <div class="am-u-sm-9">
-                                    <input type="password" id="doc-ipt-pwd-3" placeholder="输入确认密码">
-                                </div>
-                            </div>
-
-                            <div class="am-form-group">
-                                <div class="am-u-sm-offset-3 am-u-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> 记住我
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="am-form-group">
-                                <div class="am-u-sm-10 am-u-sm-offset-3">
-                                    <button type="submit" class="am-btn am-btn-default">提交登入</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- col end -->
-            </div>
-            <!-- row end -->
-
         </div>
     </div>
 </div>
@@ -382,5 +251,146 @@
    data-am-offcanvas="{target: '#admin-offcanvas'}"><!--<i class="fa fa-bars" aria-hidden="true"></i>--></a>
 
 </body>
+<script>
 
+    $.ajax({
+        type: "POST",
+        url: '<%=request.getContextPath()%>/tag/getAllUserTags',
+        dataType: 'json',
+        cache: false,
+        success: function (result) {
+            if (result.code == 0) {
+                var tagList = result.data;
+                var listN = 7;
+                var mainElement = $("#tag-action-container");
+                var divElement = document.createElement("div");
+                divElement.className = "am-checkbox";
+                mainElement.append(divElement);
+                var tagContainer = divElement;
+                for (var i = 0; i < tagList.length; i++) {
+                    var element = document.createElement("label");
+                    element.className = "am-checkbox-inline am-input-lg";
+                    var tagInput = document.createElement("input");
+                    tagInput.type = "checkbox";
+                    tagInput.name = "user_tag_check_box";
+                    tagInput.value = tagList[i].id;
+                    // tagInput.append(tagList[i].name);
+                    element.innerText = tagList[i].name;
+                    tagInput.setAttribute("data-am-ucheck", "");
+                    element.appendChild(tagInput);
+
+                    if ((i % listN) === 0 && i !== 0) {
+                        var temp = document.createElement("div");
+                        temp.className = "am-checkbox";
+                        mainElement.append(temp);
+                        tagContainer = temp;
+                    }
+                    tagContainer.append(element);
+                }
+            }
+        },
+        error: function (msg) {
+            alert("error:" + msg);
+        }
+    });
+
+    var isSelected = false;
+
+    function selectTag() {
+        isSelected = !isSelected;
+        var tagBtn = document.getElementById("tag_btn");
+        var mainContainer = document.getElementById("tag-main-container");
+        if (isSelected) {
+            mainContainer.style.display = "block";
+            tagBtn.innerText = "确定";
+        } else {
+            var result = [];
+            var tagCheckBox = document.getElementsByName("user_tag_check_box");
+            for (var i = 0; i < tagCheckBox.length; i++) {
+                if (tagCheckBox[i].checked)
+                    result.push(tagCheckBox[i].parentElement.innerText);
+            }
+            document.getElementById("user_tag").value = result.join(",");
+            mainContainer.style.display = "none";
+            tagBtn.innerText = "选值"
+        }
+    }
+
+    $(function () {
+        $('#adv-file').on('change', function () {
+            var fileNames = '';
+            $.each(this.files, function () {
+                fileNames += '<span class="am-badge">' + this.name + '</span> ';
+
+            });
+            $('#file-list').html(fileNames);
+            var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
+                fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),
+                src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
+
+            // 检查是否是图片
+            if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
+                $("adv-file").tips('上传错误,文件格式必须为：png/jpg/jpeg');
+                return;
+            }
+
+            $('#adv-file-view').attr('src', src);
+        });
+    });
+
+    function submitAdv() {
+        if (!checkAdv()) {
+            return;
+        }
+        var advName = $("#adv_name").val();
+        var startDate = $("#start_time").val();
+        var endDate = $("#end_time").val();
+        var advUrl = $("#adv-url-input").val();
+        var userTags = new Array();
+        $('input[name="user_tag_check_box"]:checked').each(function () {
+            userTags.push(parseInt($(this).val()));
+        });
+        var displayDetail = $("#adv-display-time").val();
+        var advType = 1;
+        var advData = {
+            name: advName,
+            tags: userTags,
+            type: advType,
+            startDate: startDate,
+            endDate: endDate,
+            homepage: advUrl,
+            displayDetail: displayDetail
+        };
+        var jsonData = JSON.stringify(advData);
+        var parseData =  JSON.parse(jsonData);
+        $.ajax({
+            type: "POST",
+            url: '<%=request.getContextPath()%>/advAction/addInfo',
+            // contentType:"application/json; charset=utf-8",
+            // data:{
+            //     name:advName
+            // },
+            data: advData,
+                // name: advName,
+                // userTagIds: JSON.stringify(userTags),
+                // type: advType,
+                // startDate: JSON.stringify(startDate),
+                // endDate: JSON.stringify(endDate),
+                // homepage: advUrl,
+                // displayDetail: displayDetail
+            // ),
+            dataType: 'json',
+            cache: false,
+            success: function (result) {
+                alert(result)
+            }
+        });
+
+    }
+
+    function checkAdv() {
+        //todo  增加前端检验
+        return true;
+    }
+</script>
 </html>

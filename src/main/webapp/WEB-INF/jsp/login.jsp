@@ -19,9 +19,9 @@
         window.scrollTo(0, 1);
     } </script>
 </head>
-<script type="text/javascript" src="/static/js/login.js"></script>
-<script type="text/javascript" src="/static/js/jquery.tips.js"></script>
 <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tips.js"></script>
+<script type="text/javascript" src="/static/js/login.js"></script>
 <script type="text/javascript">
     function checkLoginInfo() {
         if ("" == $("#u").val() || "输入用户名" == $("#u").val()) {

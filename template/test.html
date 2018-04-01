@@ -3,6 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <title>无标题文档</title>
+<style>
+#divValue { border:2px solid #ccc; width:300px; height: 100px; overflow-y: scroll; }
+</style>
 <script type="text/javascript">
 function selValue(){
     document.getElementById("divValue").style.display = "block";
@@ -19,6 +22,7 @@ function closeDiv(isSave){
     }
     document.getElementById("divValue").style.display = "none";
 }
+
 </script>
 </head>
  
@@ -29,6 +33,12 @@ function closeDiv(isSave){
         <input type="checkbox" id="chk1" name="chk" value="1" />1<br />
         <input type="checkbox" id="chk2" name="chk" value="2" />2<br />
         <input type="checkbox" id="chk3" name="chk" value="3" />3<br />
+        <input type="checkbox" id="chk4" name="chk" value="4" />4<br />
+        <input type="checkbox" id="chk5" name="chk" value="5" />5<br />
+		<input type="checkbox" id="chk3" name="chk" value="3" />3<br />
+        <input type="checkbox" id="chk4" name="chk" value="4" />4<br />
+        <input type="checkbox" id="chk5" name="chk" value="5" />5<br />
+		<input type="checkbox" id="chk3" name="chk" value="3" />3<br />
         <input type="checkbox" id="chk4" name="chk" value="4" />4<br />
         <input type="checkbox" id="chk5" name="chk" value="5" />5<br />
         <a href="javascript:closeDiv(true);">确定</a>  &nbsp;&nbsp;

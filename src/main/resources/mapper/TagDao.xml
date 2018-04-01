@@ -31,4 +31,14 @@
             `tag_id` = #{id}
         </foreach>
     </delete>
+    <resultMap id="tag" type="com.adv.pojo.Tag">
+        <id column="tag_id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+    <select id="getAllTags" resultMap="tag">
+        SELECT
+        *
+        FROM
+        `tag`
+    </select>
 </mapper>

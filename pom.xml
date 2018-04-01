@@ -68,6 +68,11 @@
             <artifactId>druid</artifactId>
             <version>${com.alibaba.druid.version}</version>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.3</version>
+        </dependency>
         <!--<dependency>-->
         <!--<groupId>c3p0</groupId>-->
         <!--<artifactId>c3p0</artifactId>-->

@@ -1,6 +1,7 @@
 package com.adv.pojo;
 
-import java.util.ArrayList;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +16,10 @@ public class AdvObj {
     //  广告文件下载链接
     private String fileUrl;
     //  广告有效截止日期
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date endDate;
     //  广告有效开始日期
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date startDate;
     //  点击广告后跳转的商家主页
     private String homepage;
@@ -25,13 +28,13 @@ public class AdvObj {
     private String displayDetail;
 
     public AdvObj() {
-        this.name = "";
-        userTagIds = new ArrayList<>();
-        fileUrl = "";
-        endDate = new Date();
-        startDate = new Date();
-        homepage = "";
-        isValid = true;
+//        this.name = "";
+//        userTagIds = new ArrayList<>();
+//        fileUrl = "";
+//        endDate = new Date();
+//        startDate = new Date();
+//        homepage = "";
+//        isValid = true;
     }
 
     public String getFileUrl() {

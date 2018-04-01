@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>后台模板</title>
+	<link rel="stylesheet" href="assets/css/amazeui.css" />
+	<link rel="stylesheet" href="assets/css/core.css" />
+	<link rel="stylesheet" href="assets/css/menu.css" />
+	<link rel="stylesheet" href="assets/css/index.css" />
+	<link rel="stylesheet" href="assets/css/admin.css" />
+	<link rel="stylesheet" href="assets/css/page/typography.css" />
+	<link rel="stylesheet" href="assets/css/page/form.css" />
+	<link rel="stylesheet" href="assets/css/component.css" />
+</head>
+
+<body>
+	<script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="assets/js/amazeui.min.js"></script>
+	<script type="text/javascript" src="assets/js/app.js"></script>
+	<script type="text/javascript" src="assets/js/blockUI.js"></script>
+	<script type="text/javascript" src="assets/js/charts/echarts.min.js"></script>
+	<script type="text/javascript" src="assets/js/charts/indexChart.js"></script>
+	<div class="admin">
+		<jsp:include page="sideBar.jsp"></jsp:include>
+		<%--表单--%>
+			<div class="content-page">
+				<!-- Start content -->
+				<div class="content">
+					<div class="am-g">
+						<!-- Row start -->
+						<div class="am-u-sm-12">
+							<div class="card-box">
+								<ul class="am-nav am-fr">
+									<li class="am-dropdown" data-am-dropdown="">
+										<a class="am-dropdown-toggle" data-am-dropdown-toggle="" href="javascript:;">
+											<span class="am-icon-caret-down"></span>
+										</a>
+										<ul class="am-dropdown-content">
+											<li>这里是说明文档,目前仅支持图片格式的广告上传</li>
+										</ul>
+									</li>
+								</ul>
+
+								<h4 class="header-title m-t-0 m-b-30">输入广告信息</h4>
+
+								<div class="am-g">
+									<div class="am-u-md-6">
+										<form class="am-form am-text-sm">
+											<div class="am-form-group">
+												<div class="am-g">
+													<label class="am-u-md-2 am-md-text-right am-padding-left-0" for="adv_name">名字</label>
+													<input class="am-u-md-10 form-control" id="adv_name" placeholder="输入广告名字">
+												</div>
+											</div>
+
+											<div class="am-form-group">
+												<div class="am-g">
+													<label class="am-u-md-2 am-md-text-right am-padding-left-0  " for="start_time">开始有效时间</label>
+													<input class="am-u-md-10 form-control" id="start_time" placeholder="输入开始有效时间" type="datetime-local" style=" width: 83.33333333%;">
+													<!-- <input class="am-u-md-10 form-control" id="start_time" placeholder="输入开始有效时间" type = "date"> -->
+												</div>
+											</div>
+
+											<div class="am-form-group">
+												<div class="am-g">
+													<label class="am-u-md-2 am-md-text-right  am-padding-left-0" for="user_tag">目标用户群</label>
+													<input class="am-input-lg am-form-field am-u-md-10" type="text" id="user_tag" placeholder="从下方选择用户群" disabled="">
+													<div id="tag-main-container" style="display: none">
+														<label class="am-u-md-2 am-md-text-right  am-padding-left-0" for="tag-action-container">选择用户群</label>
+														<div id="tag-action-container" class="am-form-field am-u-md-10" style="overflow-y: scroll;overflow-x: scroll; height: 150px">
+														</div>
+													</div>
+													<span class="am-form-caret"></span>
+												</div>
+
+												<button id="tag_btn" type="button" onclick="selectTag()" class="am-btn am-btn-default">选值
+												</button>
+											</div>
+											<div class="am-form-group am-form-file">
+												<button type="button" class="am-btn am-btn am-btn-secondary am-btn-sm">
+													<i class="am-icon-cloud-upload"></i> 选择要上传的广告文件
+												</button>
+												<input id="adv-file" type="file" multiple accept="image/*">
+											</div>
+											<div id="file-list"></div>
+										</form>
+									</div>
+
+									<div class="am-u-md-6">
+										<form class="am-form am-text-sm">
+											<div class="am-form-group">
+												<div class="am-g">
+													<label class="am-u-md-2 am-md-text-right" for="doc-ds-ipt-1">禁用</label>
+													<input class="am-form-field am-u-md-10" type="text" id="tag" placeholder="禁止输入" disabled="">
+												</div>
+											</div>
+
+											<div class="am-form-group">
+												<div class="am-g">
+													<label class="am-u-md-2 am-md-text-right am-padding-left-0" for="doc-ipt-text-2">说明信息</label>
+													<div class="am-u-md-10 am-padding-0">
+														<input class="am-u-md-12 form-control am-padding-0" id="doc-ipt-text-2">
+														<span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="am-form-group">
+												<div class="am-g">
+													<label class="am-u-md-2 am-md-text-right" for="doc-select-1">下拉选框</label>
+													<%--<select id="doc-select-1">--%>
+														<%--<option value="option1">选项一...</option>--%>
+															<%--<option value="option2">选项二.....</option>--%>
+																<%--<option value="option3">选项三........</option>--%>
+																	<%--</select>--%>
+																		<span class="am-form-caret"></span>
+												</div>
+											</div>
+
+											<div class="am-form-group">
+												<div class="am-g">
+													<label class="am-u-md-2 am-md-text-right" for="doc-select-2">多选框</label>
+													<div class="am-u-md-10 am-padding-0">
+														<select multiple="" class="" id="doc-select-2">
+															<option>1</option>
+															<option>2</option>
+															<option>3</option>
+															<option>4</option>
+															<option>5</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Row end -->
+					</div>
+					<div class="am-g">
+						<div class="am-form-group">
+							<div class="am-g">
+								<div id="tag-main-container" style="display:block">
+									<div id="tag-action-container" class="am-form-field am-u-md-10" style="overflow-y: scroll; height: 100px ;">
+										<div class='am-checkbox'>
+											<label class="am-checkbox-inline">
+												<input data-am-ucheck type='checkbox' name='user_tag_check_box' /> 没有选中
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+</body>
+
+</html>

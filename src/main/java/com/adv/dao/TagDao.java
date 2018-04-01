@@ -2,6 +2,7 @@ package com.adv.dao;
 
 import com.adv.pojo.Tag;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author lurongzhi
  */
 public interface TagDao {
-    int addTag(@Param("tag") Tag tag);
+    int addTag(@Param("tag") Tag tag) throws DataAccessException;
 
     int addTagBatch(@Param("tagList") List<Tag> tags);
 
@@ -17,4 +18,5 @@ public interface TagDao {
 
     int delTagByIdBatch(@Param("idList") List<Long> ids);
 
+    List<Tag> getAllTags();
 }
