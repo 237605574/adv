@@ -15,9 +15,10 @@ public class ResultCodes {
     public static final int ADV_INFO_NOT_FOUND = 5;
     public static final int EMPTY_FILE = 6;
     public static final int FILE_NAME_ERROR = 7;
-
+    public static final int DATE_ERROR = 8;
+    public static final int ADV_INFO_ERROR = 9;
     //  获取广告错误码
-    public static final int USER_ID_ERROR = 8;
+    public static final int USER_ID_ERROR = 11;
 
     //常用错误码
     public static final int PARAM_ERROR = 20;

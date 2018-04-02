@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 28/03/2018 22:07:46
+ Date: 02/04/2018 13:37:51
 */
 
 SET NAMES utf8mb4;
@@ -53,11 +53,13 @@ CREATE TABLE `adv`  (
 -- ----------------------------
 -- Records of adv
 -- ----------------------------
-INSERT INTO `adv` VALUES (2, '2', '2', '2', 0, '2', NULL, '2018-03-28 21:56:27', '2018-03-27 21:35:42');
+INSERT INTO `adv` VALUES (2, '2', '2', '2', 0, '2', NULL, '2018-04-02 11:08:51', '2018-03-31 21:35:42');
 INSERT INTO `adv` VALUES (66, '', 'hahahahah', NULL, 0, '', NULL, '2018-03-28 22:04:24', '2018-03-04 21:35:46');
-INSERT INTO `adv` VALUES (77, '1', '1', '1', 1, '1', NULL, '2018-03-28 21:37:38', '2018-03-30 21:35:49');
+INSERT INTO `adv` VALUES (77, '1', '1', '1', 0, '1', NULL, '2018-04-02 11:08:51', '2018-03-30 21:35:49');
 INSERT INTO `adv` VALUES (111, NULL, NULL, NULL, 0, NULL, NULL, NULL, '2018-02-06 22:04:43');
-INSERT INTO `adv` VALUES (444, NULL, NULL, NULL, 0, NULL, NULL, '2018-03-28 22:05:14', '2018-03-13 21:35:58');
+INSERT INTO `adv` VALUES (444, NULL, NULL, NULL, 0, NULL, NULL, '2018-03-30 14:41:47', '2018-03-31 21:35:58');
+INSERT INTO `adv` VALUES (1702, '1702.txt', 'test adv obj', NULL, 0, '', NULL, '2018-03-30 14:43:37', '2018-03-29 09:00:43');
+INSERT INTO `adv` VALUES (2703, '2703.txt', '2702', NULL, 0, '', NULL, '2018-03-30 14:43:37', '2018-03-30 03:19:08');
 
 -- ----------------------------
 -- Table structure for adv_tag
@@ -75,6 +77,8 @@ CREATE TABLE `adv_tag`  (
 INSERT INTO `adv_tag` VALUES (1, 2);
 INSERT INTO `adv_tag` VALUES (3, 4);
 INSERT INTO `adv_tag` VALUES (1502, 5);
+INSERT INTO `adv_tag` VALUES (1702, 5);
+INSERT INTO `adv_tag` VALUES (2703, 5);
 INSERT INTO `adv_tag` VALUES (4444, 7456);
 INSERT INTO `adv_tag` VALUES (4444, 7456123);
 
@@ -92,8 +96,8 @@ CREATE TABLE `id_generator`  (
 -- ----------------------------
 -- Records of id_generator
 -- ----------------------------
-INSERT INTO `id_generator` VALUES ('adv', 100, 1601);
-INSERT INTO `id_generator` VALUES ('test', 3, 625);
+INSERT INTO `id_generator` VALUES ('adv', 100, 11101);
+INSERT INTO `id_generator` VALUES ('test', 3, 910);
 
 -- ----------------------------
 -- Table structure for tag
@@ -135,23 +139,26 @@ CREATE TABLE `temp`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of temp
+-- ----------------------------
+INSERT INTO `temp` VALUES ('11');
+
+-- ----------------------------
 -- Table structure for user_adv
 -- ----------------------------
 DROP TABLE IF EXISTS `user_adv`;
 CREATE TABLE `user_adv`  (
-  `adv_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
+  `adv_id` bigint(20) NOT NULL,
   PRIMARY KEY (`adv_id`, `user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_adv
 -- ----------------------------
-INSERT INTO `user_adv` VALUES (2, 44);
-INSERT INTO `user_adv` VALUES (66, 1);
-INSERT INTO `user_adv` VALUES (1202, 44);
-INSERT INTO `user_adv` VALUES (1402, 44);
-INSERT INTO `user_adv` VALUES (1502, 44);
+INSERT INTO `user_adv` VALUES (44, 2);
+INSERT INTO `user_adv` VALUES (44, 1402);
+INSERT INTO `user_adv` VALUES (44, 1502);
 
 -- ----------------------------
 -- Table structure for user_id_tag

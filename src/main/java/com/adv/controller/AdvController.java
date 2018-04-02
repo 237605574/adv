@@ -78,6 +78,7 @@ public class AdvController {
             , produces = "application/json; charset=utf-8")
     @ResponseBody
     public String uploadAdvFile(@RequestParam(required = false) MultipartFile file, HttpSession session) {
+        System.out.println("get file");
         AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.ADV_INFO);
         ResultObj resultObj = advService.checkAdvFile(advObj, file);
         if (resultObj.getCode() != ResultCodes.SUCCESS) {

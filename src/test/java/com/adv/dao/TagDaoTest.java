@@ -1,5 +1,6 @@
 package com.adv.dao;
 
+import com.adv.pojo.AdvObj;
 import com.adv.pojo.Tag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +43,16 @@ public class TagDaoTest {
         }
         tagDao.addTagBatch(tags);
     }
+    @Test
+    public void checkTag(){
+        AdvObj advObj = new AdvObj();
+        List<Long> tags = new ArrayList<>();
+        tags.add(5L);
+        tags.add(6L);
+        advObj.setUserTagIds(tags);
+        int result = tagDao.checkTagByAdv(advObj);
 
+        System.out.println(result);
+    }
 
 }

@@ -17,18 +17,4 @@
             #{item}
         </foreach>
     </select>
-    <select id="checkTagByAdv" resultType="Integer">
-        SELECT count(1)
-        FROM
-        `tag`
-        <choose>
-            <when test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
-                WHERE
-                <foreach item="item" index="index" collection="advObj.userTagIds" separator="and">
-                    exists(SELECT #{item} WHERE tag.tag_id = #{item})
-                </foreach>
-            </when>
-        </choose>
-
-    </select>
 </mapper>

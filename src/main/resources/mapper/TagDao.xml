@@ -36,9 +36,22 @@
         <result column="name" property="name"/>
     </resultMap>
     <select id="getAllTags" resultMap="tag">
-        SELECT
-        *
+        SELECT *
         FROM
-        `tag`
+            `tag`
+    </select>
+    <select id="checkTagByAdv" resultType="Integer">
+        SELECT count(1)
+        FROM
+        `temp`
+        <choose>
+            <when test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
+                WHERE
+                <foreach item="item" index="index" collection="advObj.userTagIds" separator="and">
+                    (exists(SELECT #{item} FROM `tag` WHERE tag_id = #{item}))
+                </foreach>
+            </when>
+        </choose>
+
     </select>
 </mapper>

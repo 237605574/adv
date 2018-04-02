@@ -33,19 +33,30 @@ public class AdvService {
     private UserTagDao userTagDao;
 
     @Autowired
+    private TagDao tagDao;
+
+    @Autowired
     private AdvTagDao advTagDao;
 
     private FileDao fileDao = FileDao.getInstance();
 
     public ResultObj<Void> checkAdvInfo(AdvObj advObj) {
         if (advObj == null) {
-            return new ResultObj<>(ResultCodes.ADV_INFO_NOT_FOUND);
+            return new ResultObj<>(ResultCodes.ADV_INFO_NOT_FOUND, "找不到广告信息");
         } else if (advObj.getName() == null || advObj.getName().equals("")) {
             //  广告名称为空
-            return new ResultObj<>(ResultCodes.EMPTY_NAME_ERROR);
+            return new ResultObj<>(ResultCodes.EMPTY_NAME_ERROR, "广告名字为空");
         } else if (!isValidName(advObj)) {
             //  广告名字重复
             return new ResultObj<>(ResultCodes.ADV_NAME_DUPLICATE, String.format("已经有该广告名字了:%s", advObj.getName()));
+        } else if (advObj.getStartDate() == null) {
+            return new ResultObj<>(ResultCodes.DATE_ERROR, "开始日期为空");
+        } else if (advObj.getEndDate() == null) {
+            return new ResultObj<>(ResultCodes.DATE_ERROR, "结束日期为空");
+        } else if (advObj.getDisplayDetail() == null) {
+            return new ResultObj<>(ResultCodes.ADV_INFO_ERROR, "投放时间段错误");
+        } else if (advObj.getHomepage() == null) {
+            return new ResultObj<>(ResultCodes.ADV_INFO_ERROR, "广告主页错误");
         } else {
             //  检查广告目标用户标签
             ResultObj<Void> userTagResult = checkUserTag(advObj);
@@ -63,10 +74,10 @@ public class AdvService {
         String fileNamePattern = "(.*((gif)|(jpg)|(jpeg)|(txt)))";
         if (advObj == null) {
             //  广告信息为空
-            return new ResultObj<>(ResultCodes.ADV_INFO_NOT_FOUND);
+            return new ResultObj<>(ResultCodes.ADV_INFO_NOT_FOUND, "广告信息为空");
         } else if (file == null || file.isEmpty()) {
             // 文件为空
-            return new ResultObj<>(ResultCodes.EMPTY_FILE);
+            return new ResultObj<>(ResultCodes.EMPTY_FILE, "文件为空");
         } else if (!file.getOriginalFilename().matches(fileNamePattern)) {
             //  文件名字不符合
             return new ResultObj<>(ResultCodes.FILE_NAME_ERROR, String.format("名称后缀不符合：%s", file.getOriginalFilename()));
@@ -129,9 +140,9 @@ public class AdvService {
     }
 
     private ResultObj<Void> checkUserTag(AdvObj advObj) {
-        int result = userTagDao.checkTagByAdv(advObj);
+        int result = tagDao.checkTagByAdv(advObj);
         if (result <= 0) {
-            return new ResultObj<>(ResultCodes.USER_TAG_NOT_FOUND, "用户标签xxx不存在");
+            return new ResultObj<>(ResultCodes.USER_TAG_NOT_FOUND, "用户标签不存在,请重新选择目标用户标签");
         } else {
             return new ResultObj<>(ResultCodes.SUCCESS);
         }
@@ -188,7 +199,6 @@ public class AdvService {
     public int updateAdvState() {
         return advDao.updateState();
     }
-
 
 
     /**

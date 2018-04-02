@@ -1,5 +1,6 @@
 package com.adv.dao;
 
+import com.adv.pojo.AdvObj;
 import com.adv.pojo.Tag;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
@@ -17,6 +18,8 @@ public interface TagDao {
     int delTagById(@Param("id") Long id);
 
     int delTagByIdBatch(@Param("idList") List<Long> ids);
+
+    int checkTagByAdv(@Param("advObj") AdvObj advObj);
 
     List<Tag> getAllTags();
 }

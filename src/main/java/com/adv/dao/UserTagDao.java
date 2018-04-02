@@ -10,6 +10,4 @@ import java.util.List;
  */
 public interface UserTagDao {
     List<Long> getUserByTags(List<Long> tagIds);
-
-    int checkTagByAdv(@Param("advObj") AdvObj advObj);
 }

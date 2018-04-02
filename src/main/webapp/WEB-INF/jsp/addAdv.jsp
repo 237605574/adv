@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.tips.js"></script>
 <script type="text/javascript" src="/static/js/jquery.ajaxfileupload.js"></script>
 <script type="text/javascript" src="/static/js/amazeui.min.js"></script>
 <script type="text/javascript" src="/static/js/app.js"></script>
@@ -250,6 +251,25 @@
 <a href="admin-offcanvas" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
    data-am-offcanvas="{target: '#admin-offcanvas'}"><!--<i class="fa fa-bars" aria-hidden="true"></i>--></a>
 
+<div class="am-modal am-modal-prompt" tabindex="-1" id="error-alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">发生错误</div>
+        <div class="am-modal-bd" id="error-msg">
+            Hello world！
+        </div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
+<div class="am-modal am-modal-prompt" tabindex="-1" id="success-alert">
+    <div class="am-modal-dialog">
+        <div class="am-modal-hd">提交成功</div>
+        <div class="am-modal-footer">
+            <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+        </div>
+    </div>
+</div>
 </body>
 <script>
 
@@ -317,6 +337,7 @@
     }
 
     $(function () {
+        // $("body").delegate('adv-file', 'change', function () {
         $('#adv-file').on('change', function () {
             var fileNames = '';
             $.each(this.files, function () {
@@ -335,8 +356,16 @@
             }
 
             $('#adv-file-view').attr('src', src);
+            $('#adv-file').replaceWith('<input name="fileToUpload" type="file" id="adv-file"  />');
         });
     });
+
+    function ajaxErrorAlert(XMLHttpRequest, textStatus) {
+        var msg = "状态码:" + XMLHttpRequest.status + "\n"
+            + "ready state:" + XMLHttpRequest.readyState + "\n"
+            + "text status:" + textStatus;
+        alertErrorMsg(msg);
+    }
 
     function submitAdv() {
         if (!checkAdv()) {
@@ -359,38 +388,163 @@
             startDate: startDate,
             endDate: endDate,
             homepage: advUrl,
-            displayDetail: displayDetail
+            displayDetail: JSON.stringify(displayDetail)
         };
         var jsonData = JSON.stringify(advData);
-        var parseData =  JSON.parse(jsonData);
+        var parseData = JSON.parse(jsonData);
         $.ajax({
             type: "POST",
             url: '<%=request.getContextPath()%>/advAction/addInfo',
-            // contentType:"application/json; charset=utf-8",
-            // data:{
-            //     name:advName
-            // },
             data: advData,
-                // name: advName,
-                // userTagIds: JSON.stringify(userTags),
-                // type: advType,
-                // startDate: JSON.stringify(startDate),
-                // endDate: JSON.stringify(endDate),
-                // homepage: advUrl,
-                // displayDetail: displayDetail
-            // ),
             dataType: 'json',
             cache: false,
             success: function (result) {
-                alert(result)
+                if (result.code === 0) {
+                    uploadAdvFile();
+                } else {
+                    alertErrorMsg(result.msg);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxErrorAlert(XMLHttpRequest, textStatus);
+            }
+
+        });
+    }
+
+    function uploadAdvFile() {
+        $.ajaxFileUpload({
+            url: "<%=request.getContextPath()%>/advAction/uploadAdvFile",
+            secureuri: false, //是否需要安全协议，一般设置为false
+            fileElementId: 'adv-file', //文件上传域的ID
+            dataType: 'json', //返回值类型 一般设置为json
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (result) {
+                if (result.code === 0) {
+                    addAdv();
+                } else {
+                    alertErrorMsg(result.msg);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxErrorAlert(XMLHttpRequest, textStatus);
             }
         });
+    }
 
+    function addAdv() {
+        $.ajax({
+            type: "POST",
+            url: '<%=request.getContextPath()%>/advAction/addAdv',
+            data: advData,
+            dataType: 'json',
+            cache: false,
+            success: function (result) {
+                if (result.code === 0) {
+                    alertSuccessMsg();
+                } else {
+                    alertErrorMsg(result.msg);
+                }
+            },
+        })
     }
 
     function checkAdv() {
-        //todo  增加前端检验
+        var filePath = $("#adv-file").val()
+        var advName = $("#adv_name").val();
+        var startDate = $("#start_time").val();
+        var endDate = $("#end_time").val();
+        var advUrl = $("#adv-url-input").val();
+        var userTags = new Array();
+        $('input[name="user_tag_check_box"]:checked').each(function () {
+            userTags.push(parseInt($(this).val()));
+        });
+        var displayDetail = $("#adv-display-time").val();
+
+        if (filePath == null || filePath == "") {
+            $("#adv-file").tips({
+                side: 2,
+                msg: '文件为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (advName == null || advName == "") {
+            $("#adv_name").tips({
+                side: 2,
+                msg: '广告名不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (startDate == null || endDate == "") {
+            $("#end_time").tips({
+                side: 2,
+                msg: '日期不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (endDate == null || endDate == "") {
+            $("#end_time").tips({
+                side: 2,
+                msg: '日期不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (advUrl == null || advUrl == "") {
+            $("#adv-url-input").tips({
+                side: 2,
+                msg: '广告主页不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (userTags.length == 0) {
+            $("#user_tag").tips({
+                side: 2,
+                msg: '目标用户群体不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (displayDetail == null || displayDetail.length == 0) {
+            $("#adv-display-time").tips({
+                side: 2,
+                msg: '广告投放时间段不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
         return true;
     }
+
+    function alertErrorMsg(msg) {
+        $("#error-msg").text(msg);
+        $("#error-alert").modal({
+            relatedTarget: this,
+            onConfirm: function () {
+                // alert("test");
+            },
+        });
+    }
+
+    function alertSuccessMsg() {
+        $("#success-alert").modal({
+            relatedTarget: this,
+            onConfirm: function () {
+                window.location.href = "<%=request.getContextPath()%>/adv/home";
+            }
+        });
+    }
+
 </script>
 </html>
