@@ -143,11 +143,11 @@
                                                 class="am-btn am-btn-default">选值
                                         </button>
                                     </div>
-                                    <div class="am-form-group am-form-file">
+                                    <div class="am-form-group am-form-file" id="file-body">
                                         <button type="button" class="am-btn am-btn am-btn-secondary am-btn-sm">
                                             <i class="am-icon-cloud-upload"></i> 选择要上传的广告文件
                                         </button>
-                                        <input id="adv-file" type="file" multiple accept="image/*">
+                                        <input name="file" id="adv-file" type="file" multiple accept="image/*">
                                     </div>
                                     <div id="file-list"></div>
                                 </form>
@@ -337,8 +337,8 @@
     }
 
     $(function () {
-        // $("body").delegate('adv-file', 'change', function () {
-        $('#adv-file').on('change', function () {
+        $("#file-body").delegate('#adv-file', 'change', function () {
+            // $('#adv-file').on('change', function () {
             var fileNames = '';
             $.each(this.files, function () {
                 fileNames += '<span class="am-badge">' + this.name + '</span> ';
@@ -356,14 +356,15 @@
             }
 
             $('#adv-file-view').attr('src', src);
-            $('#adv-file').replaceWith('<input name="fileToUpload" type="file" id="adv-file"  />');
+            // $('#adv-file').replaceWith('<input id="adv-file" type="file" multiple accept="image/*">');
         });
     });
 
-    function ajaxErrorAlert(XMLHttpRequest, textStatus) {
+    function ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown) {
         var msg = "状态码:" + XMLHttpRequest.status + "\n"
             + "ready state:" + XMLHttpRequest.readyState + "\n"
-            + "text status:" + textStatus;
+            + "text status:" + textStatus + "\n"
+            + "error thrown" + errorThrown;
         alertErrorMsg(msg);
     }
 
@@ -406,7 +407,7 @@
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                ajaxErrorAlert(XMLHttpRequest, textStatus);
+                ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown);
             }
 
         });
@@ -418,7 +419,7 @@
             secureuri: false, //是否需要安全协议，一般设置为false
             fileElementId: 'adv-file', //文件上传域的ID
             dataType: 'json', //返回值类型 一般设置为json
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            // contentType: "text/html; charset=utf-8",
             success: function (result) {
                 if (result.code === 0) {
                     addAdv();
@@ -427,7 +428,7 @@
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                ajaxErrorAlert(XMLHttpRequest, textStatus);
+                ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown);
             }
         });
     }
@@ -436,7 +437,6 @@
         $.ajax({
             type: "POST",
             url: '<%=request.getContextPath()%>/advAction/addAdv',
-            data: advData,
             dataType: 'json',
             cache: false,
             success: function (result) {
@@ -446,6 +446,9 @@
                     alertErrorMsg(result.msg);
                 }
             },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown);
+            }
         })
     }
 
@@ -456,11 +459,34 @@
         var endDate = $("#end_time").val();
         var advUrl = $("#adv-url-input").val();
         var userTags = new Array();
+        var minDate = new Date(1900,1,1);
+        var maxDate = new Date(2200,1,1);
+        var dStart = new Date(Date.parse(startDate));
+        var dEnd = new Date(Date.parse(endDate));
         $('input[name="user_tag_check_box"]:checked').each(function () {
             userTags.push(parseInt($(this).val()));
         });
         var displayDetail = $("#adv-display-time").val();
 
+
+        if(dStart<minDate||dStart>maxDate){
+            $("#start_time").tips({
+                side: 2,
+                msg: '日期超出限制',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if(dEnd<minDate||dEnd>maxDate){
+            $("#end_time").tips({
+                side: 2,
+                msg: '日期超出限制',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
         if (filePath == null || filePath == "") {
             $("#adv-file").tips({
                 side: 2,
@@ -470,7 +496,7 @@
             });
             return false;
         }
-        if (advName == null || advName == "") {
+        if (advName == null || advName === "") {
             $("#adv_name").tips({
                 side: 2,
                 msg: '广告名不能为空',
@@ -479,7 +505,7 @@
             });
             return false;
         }
-        if (startDate == null || endDate == "") {
+        if (startDate == null || startDate === "") {
             $("#end_time").tips({
                 side: 2,
                 msg: '日期不能为空',
@@ -488,7 +514,7 @@
             });
             return false;
         }
-        if (endDate == null || endDate == "") {
+        if (endDate == null || endDate === "") {
             $("#end_time").tips({
                 side: 2,
                 msg: '日期不能为空',

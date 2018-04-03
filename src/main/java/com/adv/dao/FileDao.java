@@ -45,6 +45,9 @@ public class FileDao {
      * 根据路径获取file
      */
     public ResultObj<File> getFile(String fileName) {
+        if(fileName==null){
+            return new ResultObj<>(ResultCodes.UNKNOWN_ERROR, "文件名字为空");
+        }
         File file;
         try {
             file = fileCache.get(fileName);
@@ -54,7 +57,7 @@ public class FileDao {
             if (CacheLoader.InvalidCacheLoadException.class == e.getClass()) {
                 msg = "文件不存在：" + fileName;
             } else {
-                msg = "getFile error:" + e.getMessage();
+                msg = "getFile error:" + e;
                 LOG.log(Level.ERROR, msg);
             }
             return new ResultObj<>(ResultCodes.UNKNOWN_ERROR, msg);

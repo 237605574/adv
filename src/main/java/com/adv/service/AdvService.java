@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +43,28 @@ public class AdvService {
 
     private FileDao fileDao = FileDao.getInstance();
 
+
+    /**
+     * 用于更新的advObj必须带有id字段
+     */
+    public ResultObj<Void> checkUpdateAdvInfo(AdvObj advObj) {
+        if (advObj.getId() == null) {
+            return new ResultObj<>(ResultCodes.ADV_INFO_ERROR, "广告id不能为空");
+        } else {
+            return checkAdvInfo(advObj);
+        }
+    }
+
     public ResultObj<Void> checkAdvInfo(AdvObj advObj) {
+        DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        Date minDate = null;
+        Date maxDate = null;
+        try {
+            minDate = dateFormat1.parse("1900-01-01");
+            maxDate = dateFormat1.parse("2200-01-01");
+        } catch (ParseException e) {
+            return new ResultObj<>(ResultCodes.UNKNOWN_ERROR, "服务器错误");
+        }
         if (advObj == null) {
             return new ResultObj<>(ResultCodes.ADV_INFO_NOT_FOUND, "找不到广告信息");
         } else if (advObj.getName() == null || advObj.getName().equals("")) {
@@ -57,6 +81,10 @@ public class AdvService {
             return new ResultObj<>(ResultCodes.ADV_INFO_ERROR, "投放时间段错误");
         } else if (advObj.getHomepage() == null) {
             return new ResultObj<>(ResultCodes.ADV_INFO_ERROR, "广告主页错误");
+        } else if (advObj.getStartDate().before(minDate) || advObj.getStartDate().after(maxDate)) {
+            return new ResultObj<>(ResultCodes.DATE_ERROR, "开始日期超出限制");
+        } else if (advObj.getEndDate().before(minDate) || advObj.getEndDate().after(maxDate)) {
+            return new ResultObj<>(ResultCodes.DATE_ERROR, "截止日期超出限制");
         } else {
             //  检查广告目标用户标签
             ResultObj<Void> userTagResult = checkUserTag(advObj);
@@ -71,12 +99,13 @@ public class AdvService {
     public ResultObj<Void> checkAdvFile(AdvObj advObj, MultipartFile file) {
         //  文件后缀限定
         //  TODO :根据广告类型来进行后缀限定
-        String fileNamePattern = "(.*((gif)|(jpg)|(jpeg)|(txt)))";
+        String fileNamePattern = "(.*((gif)|(jpg)|(jpeg)|(png)))";
         if (advObj == null) {
             //  广告信息为空
             return new ResultObj<>(ResultCodes.ADV_INFO_NOT_FOUND, "广告信息为空");
         } else if (file == null || file.isEmpty()) {
             // 文件为空
+            System.out.println(file);
             return new ResultObj<>(ResultCodes.EMPTY_FILE, "文件为空");
         } else if (!file.getOriginalFilename().matches(fileNamePattern)) {
             //  文件名字不符合

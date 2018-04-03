@@ -1,5 +1,6 @@
 package com.adv.dao;
 
+import com.adv.Utils;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.User;
 import org.junit.Test;
@@ -45,22 +46,28 @@ public class AdvDaoTest {
         List<AdvObj> advObjList = advDao.getAdvListByUser(user);
         System.out.println("-------------test--------------");
         System.out.println(advObjList);
-        for (AdvObj advObj : advObjList) {
-            System.out.println("id " + advObj.getId());
-            System.out.println("name " + advObj.getName());
-            System.out.println("file " + advObj.getFileUrl());
-            System.out.println("type " + advObj.getType());
-            System.out.println("isValid " + advObj.getValid());
-            System.out.println("homepage " + advObj.getHomepage());
-            System.out.println("displayDetail " + advObj.getDisplayDetail());
-            System.out.println("**********************************");
-        }
+        Utils.printAdvList(advObjList);
         System.out.println("-------------test--------------");
     }
+
+
 
     @Test
     public void testUpadateState(){
         int result = advDao.updateState();
         System.out.println(result);
     }
+
+    @Test
+    public void queryAdvTest(){
+        AdvObj advObj = new AdvObj();
+        advObj.setName("1");
+        advObj.addTag(5L);
+        int offset = 0;
+        int limit = 10;
+
+        List<AdvObj> advObjs = advDao.queryAdv(advObj,offset,limit);
+        Utils.printAdvList(advObjs);
+    }
+
 }

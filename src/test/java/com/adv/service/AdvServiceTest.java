@@ -17,6 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.Date;
 
 /**
  * @author lurongzhi
@@ -39,7 +40,8 @@ public class AdvServiceTest {
     @Test
     public void addAdvTest() throws IOException {
         MultipartFile advFile;
-        File tempFile = new File("C:\\Users\\admin\\Desktop\\新建文件夹\\test.txt");
+//        File tempFile = new File("C:\\Users\\admin\\Desktop\\新建文件夹\\test.txt");
+        File tempFile = new File("C:\\Users\\Administrator\\Desktop\\新建文件夹\\test.txt");
         InputStream inputStream = new FileInputStream(tempFile);
         advFile = new MockMultipartFile("test file", tempFile.getName(), null, inputStream);
         String fileNamePattern = "(.*((gif)|(jpg)|(jpeg)|(txt)))";
@@ -49,6 +51,10 @@ public class AdvServiceTest {
         AdvObj advObj = new AdvObj();
         advObj.setName(IdMgr.getInstance().genAdvId().toString());
         advObj.addTag(5L);
+        advObj.setStartDate(new Date());
+        advObj.setEndDate(new Date());
+        advObj.setHomepage("  sdas");
+        advObj.setDisplayDetail("dsadasd");
         ResultObj resultObj = advService.addAdv(advObj, advFile);
 //        Assert.assertTrue(resultObj.isSuccess());
 //        Assert.assertTrue(true);

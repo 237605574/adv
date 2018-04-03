@@ -2,6 +2,7 @@ package com.adv.pojo;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class AdvObj {
     private Long id;
     private String name;
-    private List<Long> userTagIds;
+    private List<Long> userTagIds = new ArrayList<>();
     private Integer type;
     //  广告文件下载链接
     private String fileUrl;
@@ -28,6 +29,7 @@ public class AdvObj {
     private String displayDetail;
 
     public AdvObj() {
+
 //        this.name = "";
 //        userTagIds = new ArrayList<>();
 //        fileUrl = "";

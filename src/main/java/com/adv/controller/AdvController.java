@@ -28,12 +28,6 @@ public class AdvController {
     @Autowired
     private AdvService advService;
 
-//    @InitBinder
-//    public void initBinder(ServletRequestDataBinder bin){
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        CustomDateEditor cust = new CustomDateEditor(sdf,true);
-//        bin.registerCustomEditor(Date.class,cust);
-//    }
     /**
      * 添加广告信息接口
      * 整个添加广告流程为：前端发送信息 -> 后端检验信息 -> 前端上传文件 -> 后端检验文件合法性 -> 保存到数据库
@@ -45,20 +39,20 @@ public class AdvController {
     @ResponseBody
     public String addAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("tags[]") List<Long> tags, HttpSession session) {
         // 测试
-        if(tags!=null){
+        if (tags != null) {
             advObj.setUserTagIds(tags);
             System.out.println(tags);
         }
         System.out.println(tags);
-        if(advObj!=null){
-            System.out.println("name:"+advObj.getName());
-            System.out.println("file url:"+advObj.getFileUrl());
-            System.out.println("display detail:"+advObj.getDisplayDetail());
-            System.out.println("homepage:"+advObj.getHomepage());
-            System.out.println("user tags:"+advObj.getUserTagIds());
-            System.out.println("start date:"+advObj.getStartDate());
-            System.out.println("end date:"+advObj.getEndDate());
-        }else {
+        if (advObj != null) {
+            System.out.println("name:" + advObj.getName());
+            System.out.println("file url:" + advObj.getFileUrl());
+            System.out.println("display detail:" + advObj.getDisplayDetail());
+            System.out.println("homepage:" + advObj.getHomepage());
+            System.out.println("user tags:" + advObj.getUserTagIds());
+            System.out.println("start date:" + advObj.getStartDate());
+            System.out.println("end date:" + advObj.getEndDate());
+        } else {
             System.out.println("adv obj is null");
         }
         ResultObj resultObj = advService.checkAdvInfo(advObj);
@@ -104,4 +98,33 @@ public class AdvController {
         return GsonUtils.toJson(resultObj);
     }
 
+    /**
+     * 更新广告流程：
+     * 客户端上传广告信息 -> 服务端检查回应并保存session ->
+     * (客户端上传广告文件 -> 服务器检查文件更新session->) // 这一步不是必要的
+     * 客户端再次发送post请求 -> 服务器拿到session并更新数据库和广告文件
+     */
+    @RequestMapping(value = "/updateAdv", method = RequestMethod.POST, produces = {
+            "application/json; charset=utf-8"})
+    @ResponseBody
+    public String updateAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("tags[]") List<Long> tags, HttpSession session) {
+        ResultObj<Void> resultObj = advService.updateAdv(advObj);
+        return GsonUtils.toJson(resultObj);
+    }
+
+    @RequestMapping(value = "/updateAdvFile"
+            , method = RequestMethod.POST
+            , produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String updateAdvFile(@RequestParam(required = false) MultipartFile file, HttpSession session) {
+        System.out.println("get file");
+        AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.ADV_INFO);
+        ResultObj resultObj = advService.checkAdvFile(advObj, file);
+        if (resultObj.getCode() != ResultCodes.SUCCESS) {
+            session.removeAttribute(SessionStr.ADV_INFO);
+        } else {
+            session.setAttribute(SessionStr.ADV_FILE, file);
+        }
+        return GsonUtils.toJson(resultObj);
+    }
 }

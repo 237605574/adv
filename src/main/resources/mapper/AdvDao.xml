@@ -15,9 +15,13 @@
     <select id="checkNameCount" resultType="Integer">
         SELECT count(*)
         FROM
-            `adv`
+        `adv`
         WHERE
-            `name` = #{advObj.name}
+        `name` = #{advObj.name}
+        <if test="advObj.id!=null">
+            AND
+            `id`!=#{advObj.id}
+        </if>
     </select>
     <!--resultMap填type-->
     <select id="getAdvListByUser" resultMap="AdvObj">
@@ -42,7 +46,7 @@
         <result column="end_date" property="endDate"/>
         <result column="is_valid" property="isValid"/>
         <result column="homepage" property="homepage"/>
-        <result column="display_detail" property="display_detail"/>
+        <result column="display_detail" property="displayDetail"/>
     </resultMap>
     <select id="getAdv" resultType="com.adv.pojo.AdvObj">
         SELECT *
@@ -63,12 +67,56 @@
             NOW() > `end_date` AND `is_valid` = 1
     </update>
     <update id="updateAdv">
-        REPLACE INTO
-            `adv`
-            (`id`, `file_url`, `name`, `start_date`, `end_date`, `type`, `homepage`, `display_detail`)
-        VALUES
-            (#{advObj.id}, #{advObj.fileUrl}, #{advObj.name}, #{advObj.startDate}, #{advObj.endDate}, #{advObj.type},
-             #{advObj.homepage},
-             #{advObj.displayDetail})
+        UPDATE
+        `adv`
+        SET
+        `name` = #{advObj.name},
+        `start_date` = #{advObj.startDate},
+        `end_date` = #{advObj.end_date},
+        `type` = #{advObj.type},
+        `homepage` = #{advObj.homepage},
+        `display_detail` = #{advObj.diplayDetial}
+        <if test="advObj.fileUrl!+=null">
+            ,`file_url` = #{advObj.fileUrl}
+        </if>
+        WHERE
+        `id` = #{advObj.id}
     </update>
+    <select id="queryAdv" resultMap="AdvObj">
+        SELECT adv.*
+        FROM
+        `adv` ,`adv_tag`
+        WHERE
+        <if test="advObj!=null">
+            <if test="advObj.id!=null">
+                #{advObj.id} = adv.id AND
+            </if>
+            <if test="advObj.name!=null">
+                adv.name LIKE CONCAT('%',#{advObj.name},'%' ) AND
+            </if>
+            <if test="advObj.type!=null">
+                adv.type = #{advObj.type} AND
+            </if>
+            <if test="advObj.homepage!=null">
+                adv.homepage = #{advObj.homepage} AND
+            </if>
+            <if test="advObj.startDate!=null">
+                #{advObj.startDate} >= adv.start_date AND
+            </if>
+            <if test="advObj.endDate!=null">
+                adv.endDate >= #{advObj.endDate} AND
+            </if>
+            <if test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
+                adv.id = adv_tag.adv_id AND
+                <foreach item="item" index="index" collection="advObj.userTagIds">
+                    adv_tag.tag_id = #{item} AND
+                </foreach>
+            </if>
+        </if>
+        1 = 1
+        ORDER BY
+        adv.name
+        DESC
+        LIMIT #{offset}, #{limit};
+    </select>
 </mapper>
