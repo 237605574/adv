@@ -45,7 +45,7 @@ public class FileDao {
      * 根据路径获取file
      */
     public ResultObj<File> getFile(String fileName) {
-        if(fileName==null){
+        if (fileName == null) {
             return new ResultObj<>(ResultCodes.UNKNOWN_ERROR, "文件名字为空");
         }
         File file;
@@ -73,10 +73,12 @@ public class FileDao {
         File saveFile = new File(savePath);
         File parentFile = saveFile.getParentFile();
         if (saveFile.exists()) {
-            saveFile.delete();
+            boolean result = saveFile.delete();
+            System.out.println("file exist:" + result);
         } else {
             if (!parentFile.exists()) {
-                parentFile.mkdirs();
+                boolean result = parentFile.mkdirs();
+                System.out.println("parent file mkdir:" + result);
             }
         }
         fileCache.invalidate(fileName);

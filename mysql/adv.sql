@@ -11,7 +11,7 @@
  Target Server Version : 50721
  File Encoding         : 65001
 
- Date: 02/04/2018 13:37:51
+ Date: 03/04/2018 21:23:34
 */
 
 SET NAMES utf8mb4;
@@ -56,10 +56,10 @@ CREATE TABLE `adv`  (
 INSERT INTO `adv` VALUES (2, '2', '2', '2', 0, '2', NULL, '2018-04-02 11:08:51', '2018-03-31 21:35:42');
 INSERT INTO `adv` VALUES (66, '', 'hahahahah', NULL, 0, '', NULL, '2018-03-28 22:04:24', '2018-03-04 21:35:46');
 INSERT INTO `adv` VALUES (77, '1', '1', '1', 0, '1', NULL, '2018-04-02 11:08:51', '2018-03-30 21:35:49');
-INSERT INTO `adv` VALUES (111, NULL, NULL, NULL, 0, NULL, NULL, NULL, '2018-02-06 22:04:43');
 INSERT INTO `adv` VALUES (444, NULL, NULL, NULL, 0, NULL, NULL, '2018-03-30 14:41:47', '2018-03-31 21:35:58');
 INSERT INTO `adv` VALUES (1702, '1702.txt', 'test adv obj', NULL, 0, '', NULL, '2018-03-30 14:43:37', '2018-03-29 09:00:43');
 INSERT INTO `adv` VALUES (2703, '2703.txt', '2702', NULL, 0, '', NULL, '2018-03-30 14:43:37', '2018-03-30 03:19:08');
+INSERT INTO `adv` VALUES (11204, '11204.png', '测试一个而广告', '1', 1, 'test url', '[\"0\", \"2\", \"3\"]', '2125-05-04 22:59:00', '2150-06-05 21:02:00');
 
 -- ----------------------------
 -- Table structure for adv_tag
@@ -81,6 +81,8 @@ INSERT INTO `adv_tag` VALUES (1702, 5);
 INSERT INTO `adv_tag` VALUES (2703, 5);
 INSERT INTO `adv_tag` VALUES (4444, 7456);
 INSERT INTO `adv_tag` VALUES (4444, 7456123);
+INSERT INTO `adv_tag` VALUES (11204, 9999);
+INSERT INTO `adv_tag` VALUES (11204, 10000);
 
 -- ----------------------------
 -- Table structure for id_generator
@@ -96,8 +98,8 @@ CREATE TABLE `id_generator`  (
 -- ----------------------------
 -- Records of id_generator
 -- ----------------------------
-INSERT INTO `id_generator` VALUES ('adv', 100, 11101);
-INSERT INTO `id_generator` VALUES ('test', 3, 910);
+INSERT INTO `id_generator` VALUES ('adv', 100, 11301);
+INSERT INTO `id_generator` VALUES ('test', 3, 916);
 
 -- ----------------------------
 -- Table structure for tag
@@ -106,20 +108,13 @@ DROP TABLE IF EXISTS `tag`;
 CREATE TABLE `tag`  (
   `tag_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`tag_id`) USING BTREE
+  PRIMARY KEY (`tag_id`) USING BTREE,
+  UNIQUE INDEX `name唯一`(`name`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 10009 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tag
 -- ----------------------------
-INSERT INTO `tag` VALUES (5, '2');
-INSERT INTO `tag` VALUES (6, 'asd');
-INSERT INTO `tag` VALUES (7, 'asd');
-INSERT INTO `tag` VALUES (8, 'asd');
-INSERT INTO `tag` VALUES (9, 'asd');
-INSERT INTO `tag` VALUES (10, '11');
-INSERT INTO `tag` VALUES (111, 'dasda');
-INSERT INTO `tag` VALUES (9999, '9999');
 INSERT INTO `tag` VALUES (10000, '10000');
 INSERT INTO `tag` VALUES (10001, '10001');
 INSERT INTO `tag` VALUES (10002, '10002');
@@ -129,6 +124,14 @@ INSERT INTO `tag` VALUES (10005, '10005');
 INSERT INTO `tag` VALUES (10006, '10006');
 INSERT INTO `tag` VALUES (10007, '10007');
 INSERT INTO `tag` VALUES (10008, '10008');
+INSERT INTO `tag` VALUES (10, '11');
+INSERT INTO `tag` VALUES (5, '2');
+INSERT INTO `tag` VALUES (9999, '9999');
+INSERT INTO `tag` VALUES (111, 'dasda');
+INSERT INTO `tag` VALUES (9, '大');
+INSERT INTO `tag` VALUES (6, '大爱是');
+INSERT INTO `tag` VALUES (7, '委屈翁');
+INSERT INTO `tag` VALUES (8, '达到');
 
 -- ----------------------------
 -- Table structure for temp
@@ -159,6 +162,8 @@ CREATE TABLE `user_adv`  (
 INSERT INTO `user_adv` VALUES (44, 2);
 INSERT INTO `user_adv` VALUES (44, 1402);
 INSERT INTO `user_adv` VALUES (44, 1502);
+INSERT INTO `user_adv` VALUES (9999, 11204);
+INSERT INTO `user_adv` VALUES (10000, 11204);
 
 -- ----------------------------
 -- Table structure for user_id_tag
@@ -175,9 +180,25 @@ CREATE TABLE `user_id_tag`  (
 -- ----------------------------
 INSERT INTO `user_id_tag` VALUES (1, 1);
 INSERT INTO `user_id_tag` VALUES (1, 2);
+INSERT INTO `user_id_tag` VALUES (1, 3);
 INSERT INTO `user_id_tag` VALUES (2, 1);
+INSERT INTO `user_id_tag` VALUES (2, 3);
+INSERT INTO `user_id_tag` VALUES (3, 1);
 INSERT INTO `user_id_tag` VALUES (3, 2);
+INSERT INTO `user_id_tag` VALUES (3, 3);
 INSERT INTO `user_id_tag` VALUES (4, 1);
+INSERT INTO `user_id_tag` VALUES (5, 3);
+INSERT INTO `user_id_tag` VALUES (6, 2);
 INSERT INTO `user_id_tag` VALUES (44, 5);
+INSERT INTO `user_id_tag` VALUES (9999, 9999);
+INSERT INTO `user_id_tag` VALUES (10000, 10000);
+INSERT INTO `user_id_tag` VALUES (10001, 10001);
+INSERT INTO `user_id_tag` VALUES (10002, 10002);
+INSERT INTO `user_id_tag` VALUES (10003, 10003);
+INSERT INTO `user_id_tag` VALUES (10004, 10004);
+INSERT INTO `user_id_tag` VALUES (10005, 10005);
+INSERT INTO `user_id_tag` VALUES (10006, 10006);
+INSERT INTO `user_id_tag` VALUES (10007, 10007);
+INSERT INTO `user_id_tag` VALUES (10008, 10008);
 
 SET FOREIGN_KEY_CHECKS = 1;

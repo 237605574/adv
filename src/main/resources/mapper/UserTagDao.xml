@@ -17,4 +17,18 @@
             #{item}
         </foreach>
     </select>
+    <insert id="addTags">
+        <choose>
+            <when test="tagIds!=null and tagIds.size()>0">
+                INSERT IGNORE INTO `user_id_tag` (`user_id`, `tag_id`)
+                VALUES
+                <foreach collection="tagIds" item="item" index="index" separator=",">
+                    (#{userId},#{item})
+                </foreach>
+            </when>
+            <otherwise>
+                SELECT 0
+            </otherwise>
+        </choose>
+    </insert>
 </mapper>
