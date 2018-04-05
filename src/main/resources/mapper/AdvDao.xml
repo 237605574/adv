@@ -108,15 +108,19 @@
             </if>
             <if test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
                 adv.id = adv_tag.adv_id AND
-                <foreach item="item" index="index" collection="advObj.userTagIds">
-                    adv_tag.tag_id = #{item} AND
+                NOT EXISTS(SELECT adv_tag.adv_id WHERE adv_tag.tag_id NOT IN
+                <foreach item="item" index="index" collection="advObj.userTagIds" open="(" close=")" separator=",">
+                    #{item}
                 </foreach>
+                ) AND
             </if>
         </if>
         1 = 1
+        GROUP BY adv.id
         ORDER BY
         adv.name
         DESC
-        LIMIT #{offset}, #{limit};
+        LIMIT #{offset}, #{limit}
+       ;
     </select>
 </mapper>

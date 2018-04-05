@@ -61,8 +61,9 @@ public class AdvDaoTest {
     @Test
     public void queryAdvTest(){
         AdvObj advObj = new AdvObj();
-        advObj.setName("1");
+//        advObj.setName("1");
         advObj.addTag(5L);
+        advObj.addTag(2L);
         int offset = 0;
         int limit = 10;
 

@@ -24,4 +24,9 @@ public class MainController {
     public String addAdv() {
         return "addAdv";
     }
+
+    @RequestMapping(value = "/queryAdv", method = RequestMethod.GET)
+    public String queryAdv() {
+        return "queryAdv";
+    }
 }

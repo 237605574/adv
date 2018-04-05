@@ -35,7 +35,7 @@
                 <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span>
                     广告管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                 <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
-                    <li><a href="/static/view/table_basic.html" class="am-cf"> 查询/修改/删除</a></li>
+                    <li><a href="<%=request.getContextPath()%>/adv/queryAdv" class="am-cf"> 查询/修改/删除</a></li>
                 </ul>
             </li>
             <li><a href="<%=request.getContextPath()%>/adv/home"><span class="am-icon-home"></span> 退出登录</a></li
