@@ -67,7 +67,7 @@
     <div class="contain">
         <ul class="am-nav am-navbar-nav am-navbar-left">
 
-            <li><h4 class="page-title">广告添加</h4></li>
+            <li><h4 class="page-title">广告查询/修改/删除</h4></li>
         </ul>
     </div>
 </header>
@@ -386,7 +386,7 @@
         var parseData = JSON.parse(jsonData);
         $.ajax({
             type: "POST",
-            url: '<%=request.getContextPath()%>/advAction/addInfo',
+            url: '<%=request.getContextPath()%>/advAction/queryAdv',
             data: advData,
             dataType: 'json',
             cache: false,

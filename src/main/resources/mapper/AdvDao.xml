@@ -23,6 +23,7 @@
             `id`!=#{advObj.id}
         </if>
     </select>
+
     <!--resultMap填type-->
     <select id="getAdvListByUser" resultMap="AdvObj">
         SELECT adv.*
@@ -121,6 +122,12 @@
         adv.name
         DESC
         LIMIT #{offset}, #{limit}
-       ;
+        ;
+    </select>
+    <select id="checkIdCount" resultType="Integer">
+        SELECT COUNT(*)
+        FROM `adv`
+        WHERE
+        `id` = #{id};
     </select>
 </mapper>

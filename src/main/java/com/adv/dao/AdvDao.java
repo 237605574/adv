@@ -35,5 +35,6 @@ public interface AdvDao {
 
     List<AdvObj> queryAdv(@Param("advObj") AdvObj advObj, @Param("offset") int offset, @Param("limit") int limit);
 
+    int checkIdCount(@Param("advObj")Long id);
 
 }

@@ -57,7 +57,7 @@ public class AdvController {
         }
         ResultObj resultObj = advService.checkAdvInfo(advObj);
         if (resultObj.getCode() == ResultCodes.SUCCESS) {
-            session.setAttribute(SessionStr.ADV_INFO, advObj);
+            session.setAttribute(SessionStr.ADD_ADV_INFO, advObj);
         }
         return GsonUtils.toJson(resultObj);
     }
@@ -73,12 +73,12 @@ public class AdvController {
     @ResponseBody
     public String uploadAdvFile(@RequestParam(required = false) MultipartFile file, HttpSession session) {
         System.out.println("get file");
-        AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.ADV_INFO);
+        AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.ADD_ADV_INFO);
         ResultObj resultObj = advService.checkAdvFile(advObj, file);
         if (resultObj.getCode() != ResultCodes.SUCCESS) {
-            session.removeAttribute(SessionStr.ADV_INFO);
+            session.removeAttribute(SessionStr.ADD_ADV_INFO);
         } else {
-            session.setAttribute(SessionStr.ADV_FILE, file);
+            session.setAttribute(SessionStr.ADD_ADV_FILE, file);
         }
         return GsonUtils.toJson(resultObj);
     }
@@ -90,11 +90,11 @@ public class AdvController {
             "application/json; charset=utf-8"})
     @ResponseBody
     public String addAdv(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-        AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.ADV_INFO);
-        MultipartFile advFile = (MultipartFile) session.getAttribute(SessionStr.ADV_FILE);
+        AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.ADD_ADV_INFO);
+        MultipartFile advFile = (MultipartFile) session.getAttribute(SessionStr.ADD_ADV_FILE);
         ResultObj<Void> resultObj = advService.addAdv(advObj, advFile);
-        session.removeAttribute(SessionStr.ADV_INFO);
-        session.removeAttribute(SessionStr.ADV_FILE);
+        session.removeAttribute(SessionStr.ADD_ADV_INFO);
+        session.removeAttribute(SessionStr.ADD_ADV_FILE);
         return GsonUtils.toJson(resultObj);
     }
 
@@ -104,11 +104,14 @@ public class AdvController {
      * (客户端上传广告文件 -> 服务器检查文件更新session->) // 这一步不是必要的
      * 客户端再次发送post请求 -> 服务器拿到session并更新数据库和广告文件
      */
-    @RequestMapping(value = "/updateAdv", method = RequestMethod.POST, produces = {
+    @RequestMapping(value = "/updateAdvInfo", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String updateAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("tags[]") List<Long> tags, HttpSession session) {
-        ResultObj<Void> resultObj = advService.updateAdv(advObj);
+    public String updateAdvInfo(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("tags[]") List<Long> tags, HttpSession session) {
+        ResultObj resultObj = advService.checkUpdateAdvInfo(advObj);
+        if (resultObj.getCode() == ResultCodes.SUCCESS) {
+            session.setAttribute(SessionStr.UPDATE_ADV_INFO, advObj);
+        }
         return GsonUtils.toJson(resultObj);
     }
 
@@ -118,13 +121,25 @@ public class AdvController {
     @ResponseBody
     public String updateAdvFile(@RequestParam(required = false) MultipartFile file, HttpSession session) {
         System.out.println("get file");
-        AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.ADV_INFO);
+        AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.UPDATE_ADV_INFO);
         ResultObj resultObj = advService.checkAdvFile(advObj, file);
         if (resultObj.getCode() != ResultCodes.SUCCESS) {
-            session.removeAttribute(SessionStr.ADV_INFO);
+            session.removeAttribute(SessionStr.UPDATE_ADV_INFO);
         } else {
-            session.setAttribute(SessionStr.ADV_FILE, file);
+            session.setAttribute(SessionStr.UPDATE_ADV_FIlE, file);
         }
+        return GsonUtils.toJson(resultObj);
+    }
+
+    @RequestMapping(value = "/updateAdv", method = RequestMethod.POST, produces = {
+            "application/json; charset=utf-8"})
+    @ResponseBody
+    public String updateAdv(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+        AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.UPDATE_ADV_INFO);
+        MultipartFile advFile = (MultipartFile) session.getAttribute(SessionStr.UPDATE_ADV_FIlE);
+        ResultObj<Void> resultObj = advService.updateAdv(advObj, advFile);
+        session.removeAttribute(SessionStr.UPDATE_ADV_INFO);
+        session.removeAttribute(SessionStr.UPDATE_ADV_FIlE);
         return GsonUtils.toJson(resultObj);
     }
 }

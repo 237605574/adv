@@ -17,6 +17,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -45,14 +46,19 @@ public class AdvService {
 
 
     /**
-     * 用于更新的advObj必须带有id字段
+     * 和添加广告时的判断函数相比，多了个判断id是否有效
      */
     public ResultObj<Void> checkUpdateAdvInfo(AdvObj advObj) {
-        if (advObj.getId() == null) {
-            return new ResultObj<>(ResultCodes.ADV_INFO_ERROR, "广告id不能为空");
-        } else {
-            return checkAdvInfo(advObj);
+        ResultObj<Void> errorMsg = new ResultObj<>(ResultCodes.ADV_INFO_ERROR, "广告id错误");
+        Long id = advObj.getId();
+        if (id == null) {
+            return errorMsg;
         }
+        int dbResult = advDao.checkIdCount(id);
+        if (dbResult == 0) {
+            return errorMsg;
+        }
+        return new ResultObj<>(ResultCodes.SUCCESS);
     }
 
     public ResultObj<Void> checkAdvInfo(AdvObj advObj) {
@@ -116,6 +122,7 @@ public class AdvService {
 
     public ResultObj<Void> addAdv(AdvObj advObj, MultipartFile uploadFile) {
         //  双重检查。因为要涉及到数据库操作，所以需要同步加锁，每次只能添加一个广告。
+        //  主要是如果同时添加了两个广告，可能会出现名字重复的问题
         synchronized (AdvService.class) {
             //  检查广告信息
             ResultObj<Void> infoResult = checkAdvInfo(advObj);
@@ -160,6 +167,14 @@ public class AdvService {
         }
     }
 
+    public ResultObj<List<AdvObj>> queryAdv(AdvObj advObj, int offset, int limit) {
+        List<AdvObj> advObjs = advDao.queryAdv(advObj, offset, limit);
+        if (advObjs == null) {
+            advObjs = new ArrayList<>();
+        }
+        return new ResultObj<>(ResultCodes.SUCCESS, advObjs);
+    }
+
     public ResultObj<List<AdvObj>> getAdvList(User user) {
         if (user == null || user.getId() == null) {
             return new ResultObj<>(ResultCodes.USER_ID_ERROR, "用户ID找不到");
@@ -182,16 +197,63 @@ public class AdvService {
         return fileDao.getFile(fileName);
     }
 
-    public ResultObj<Void> updateAdv(AdvObj advObj) {
-        ResultObj<Void> infoResult = checkAdvInfo(advObj);
-        if (!infoResult.isSuccess()) {
-            return infoResult;
+    /**
+     * 添加流程为：检查广告信息 -> 判断是否更新文件 ->
+     * 更新文件-> 更新数据库
+     */
+    public ResultObj<Void> updateAdv(AdvObj advObj, MultipartFile advFile) {
+        synchronized (AdvService.class) {
+            //  检查广告信息
+            ResultObj<Void> infoResult = checkUpdateAdvInfo(advObj);
+            if (!infoResult.isSuccess()) {
+                return infoResult;
+            }
+            //  检查广告是否有效
+            if (advObj.getEndDate().getTime() < new Date().getTime()) {
+                advObj.setValid(false);
+            }
+            Long advId = advObj.getId();
+            if (advFile != null) {
+                //  检查文件合法性
+                ResultObj<Void> fileResult = checkAdvFile(advObj, advFile);
+                if (!fileResult.isSuccess()) {
+                    return fileResult;
+                }
+                // 保存到本地
+                String uploadFileName = advFile.getOriginalFilename();
+                String saveFileName = advId + uploadFileName.substring(uploadFileName.indexOf("."));
+                ResultObj<Void> saveResult = fileDao.saveFile(saveFileName, advFile);
+                if (!saveResult.isSuccess()) {
+                    return saveResult;
+                }
+                advObj.setFileUrl(saveFileName);
+            }
+
+            //  插入到数据库
+
+            int advDaoResult = advDao.updateAdv(advObj);
+            if (advDaoResult <= 0) {
+                return new ResultObj<>(ResultCodes.DATABASE_ERROR, "更新广告信息到数据库错误");
+            } else {
+                //  TODO 保存广告标签
+                if (advObj.getUserTagIds() != null && advObj.getUserTagIds().size() != 0) {
+                    int advTagDaoResult = advTagDao.addTag(advObj);
+                    if (advTagDaoResult <= 0) {
+                        return new ResultObj<>(ResultCodes.DATABASE_ERROR, "保存广告标签信息到数据库错误");
+                    }
+                }
+            }
+            //  更新目标用户的广告列表
+            int userDaoResult = userAdvDao.addAdvByTag(advObj);
+            int result = advDao.updateAdv(advObj);
+            if (result <= 0) {
+                return new ResultObj<>(ResultCodes.DATABASE_ERROR, "更新数据库错误");
+            }
+            if(advFile!=null){
+                //  todo 删除原本的url
+            }
+            return new ResultObj<>(ResultCodes.SUCCESS);
         }
-        int result = advDao.updateAdv(advObj);
-        if (result <= 0) {
-            return new ResultObj<>(ResultCodes.DATABASE_ERROR, "更新数据库错误");
-        }
-        return new ResultObj<>(ResultCodes.SUCCESS);
     }
 
     /**
