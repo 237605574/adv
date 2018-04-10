@@ -5,6 +5,7 @@ import com.adv.constants.SessionStr;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.ResultObj;
 import com.adv.service.AdvService;
+import com.adv.utils.AdvUtils;
 import com.adv.utils.GsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,17 +45,7 @@ public class AdvController {
             System.out.println(tags);
         }
         System.out.println(tags);
-        if (advObj != null) {
-            System.out.println("name:" + advObj.getName());
-            System.out.println("file url:" + advObj.getFileUrl());
-            System.out.println("display detail:" + advObj.getDisplayDetail());
-            System.out.println("homepage:" + advObj.getHomepage());
-            System.out.println("user tags:" + advObj.getUserTagIds());
-            System.out.println("start date:" + advObj.getStartDate());
-            System.out.println("end date:" + advObj.getEndDate());
-        } else {
-            System.out.println("adv obj is null");
-        }
+        AdvUtils.printAdv(advObj);
         ResultObj resultObj = advService.checkAdvInfo(advObj);
         if (resultObj.getCode() == ResultCodes.SUCCESS) {
             session.setAttribute(SessionStr.ADD_ADV_INFO, advObj);
@@ -134,7 +125,7 @@ public class AdvController {
     @RequestMapping(value = "/updateAdv", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String updateAdv(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+    public String updateAdv(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         AdvObj advObj = (AdvObj) session.getAttribute(SessionStr.UPDATE_ADV_INFO);
         MultipartFile advFile = (MultipartFile) session.getAttribute(SessionStr.UPDATE_ADV_FIlE);
         ResultObj<Void> resultObj = advService.updateAdv(advObj, advFile);
@@ -142,4 +133,16 @@ public class AdvController {
         session.removeAttribute(SessionStr.UPDATE_ADV_FIlE);
         return GsonUtils.toJson(resultObj);
     }
+
+    @RequestMapping(value = "/queryAdv", method = RequestMethod.POST, produces = {
+            "application/json; charset=utf-8"})
+    @ResponseBody
+    public String queryAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("offset") int offset, @RequestParam("limit") int limit, HttpSession session) {
+        AdvUtils.printAdv(advObj);
+        System.out.println("offset：" + offset);
+        System.out.println("limit：" + limit);
+        ResultObj<List<AdvObj>> resultObj = advService.queryAdv(advObj, offset, limit);
+        return GsonUtils.toJson(resultObj);
+    }
+
 }

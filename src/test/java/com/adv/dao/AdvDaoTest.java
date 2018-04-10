@@ -3,6 +3,7 @@ package com.adv.dao;
 import com.adv.Utils;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.User;
+import com.adv.utils.AdvUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +62,11 @@ public class AdvDaoTest {
     @Test
     public void queryAdvTest(){
         AdvObj advObj = new AdvObj();
-//        advObj.setName("1");
-        advObj.addTag(5L);
-        advObj.addTag(2L);
+        advObj.setName("1");
+//        advObj.addTag(5L);
+//        advObj.addTag(2L);
+        advObj.setHomepage("");
+        AdvUtils.printAdv(advObj);
         int offset = 0;
         int limit = 10;
 

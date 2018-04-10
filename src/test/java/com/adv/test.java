@@ -9,8 +9,12 @@ import java.util.Date;
  */
 public class test {
     public static void main(String[] args) throws ParseException {
-//        printOption();
+        printOption();
 
+//        dateTest();
+    }
+
+    private static void dateTest() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
         String dateStr = "0200-01-01T00:00";
         Date date = sdf.parse(dateStr);
@@ -18,7 +22,8 @@ public class test {
     }
 
     private static void printOption() {
-        String formatStr = " <option value=\"%s\">%s:00 —— %s:00</option>";
+//        String formatStr = " <option value=\"%s\">%s:00 —— %s:00</option>";
+        String formatStr = " %s:\"%s:00 —— %s:00\",";
         for (int i=0;i<24;i++){
             int ii = i+1;
             String str = String.format(formatStr, i,i,ii);

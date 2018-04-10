@@ -92,13 +92,13 @@
             <if test="advObj.id!=null">
                 #{advObj.id} = adv.id AND
             </if>
-            <if test="advObj.name!=null">
+            <if test="advObj.name!=null and advObj.name!=''">
                 adv.name LIKE CONCAT('%',#{advObj.name},'%' ) AND
             </if>
             <if test="advObj.type!=null">
                 adv.type = #{advObj.type} AND
             </if>
-            <if test="advObj.homepage!=null">
+            <if test="advObj.homepage!=null and advObj.homepage!=''">
                 adv.homepage = #{advObj.homepage} AND
             </if>
             <if test="advObj.startDate!=null">

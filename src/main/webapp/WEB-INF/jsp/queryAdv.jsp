@@ -9,37 +9,6 @@
 <script type="text/javascript" src="/static/js/amazeui.min.js"></script>
 <script type="text/javascript" src="/static/js/app.js"></script>
 <script type="text/javascript" src="/static/js/blockUI.js"></script>
-<script type="text/javascript">
-    var fileName;
-
-    function uploadFile() {
-        fileName = document.getElementById('changeHeadPic').value;
-        $.ajaxFileUpload({
-            url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",
-            secureuri: false, //是否需要安全协议，一般设置为false
-            fileElementId: 'changeHeadPic', //文件上传域的ID
-            dataType: 'json', //返回值类型 一般设置为json
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            success: function (data) {
-                alert(data.msg);
-            }
-
-        });
-    }
-
-    function changeUserInfo() {
-        $('#my-prompt').modal({
-            relatedTarget: this,
-            onConfirm: function () {
-                uploadFile();
-            },
-            onCancel: function (e) {
-            }
-        });
-    }
-
-
-</script>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -287,6 +256,44 @@
 </div>
 </body>
 <script>
+    var offset = 0;
+    var limit = 10; //  限制每次查询的数量
+    var tagDict = {};    //  所有的标签
+    var typeDict = {
+        0: "图片",
+        1: "图片",
+    };
+    var validDict = {
+        false: "否",
+        true: "是",
+    }
+    var displayDetailDict = {
+        0: "0:00 —— 1:00",
+        1: "1:00 —— 2:00",
+        2: "2:00 —— 3:00",
+        3: "3:00 —— 4:00",
+        4: "4:00 —— 5:00",
+        5: "5:00 —— 6:00",
+        6: "6:00 —— 7:00",
+        7: "7:00 —— 8:00",
+        8: "8:00 —— 9:00",
+        9: "9:00 —— 10:00",
+        10: "10:00 —— 11:00",
+        11: "11:00 —— 12:00",
+        12: "12:00 —— 13:00",
+        13: "13:00 —— 14:00",
+        14: "14:00 —— 15:00",
+        15: "15:00 —— 16:00",
+        16: "16:00 —— 17:00",
+        17: "17:00 —— 18:00",
+        18: "18:00 —— 19:00",
+        19: "19:00 —— 20:00",
+        20: "20:00 —— 21:00",
+        21: "21:00 —— 22:00",
+        22: "22:00 —— 23:00",
+        23: "23:00 —— 24:00",
+    };
+
     function ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown) {
         var msg = "状态码:" + XMLHttpRequest.status + "\n"
             + "ready state:" + XMLHttpRequest.readyState + "\n"
@@ -302,6 +309,7 @@
         cache: false,
         success: function (result) {
             if (result.code == 0) {
+                tagDict = {};
                 var tagList = result.data;
                 var listN = 7;
                 var mainElement = $("#tag-action-container");
@@ -310,13 +318,13 @@
                 mainElement.append(divElement);
                 var tagContainer = divElement;
                 for (var i = 0; i < tagList.length; i++) {
+                    tagDict[tagList.id] = tagList.name;
                     var element = document.createElement("label");
                     element.className = "am-checkbox-inline am-input-lg";
                     var tagInput = document.createElement("input");
                     tagInput.type = "checkbox";
                     tagInput.name = "user_tag_check_box";
                     tagInput.value = tagList[i].id;
-                    // tagInput.append(tagList[i].name);
                     element.innerText = tagList[i].name;
                     tagInput.setAttribute("data-am-ucheck", "");
                     element.appendChild(tagInput);
@@ -380,7 +388,9 @@
             startDate: startDate,
             endDate: endDate,
             homepage: advUrl,
-            displayDetail: JSON.stringify(displayDetail)
+            displayDetail: JSON.stringify(displayDetail),
+            offset: offset,
+            limit: limit
         };
         var jsonData = JSON.stringify(advData);
         var parseData = JSON.parse(jsonData);
@@ -392,7 +402,7 @@
             cache: false,
             success: function (result) {
                 if (result.code === 0) {
-                    uploadAdvFile();
+                    showAdvInfo(result.data);
                 } else {
                     alertErrorMsg(result.msg);
                 }
@@ -404,43 +414,71 @@
         });
     }
 
-    function uploadAdvFile() {
-        $.ajaxFileUpload({
-            url: "<%=request.getContextPath()%>/advAction/uploadAdvFile",
-            secureuri: false, //是否需要安全协议，一般设置为false
-            fileElementId: 'adv-file', //文件上传域的ID
-            dataType: 'json', //返回值类型 一般设置为json
-            // contentType: "text/html; charset=utf-8",
-            success: function (result) {
-                if (result.code === 0) {
-                    addAdv();
-                } else {
-                    alertErrorMsg(result.msg);
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown);
-            }
-        });
-    }
+    function showAdvInfo(advDatas) {
+        alert(advDatas);
+        var tableParentNode = $("#query-body");
+        // 删除所有子节点
+        tableParentNode.children().remove();
 
-    function addAdv() {
-        $.ajax({
-            type: "POST",
-            url: '<%=request.getContextPath()%>/advAction/addAdv',
-            dataType: 'json',
-            cache: false,
-            success: function (result) {
-                if (result.code === 0) {
-                    alertSuccessMsg();
-                } else {
-                    alertErrorMsg(result.msg);
+        /*<th>广告名字</th>
+                                   <th>网址</th>
+                                   <th>开始时间</th>
+                                   <th>结束时间</th>
+                                   <th>类型</th>
+                                   <th>是否可用</th>
+                                   <th>目标用户群</th>
+                                   <th>投放时间段</th>*/
+        // var advData;
+        for (var i = 0; i < advDatas.length; i++) {
+            var advData = advDatas[i];
+            var trNode = $("<tr></tr>");
+            var name = $("<td></td>");
+            var url = $("<td></td>");
+            var startTime = $("<td></td>");
+            var endTime = $("<td></td>");
+            var type = $("<td></td>");
+            var isVaild = $("<td></td>");
+            var tags = $("<td></td>");
+            var displayDetail = $("<td></td>");
+            name.html(advData.name);
+            url.html(advData.homepage);
+            startTime.html(advData.startDate);
+            endTime.html(advData.endDate);
+            type.html(typeDict[parseInt(advData.type)]);
+            isVaild.html(validDict[parseInt(advData.isValid)]);
+            if (typeof advData.userTagIds != "undefined") {
+                var tagStr = "";
+                for (var i in advData.userTagIds) {
+                    var tagId = advData.userTagIds[i];
+                    tagStr.concat(tagDict[tagId]);
+                    if (i != advData.userTagIds.length) {
+                        tagStr.concat(",");
+                    }
                 }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown);
+                tags.html(tagStr);
             }
-        })
+            if (typeof advData.displayDetail != "undefined") {
+                var displayDataList = JSON.parse(advData.displayDetail);
+                var displayStr = "";
+                for (var i in displayDataList) {
+                    var displayData = displayDataList[i];
+                    displayStr.concat(displayDetailDict[parseInt(displayData)]);
+                    if (i != displayStrList.length) {
+                        displayStr.concat(",");
+                    }
+                }
+                displayDetail.html(displayStr);
+            }
+            trNode.append(name);
+            trNode.append(url);
+            trNode.append(startTime);
+            trNode.append(endTime);
+            trNode.append(type);
+            trNode.append(isVaild);
+            trNode.append(tags);
+            trNode.append(displayDetail);
+            tableParentNode.append(trNode);
+        }
     }
 
     function checkAdv() {
@@ -480,8 +518,10 @@
         if ((startDate == null || startDate === "") && (endDate == null || endDate === "")
             && (advUrl == null || advUrl == "") && (advName == null || advName === "")
             && (userTags.length == 0)) {
-            alertErrorMsg("请输入查询内容")
+            alertErrorMsg("请输入查询内容");
+            return false;
         }
+        return true;
     }
 
     function alertErrorMsg(msg) {
