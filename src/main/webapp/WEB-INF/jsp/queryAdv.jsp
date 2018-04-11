@@ -112,13 +112,6 @@
                                                 class="am-btn am-btn-default">选值
                                         </button>
                                     </div>
-                                    <%-- <div class="am-form-group am-form-file" id="file-body">
-                                         <button type="button" class="am-btn am-btn am-btn-secondary am-btn-sm">
-                                             <i class="am-icon-cloud-upload"></i> 选择要上传的广告文件
-                                         </button>
-                                         <input name="file" id="adv-file" type="file" multiple accept="image/*">
-                                     </div>
-                                     <div id="file-list"></div>--%>
                                 </form>
                             </div>
 
@@ -153,44 +146,6 @@
                                                    placeholder="输入点击广告之后要跳转的URL">
                                         </div>
                                     </div>
-
-                                    <%--    <div class="am-form-group">
-                                            <div class="am-g">
-                                                <label class="am-u-md-2 am-md-text-right"
-                                                       for="adv-display-time">播放时间段</label>
-
-                                                <div class="am-u-md-10 am-input-lg am-padding-0">
-                                                    <select multiple="multiple" class="" id="adv-display-time">
-                                                        <option value="0">0:00 —— 1:00</option>
-                                                        <option value="1">1:00 —— 2:00</option>
-                                                        <option value="2">2:00 —— 3:00</option>
-                                                        <option value="3">3:00 —— 4:00</option>
-                                                        <option value="4">4:00 —— 5:00</option>
-                                                        <option value="5">5:00 —— 6:00</option>
-                                                        <option value="6">6:00 —— 7:00</option>
-                                                        <option value="7">7:00 —— 8:00</option>
-                                                        <option value="8">8:00 —— 9:00</option>
-                                                        <option value="9">9:00 —— 10:00</option>
-                                                        <option value="10">10:00 —— 11:00</option>
-                                                        <option value="11">11:00 —— 12:00</option>
-                                                        <option value="12">12:00 —— 13:00</option>
-                                                        <option value="13">13:00 —— 14:00</option>
-                                                        <option value="14">14:00 —— 15:00</option>
-                                                        <option value="15">15:00 —— 16:00</option>
-                                                        <option value="16">16:00 —— 17:00</option>
-                                                        <option value="17">17:00 —— 18:00</option>
-                                                        <option value="18">18:00 —— 19:00</option>
-                                                        <option value="19">19:00 —— 20:00</option>
-                                                        <option value="20">20:00 —— 21:00</option>
-                                                        <option value="21">21:00 —— 22:00</option>
-                                                        <option value="22">22:00 —— 23:00</option>
-                                                        <option value="23">23:00 —— 24:00</option>
-                                                    </select>
-                                                    <span class="help-block m-b-none">投放时间段以小时为单位，按住CTRL进行多选</span>
-                                                </div>
-
-                                            </div>
-                                        </div>--%>
                                 </form>
                                 <button id="submit-btn" type="button" onclick="submitAdv()"
                                         class="am-btn am-btn am-btn-primary" style="float:right">确定
@@ -217,14 +172,30 @@
                                     <th>是否可用</th>
                                     <th>目标用户群</th>
                                     <th>投放时间段</th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody id="query-body">
                                 </tbody>
                             </table>
                         </div>
+                        <div class="am-scrollable-horizontal" style="margin: 0 auto;">
+                            <ul data-am-widget="pagination" class="am-pagination am-pagination-default"
+                                style="margin: 0 0 0 auto;width: 350px">
+                                <li class="am-pagination-prev ">
+                                    <a href="javascript:void(0);" onclick="perPage()" class="">上一页</a>
+                                </li>
+                                <input id="pageInput" value="0"
+                                       style="width: 20px; border:none;text-decoration: underline"/>
+                                <li class="am-pagination-next ">
+                                    <a href="javascript:void(0);" onclick="nextPage()" class="">下一页</a>
+                                </li>
+                                <li class="am-pagination-last ">
+                                    <a href="javascript:void(0);" onclick="queryByNum()" class="">跳转</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -367,10 +338,7 @@
     }
 
 
-    function submitAdv() {
-        if (!checkAdv()) {
-            return;
-        }
+    function querySubmit() {
         var advName = $("#adv_name").val();
         var startDate = $("#start_time").val();
         var endDate = $("#end_time").val();
@@ -414,21 +382,56 @@
         });
     }
 
+    function submitAdv() {
+        if (!checkAdv()) {
+            return;
+        }
+        //  把页码设置为1
+        $("#pageInput").val(1);
+        offset = 0;
+        querySubmit();
+    }
+
+    function nextPage() {
+        if (!checkAdv()) {
+            return;
+        }
+        var page = $("#pageInput").val();
+        if (page <= 0) {
+            return
+        }
+        $("#pageInput").val(++page);
+        offset += limit;
+        querySubmit();
+    }
+
+    function perPage() {
+        if (!checkAdv()) {
+            return;
+        }
+        var page = $("#pageInput").val();
+        if (page <= 0) {
+            return
+        }
+        $("#pageInput").val(--page);
+        offset -= limit;
+        querySubmit();
+    }
+
+    function queryByNum() {
+        var page = $("#pageInput").val();
+        if(page<=0){
+            return
+        }
+        page--;
+        offset = limit * page;
+        querySubmit();
+    }
+
     function showAdvInfo(advDatas) {
-        alert(advDatas);
         var tableParentNode = $("#query-body");
         // 删除所有子节点
         tableParentNode.children().remove();
-
-        /*<th>广告名字</th>
-                                   <th>网址</th>
-                                   <th>开始时间</th>
-                                   <th>结束时间</th>
-                                   <th>类型</th>
-                                   <th>是否可用</th>
-                                   <th>目标用户群</th>
-                                   <th>投放时间段</th>*/
-        // var advData;
         for (var i = 0; i < advDatas.length; i++) {
             var advData = advDatas[i];
             var trNode = $("<tr></tr>");
@@ -440,22 +443,20 @@
             var isVaild = $("<td></td>");
             var tags = $("<td></td>");
             var displayDetail = $("<td></td>");
+            var btnTd = $("<td></td>");
             name.html(advData.name);
             url.html(advData.homepage);
             startTime.html(advData.startDate);
             endTime.html(advData.endDate);
             type.html(typeDict[parseInt(advData.type)]);
             isVaild.html(validDict[advData.isValid]);
-            // alert(validDict[advData.isValid]);
-            // alert(advData.isValid);
-            // alert(parseInt(advData.isValid));
             if (typeof advData.userTagIds != "undefined") {
                 var tagStr = "";
                 for (var j in advData.userTagIds) {
                     var tagId = advData.userTagIds[j];
-                    tagStr+=tagDict[tagId];
+                    tagStr += tagDict[tagId];
                     if (j != advData.userTagIds.length) {
-                        tagStr+=",";
+                        tagStr += ",";
                     }
                 }
                 tags.html(tagStr);
@@ -466,13 +467,16 @@
                 for (var j in displayDataList) {
                     var displayData = displayDataList[j];
                     var detail = displayDetailDict[parseInt(displayData)];
-                    displayStr+=detail;
+                    displayStr += detail;
                     if (j != displayDataList.length) {
-                        displayStr+=",";
+                        displayStr += ",";
                     }
                 }
                 displayDetail.html(displayStr);
             }
+            var btn = $("<button type='button' class='am-btn am-btn-secondary' onclick='changeInfo(this.value)'>详细</button>");
+            btn.val(advData.id);
+            btnTd.append(btn);
             trNode.append(name);
             trNode.append(url);
             trNode.append(startTime);
@@ -481,6 +485,7 @@
             trNode.append(isVaild);
             trNode.append(tags);
             trNode.append(displayDetail);
+            trNode.append(btnTd);
             tableParentNode.append(trNode);
         }
     }
@@ -533,7 +538,6 @@
         $("#error-alert").modal({
             relatedTarget: this,
             onConfirm: function () {
-                // alert("test");
             }
         });
     }
@@ -547,5 +551,25 @@
         });
     }
 
+    function changeInfo(advId) {
+        $.ajax({
+            type: "POST",
+            url: '<%=request.getContextPath()%>/adv/changeInfoRequest',
+            data: {id: advId},
+            dataType: 'json',
+            cache: false,
+            success: function (result) {
+                if (result.code === 0) {
+                    window.location.href = result.data;
+                } else {
+                    alertErrorMsg(result.msg);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown);
+            }
+
+        });
+    }
 </script>
 </html>

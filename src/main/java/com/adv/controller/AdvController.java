@@ -144,5 +144,10 @@ public class AdvController {
         ResultObj<List<AdvObj>> resultObj = advService.queryAdv(advObj, offset, limit);
         return GsonUtils.toJson(resultObj);
     }
+    @RequestMapping(value = "/changeInfoRequest", method = RequestMethod.POST, produces = {
+            "application/json; charset=utf-8"})
+    @ResponseBody
+    public String changeInfoRequest(HttpServletRequest request, HttpServletResponse response,@RequestParam("advId") int advId, HttpSession session) {
 
+    }
 }

@@ -168,6 +168,9 @@ public class AdvService {
     }
 
     public ResultObj<List<AdvObj>> queryAdv(AdvObj advObj, int offset, int limit) {
+        if (offset < 0 || limit <= 0) {
+            return new ResultObj<>(ResultCodes.PARAM_ERROR, "offset与limit不能为0");
+        }
         List<AdvObj> advObjs = advDao.queryAdv(advObj, offset, limit);
         if (advObjs == null) {
             advObjs = new ArrayList<>();
@@ -290,6 +293,14 @@ public class AdvService {
             String fileName = advObj.getFileUrl();
             return fileDao.deleteFile(fileName);
         }
+    }
+
+    public ResultObj<Void> checkUpdateId(Long advId) {
+        int count = advDao.checkIdCount(advId);
+        if (count <= 0) {
+            return new ResultObj<>(ResultCodes.DATABASE_ERROR,"");
+        }
+        return new ResultObj<>(ResultCodes.SUCCESS);
     }
 
     /**
