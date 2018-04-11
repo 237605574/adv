@@ -1,6 +1,6 @@
 package com.adv.dao;
 
-import com.adv.Utils;
+
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.User;
 import com.adv.utils.AdvUtils;
@@ -11,6 +11,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +50,7 @@ public class AdvDaoTest {
         List<AdvObj> advObjList = advDao.getAdvListByUser(user);
         System.out.println("-------------test--------------");
         System.out.println(advObjList);
-        Utils.printAdvList(advObjList);
+        AdvUtils.printAdvList(advObjList);
         System.out.println("-------------test--------------");
     }
 
@@ -60,18 +63,22 @@ public class AdvDaoTest {
     }
 
     @Test
-    public void queryAdvTest(){
+    public void queryAdvTest() throws ParseException {
         AdvObj advObj = new AdvObj();
-        advObj.setName("1");
+//        advObj.setName("1");
 //        advObj.addTag(5L);
 //        advObj.addTag(2L);
-        advObj.setHomepage("");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateStr = "2222-04-01 01:01";
+        Date date = sdf.parse(dateStr);
+//        advObj.setStartDate(date);
+//        advObj.setHomepage("");
         AdvUtils.printAdv(advObj);
         int offset = 0;
         int limit = 10;
-
+        System.out.println("---------------------query---------------------");
         List<AdvObj> advObjs = advDao.queryAdv(advObj,offset,limit);
-        Utils.printAdvList(advObjs);
+        AdvUtils.printAdvList(advObjs);
     }
 
 }

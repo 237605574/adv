@@ -102,10 +102,10 @@
                 adv.homepage = #{advObj.homepage} AND
             </if>
             <if test="advObj.startDate!=null">
-                #{advObj.startDate} >= adv.start_date AND
+                 adv.start_date >= #{advObj.startDate}AND
             </if>
             <if test="advObj.endDate!=null">
-                adv.endDate >= #{advObj.endDate} AND
+                #{advObj.endDate}>= adv.endDate   AND
             </if>
             <if test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
                 adv.id = adv_tag.adv_id AND
@@ -130,4 +130,5 @@
         WHERE
         `id` = #{id};
     </select>
+
 </mapper>

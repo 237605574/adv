@@ -171,6 +171,14 @@ public class AdvService {
         List<AdvObj> advObjs = advDao.queryAdv(advObj, offset, limit);
         if (advObjs == null) {
             advObjs = new ArrayList<>();
+        } else {
+            for (AdvObj queryAdvObj : advObjs) {
+                Long advId = queryAdvObj.getId();
+                if (advId != null) {
+                    List<Long> tagIds = advTagDao.getTag(advId);
+                    queryAdvObj.setUserTagIds(tagIds);
+                }
+            }
         }
         return new ResultObj<>(ResultCodes.SUCCESS, advObjs);
     }
@@ -249,7 +257,7 @@ public class AdvService {
             if (result <= 0) {
                 return new ResultObj<>(ResultCodes.DATABASE_ERROR, "更新数据库错误");
             }
-            if(advFile!=null){
+            if (advFile != null) {
                 //  todo 删除原本的url
             }
             return new ResultObj<>(ResultCodes.SUCCESS);

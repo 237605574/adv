@@ -14,4 +14,6 @@ public interface AdvTagDao {
     int addTag(@Param("advObj") AdvObj advObj);
 
     int delTagBatch(@Param("tagIds") List<Long> tagsIds);
+
+    List<Long> getTag(@Param("advId")Long advId);
 }

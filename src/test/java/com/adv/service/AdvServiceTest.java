@@ -1,11 +1,11 @@
 package com.adv.service;
 
-import com.adv.Utils;
 import com.adv.dao.FileDao;
 import com.adv.dao.IdGeneratorDao;
 import com.adv.idgenerator.IdMgr;
 import com.adv.pojo.AdvObj;
 import com.adv.pojo.ResultObj;
+import com.adv.utils.AdvUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,8 +16,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lurongzhi
@@ -32,6 +38,7 @@ public class AdvServiceTest {
     private IdGeneratorDao idGeneratorDao;
 
     private FileDao fileDao = FileDao.getInstance();
+
     @Before
     public void init() {
         System.out.println("init ");
@@ -64,17 +71,36 @@ public class AdvServiceTest {
         ResultObj<File> fileResultObj;
         System.out.println("========get 1 ==========");
         fileResultObj = advService.getFile(advObj.getFileUrl());
-        Utils.printFileResult(fileResultObj);
+        AdvUtils.printFileResult(fileResultObj);
         System.out.println("========get 2 ==========");
         fileResultObj = advService.getFile(advObj.getFileUrl());
-        Utils.printFileResult(fileResultObj);
+        AdvUtils.printFileResult(fileResultObj);
         System.out.println("=====del=====");
         fileDao.deleteFile(advObj.getFileUrl());
         fileResultObj = advService.getFile(advObj.getFileUrl());
-        Utils.printFileResult(fileResultObj);
+        AdvUtils.printFileResult(fileResultObj);
 
     }
 
-
-
+    @Test
+    public void testQuery() throws ParseException {
+        AdvObj advObj = new AdvObj();
+//        advObj.setName("");
+//        advObj.addTag(5L);
+//        advObj.addTag(2L);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateStr = "2222-01-13 01:01";
+        Date date = sdf.parse(dateStr);
+        advObj.setStartDate(date);
+        advObj.setHomepage("");
+//        advObj.setType(1);
+        AdvUtils.printAdv(advObj);
+        int offset = 0;
+        int limit = 10;
+        System.out.println("---------------------query---------------------");
+        ResultObj<List<AdvObj>> resultObj = advService.queryAdv(advObj, offset, limit);
+        if (resultObj.isSuccess()) {
+            AdvUtils.printListResult(resultObj);
+        }
+    }
 }

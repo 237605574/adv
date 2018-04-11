@@ -1,7 +1,7 @@
 package com.adv.dao;
 
-import com.adv.Utils;
 import com.adv.constants.FilePaths;
+import com.adv.utils.AdvUtils;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -61,7 +61,7 @@ public class FileDaoTest {
     public void testGetFile() throws IOException {
         FileDao fileDao = FileDao.getInstance();
 //        fileDao.getFile("1002.txt");
-        Utils.printFileResult(fileDao.getFile("1002.txt"));
+        AdvUtils.printFileResult(fileDao.getFile("1002.txt"));
     }
 
     @Test

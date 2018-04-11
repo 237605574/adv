@@ -15,7 +15,7 @@ public class test {
     }
 
     private static void dateTest() throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String dateStr = "0200-01-01T00:00";
         Date date = sdf.parse(dateStr);
         System.out.println(date);

@@ -35,4 +35,10 @@ public class AdvTagDaoTest {
         System.out.println("--------------------test----------------");
         System.out.println("result:" + addResult);
     }
+    @Test
+    public void getTag(){
+        Long advId = 11204L;
+        List<Long> tagList = advTagDao.getTag(advId);
+        System.out.println(tagList);
+    }
 }

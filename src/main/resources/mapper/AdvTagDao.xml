@@ -35,4 +35,9 @@
             </otherwise>
         </choose>
     </delete>
+    <select id="getTag" resultType="Long">
+        SELECT `tag_id`
+        FROM `adv_tag`
+        WHERE `adv_id` = #{advId};
+    </select>
 </mapper>

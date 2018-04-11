@@ -318,7 +318,7 @@
                 mainElement.append(divElement);
                 var tagContainer = divElement;
                 for (var i = 0; i < tagList.length; i++) {
-                    tagDict[tagList.id] = tagList.name;
+                    tagDict[tagList[i].id] = tagList[i].name;
                     var element = document.createElement("label");
                     element.className = "am-checkbox-inline am-input-lg";
                     var tagInput = document.createElement("input");
@@ -445,14 +445,17 @@
             startTime.html(advData.startDate);
             endTime.html(advData.endDate);
             type.html(typeDict[parseInt(advData.type)]);
-            isVaild.html(validDict[parseInt(advData.isValid)]);
+            isVaild.html(validDict[advData.isValid]);
+            // alert(validDict[advData.isValid]);
+            // alert(advData.isValid);
+            // alert(parseInt(advData.isValid));
             if (typeof advData.userTagIds != "undefined") {
                 var tagStr = "";
-                for (var i in advData.userTagIds) {
-                    var tagId = advData.userTagIds[i];
-                    tagStr.concat(tagDict[tagId]);
-                    if (i != advData.userTagIds.length) {
-                        tagStr.concat(",");
+                for (var j in advData.userTagIds) {
+                    var tagId = advData.userTagIds[j];
+                    tagStr+=tagDict[tagId];
+                    if (j != advData.userTagIds.length) {
+                        tagStr+=",";
                     }
                 }
                 tags.html(tagStr);
@@ -460,11 +463,12 @@
             if (typeof advData.displayDetail != "undefined") {
                 var displayDataList = JSON.parse(advData.displayDetail);
                 var displayStr = "";
-                for (var i in displayDataList) {
-                    var displayData = displayDataList[i];
-                    displayStr.concat(displayDetailDict[parseInt(displayData)]);
-                    if (i != displayStrList.length) {
-                        displayStr.concat(",");
+                for (var j in displayDataList) {
+                    var displayData = displayDataList[j];
+                    var detail = displayDetailDict[parseInt(displayData)];
+                    displayStr+=detail;
+                    if (j != displayDataList.length) {
+                        displayStr+=",";
                     }
                 }
                 displayDetail.html(displayStr);
