@@ -144,10 +144,23 @@ public class AdvController {
         ResultObj<List<AdvObj>> resultObj = advService.queryAdv(advObj, offset, limit);
         return GsonUtils.toJson(resultObj);
     }
+
     @RequestMapping(value = "/changeInfoRequest", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String changeInfoRequest(HttpServletRequest request, HttpServletResponse response,@RequestParam("advId") int advId, HttpSession session) {
+    public String changeInfoRequest(HttpServletRequest request, HttpServletResponse response, @RequestParam("advId") Long advId, HttpSession session) {
+        ResultObj<Void> resultObj = advService.checkUpdateId(advId);
+        if (resultObj.isSuccess()) {
+            request.setAttribute(SessionStr.CHANGE_INFO_ID, advId);
+        }
+        return GsonUtils.toJson(resultObj);
+    }
 
+    @RequestMapping(value = "/queryAdvById", method = RequestMethod.POST, produces = {
+            "application/json; charset=utf-8"})
+    @ResponseBody
+    public String queryAdvById(HttpServletRequest request, HttpServletResponse response,  @RequestParam("advId")Long advId,HttpSession session) {
+        ResultObj<AdvObj> resultObj = advService.queryAdvById(advId);
+        return GsonUtils.toJson(resultObj);
     }
 }

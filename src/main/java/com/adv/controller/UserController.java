@@ -1,6 +1,6 @@
 package com.adv.controller;
 
-import com.adv.constants.SessionAttribute;
+import com.adv.constants.SessionStr;
 import com.adv.pojo.Administrator;
 import com.adv.pojo.ResultObj;
 import com.adv.service.AdministratorService;
@@ -31,7 +31,7 @@ public class UserController {
         ResultObj<Administrator> resultObj = administratorService.checkAdministrator(uncheckedUser);
         if (resultObj.isSuccess()) {
             Administrator dbUser = resultObj.getData();
-            session.setAttribute(SessionAttribute.LOGIN_INFO, dbUser);
+            session.setAttribute(SessionStr.LOGIN_INFO, dbUser);
         }
         return GsonUtils.toJson(resultObj);
     }

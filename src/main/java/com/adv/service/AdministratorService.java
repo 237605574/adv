@@ -2,7 +2,7 @@ package com.adv.service;
 
 import com.adv.constants.LocalAddrs;
 import com.adv.constants.ResultCodes;
-import com.adv.constants.SessionAttribute;
+import com.adv.constants.SessionStr;
 import com.adv.dao.AdministratorDao;
 import com.adv.pojo.Administrator;
 import com.adv.pojo.ResultObj;
@@ -37,7 +37,7 @@ public class AdministratorService {
     }
 
     public Boolean checkLogin(HttpSession session) {
-        Administrator administrator = (Administrator) session.getAttribute(SessionAttribute.LOGIN_INFO);
+        Administrator administrator = (Administrator) session.getAttribute(SessionStr.LOGIN_INFO);
         return administrator != null;
     }
 

@@ -36,7 +36,7 @@
     <div class="contain">
         <ul class="am-nav am-navbar-nav am-navbar-left">
 
-            <li><h4 class="page-title">广告查询/修改/删除</h4></li>
+            <li><h4 class="page-title">广告添加</h4></li>
         </ul>
     </div>
 </header>
@@ -112,6 +112,13 @@
                                                 class="am-btn am-btn-default">选值
                                         </button>
                                     </div>
+                                    <div class="am-form-group am-form-file" id="file-body">
+                                        <button type="button" class="am-btn am-btn am-btn-secondary am-btn-sm">
+                                            <i class="am-icon-cloud-upload"></i> 选择要上传的广告文件
+                                        </button>
+                                        <input name="file" id="adv-file" type="file" multiple accept="image/*">
+                                    </div>
+                                    <div id="file-list"></div>
                                 </form>
                             </div>
 
@@ -146,6 +153,44 @@
                                                    placeholder="输入点击广告之后要跳转的URL">
                                         </div>
                                     </div>
+
+                                    <div class="am-form-group">
+                                        <div class="am-g">
+                                            <label class="am-u-md-2 am-md-text-right"
+                                                   for="adv-display-time">播放时间段</label>
+
+                                            <div class="am-u-md-10 am-input-lg am-padding-0">
+                                                <select multiple="multiple" class="" id="adv-display-time">
+                                                    <option value="0">0:00 —— 1:00</option>
+                                                    <option value="1">1:00 —— 2:00</option>
+                                                    <option value="2">2:00 —— 3:00</option>
+                                                    <option value="3">3:00 —— 4:00</option>
+                                                    <option value="4">4:00 —— 5:00</option>
+                                                    <option value="5">5:00 —— 6:00</option>
+                                                    <option value="6">6:00 —— 7:00</option>
+                                                    <option value="7">7:00 —— 8:00</option>
+                                                    <option value="8">8:00 —— 9:00</option>
+                                                    <option value="9">9:00 —— 10:00</option>
+                                                    <option value="10">10:00 —— 11:00</option>
+                                                    <option value="11">11:00 —— 12:00</option>
+                                                    <option value="12">12:00 —— 13:00</option>
+                                                    <option value="13">13:00 —— 14:00</option>
+                                                    <option value="14">14:00 —— 15:00</option>
+                                                    <option value="15">15:00 —— 16:00</option>
+                                                    <option value="16">16:00 —— 17:00</option>
+                                                    <option value="17">17:00 —— 18:00</option>
+                                                    <option value="18">18:00 —— 19:00</option>
+                                                    <option value="19">19:00 —— 20:00</option>
+                                                    <option value="20">20:00 —— 21:00</option>
+                                                    <option value="21">21:00 —— 22:00</option>
+                                                    <option value="22">22:00 —— 23:00</option>
+                                                    <option value="23">23:00 —— 24:00</option>
+                                                </select>
+                                                <span class="help-block m-b-none">投放时间段以小时为单位，按住CTRL进行多选</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </form>
                                 <button id="submit-btn" type="button" onclick="submitAdv()"
                                         class="am-btn am-btn am-btn-primary" style="float:right">确定
@@ -159,43 +204,12 @@
             <div class="am-g">
                 <div class="am-u-sm-12">
                     <div class="card-box">
-                        <h4 class="header-title m-t-0 m-b-30">查询结果显示</h4>
-                        <div class="am-scrollable-horizontal">
-                            <table class="am-table am-table-bordered am-table-striped am-text-nowrap am-table-hover">
-                                <thead>
-                                <tr>
-                                    <th>广告名字</th>
-                                    <th>网址</th>
-                                    <th>开始时间</th>
-                                    <th>结束时间</th>
-                                    <th>类型</th>
-                                    <th>是否可用</th>
-                                    <th>目标用户群</th>
-                                    <th>投放时间段</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody id="query-body">
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="am-scrollable-horizontal" style="margin: 0 auto;">
-                            <ul data-am-widget="pagination" class="am-pagination am-pagination-default"
-                                style="margin: 0 0 0 auto;width: 350px">
-                                <li class="am-pagination-prev ">
-                                    <a href="javascript:void(0);" onclick="perPage()" class="">上一页</a>
-                                </li>
-                                <input id="pageInput" value="0"
-                                       style="width: 20px; border:none;text-decoration: underline"/>
-                                <li class="am-pagination-next ">
-                                    <a href="javascript:void(0);" onclick="nextPage()" class="">下一页</a>
-                                </li>
-                                <li class="am-pagination-last ">
-                                    <a href="javascript:void(0);" onclick="queryByNum()" class="">跳转</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <h4 class="header-title m-t-0 m-b-30">广告文件预览</h4>
+                        <!-- col start -->
+
+                        <img id="adv-file-view" src="/static/images/404.jpg" class="am-img-responsive" alt="广告文件">
                     </div>
+
                 </div>
             </div>
         </div>
@@ -227,52 +241,39 @@
 </div>
 </body>
 <script>
-    var offset = 0;
-    var limit = 10; //  限制每次查询的数量
-    var tagDict = {};    //  所有的标签
-    var typeDict = {
-        0: "图片",
-        1: "图片",
-    };
-    var validDict = {
-        false: "否",
-        true: "是",
-    }
-    var displayDetailDict = {
-        0: "0:00 —— 1:00",
-        1: "1:00 —— 2:00",
-        2: "2:00 —— 3:00",
-        3: "3:00 —— 4:00",
-        4: "4:00 —— 5:00",
-        5: "5:00 —— 6:00",
-        6: "6:00 —— 7:00",
-        7: "7:00 —— 8:00",
-        8: "8:00 —— 9:00",
-        9: "9:00 —— 10:00",
-        10: "10:00 —— 11:00",
-        11: "11:00 —— 12:00",
-        12: "12:00 —— 13:00",
-        13: "13:00 —— 14:00",
-        14: "14:00 —— 15:00",
-        15: "15:00 —— 16:00",
-        16: "16:00 —— 17:00",
-        17: "17:00 —— 18:00",
-        18: "18:00 —— 19:00",
-        19: "19:00 —— 20:00",
-        20: "20:00 —— 21:00",
-        21: "21:00 —— 22:00",
-        22: "22:00 —— 23:00",
-        23: "23:00 —— 24:00",
-    };
+    var advId = <%=(String)request.getParameter("advId")%>;
+    var advInfo = null;
+    var hasInitTag = false;
+    var hasGetInfo = false;
+    var isSelected = false;
 
-    function ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown) {
-        var msg = "状态码:" + XMLHttpRequest.status + "\n"
-            + "ready state:" + XMLHttpRequest.readyState + "\n"
-            + "text status:" + textStatus + "\n"
-            + "error thrown" + errorThrown;
-        alertErrorMsg(msg);
+    function initAdvInfo() {
+        if (!(hasInitTag && hasGetInfo)) {
+            return;
+        }
+        if (advInfo == null) {
+            alertErrorMsg("获取广告失败");
+            return;
+        }
+        // 更新选中标签
+        var tagIds = advInfo.userTagIds;
+        for (var i = 0; i < tagIds.length; i++) {
+            var idStr = "#" + tagIds[i];
+            var checkBox = $(idStr);
+            if (checkBox != null) {
+                checkBox.attr("checked", "checked");
+            }
+        }
+        updateTagInput();
+        $("#adv_name").val(advInfo.name);
+        $("#start_time").val(advInfo.startDate);
+        $("#end_time").val(advInfo.endDate);
+        $("#adv-url-input").val(advInfo.homepage);
+        var displayList = JSON.parse(advInfo.displayDetail);
+        $("#adv-display-time").val(displayList);
     }
 
+    // 初始化用户选择标签
     $.ajax({
         type: "POST",
         url: '<%=request.getContextPath()%>/tag/getAllUserTags',
@@ -280,7 +281,6 @@
         cache: false,
         success: function (result) {
             if (result.code == 0) {
-                tagDict = {};
                 var tagList = result.data;
                 var listN = 7;
                 var mainElement = $("#tag-action-container");
@@ -289,13 +289,13 @@
                 mainElement.append(divElement);
                 var tagContainer = divElement;
                 for (var i = 0; i < tagList.length; i++) {
-                    tagDict[tagList[i].id] = tagList[i].name;
                     var element = document.createElement("label");
                     element.className = "am-checkbox-inline am-input-lg";
                     var tagInput = document.createElement("input");
                     tagInput.type = "checkbox";
                     tagInput.name = "user_tag_check_box";
                     tagInput.value = tagList[i].id;
+                    tagInput.id = tagList[i].id;
                     element.innerText = tagList[i].name;
                     tagInput.setAttribute("data-am-ucheck", "");
                     element.appendChild(tagInput);
@@ -308,6 +308,8 @@
                     }
                     tagContainer.append(element);
                 }
+                hasInitTag = true;
+                initAdvInfo();
             }
         },
         error: function (msg) {
@@ -315,7 +317,32 @@
         }
     });
 
-    var isSelected = false;
+    //  获取广告信息
+    $.ajax({
+        type: "POST",
+        url: '<%=request.getContextPath()%>/advAction/queryAdvById',
+        dataType: 'json',
+        data: {advId: advId},
+        cache: false,
+        success: function (result) {
+            advInfo = result.data;
+            hasGetInfo = true;
+            initAdvInfo();
+        },
+        error: function (msg) {
+            alertErrorMsg("error:" + msg);
+        }
+    });
+
+    function updateTagInput() {
+        var result = [];
+        var tagCheckBox = document.getElementsByName("user_tag_check_box");
+        for (var i = 0; i < tagCheckBox.length; i++) {
+            if (tagCheckBox[i].checked)
+                result.push(tagCheckBox[i].parentElement.innerText);
+        }
+        document.getElementById("user_tag").value = result.join(",");
+    }
 
     function selectTag() {
         isSelected = !isSelected;
@@ -325,29 +352,57 @@
             mainContainer.style.display = "block";
             tagBtn.innerText = "确定";
         } else {
-            var result = [];
-            var tagCheckBox = document.getElementsByName("user_tag_check_box");
-            for (var i = 0; i < tagCheckBox.length; i++) {
-                if (tagCheckBox[i].checked)
-                    result.push(tagCheckBox[i].parentElement.innerText);
-            }
-            document.getElementById("user_tag").value = result.join(",");
+            updateTagInput();
             mainContainer.style.display = "none";
             tagBtn.innerText = "选值"
         }
     }
 
+    $(function () {
+        $("#file-body").delegate('#adv-file', 'change', function () {
+            // $('#adv-file').on('change', function () {
+            var fileNames = '';
+            $.each(this.files, function () {
+                fileNames += '<span class="am-badge">' + this.name + '</span> ';
 
-    function querySubmit() {
+            });
+            $('#file-list').html(fileNames);
+            var filePath = $(this).val(),         //获取到input的value，里面是文件的路径
+                fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),
+                src = window.URL.createObjectURL(this.files[0]); //转成可以在本地预览的格式
+
+            // 检查是否是图片
+            if (!fileFormat.match(/.png|.jpg|.jpeg/)) {
+                $("adv-file").tips('上传错误,文件格式必须为：png/jpg/jpeg');
+                return;
+            }
+
+            $('#adv-file-view').attr('src', src);
+            // $('#adv-file').replaceWith('<input id="adv-file" type="file" multiple accept="image/*">');
+        });
+    });
+
+    function ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown) {
+        var msg = "状态码:" + XMLHttpRequest.status + "\n"
+            + "ready state:" + XMLHttpRequest.readyState + "\n"
+            + "text status:" + textStatus + "\n"
+            + "error thrown" + errorThrown;
+        alertErrorMsg(msg);
+    }
+
+    function submitAdv() {
+        if (!checkAdv()) {
+            return;
+        }
         var advName = $("#adv_name").val();
         var startDate = $("#start_time").val();
         var endDate = $("#end_time").val();
         var advUrl = $("#adv-url-input").val();
+        var displayDetail = $("#adv-display-time").val();
         var userTags = new Array();
         $('input[name="user_tag_check_box"]:checked').each(function () {
             userTags.push(parseInt($(this).val()));
         });
-        var displayDetail = $("#adv-display-time").val();
         var advType = 1;
         var advData = {
             name: advName,
@@ -356,21 +411,19 @@
             startDate: startDate,
             endDate: endDate,
             homepage: advUrl,
-            displayDetail: JSON.stringify(displayDetail),
-            offset: offset,
-            limit: limit
+            displayDetail: JSON.stringify(displayDetail)
         };
         var jsonData = JSON.stringify(advData);
         var parseData = JSON.parse(jsonData);
         $.ajax({
             type: "POST",
-            url: '<%=request.getContextPath()%>/advAction/queryAdv',
+            url: '<%=request.getContextPath()%>/advAction/addInfo',
             data: advData,
             dataType: 'json',
             cache: false,
             success: function (result) {
                 if (result.code === 0) {
-                    showAdvInfo(result.data);
+                    uploadAdvFile();
                 } else {
                     alertErrorMsg(result.msg);
                 }
@@ -382,115 +435,47 @@
         });
     }
 
-    function submitAdv() {
-        if (!checkAdv()) {
-            return;
-        }
-        //  把页码设置为1
-        $("#pageInput").val(1);
-        offset = 0;
-        querySubmit();
-    }
-
-    function nextPage() {
-        if (!checkAdv()) {
-            return;
-        }
-        var page = $("#pageInput").val();
-        if (page <= 0) {
-            return
-        }
-        $("#pageInput").val(++page);
-        offset += limit;
-        querySubmit();
-    }
-
-    function perPage() {
-        if (!checkAdv()) {
-            return;
-        }
-        var page = $("#pageInput").val();
-        if (page <= 0) {
-            return
-        }
-        $("#pageInput").val(--page);
-        offset -= limit;
-        querySubmit();
-    }
-
-    function queryByNum() {
-        var page = $("#pageInput").val();
-        if(page<=0){
-            return
-        }
-        page--;
-        offset = limit * page;
-        querySubmit();
-    }
-
-    function showAdvInfo(advDatas) {
-        var tableParentNode = $("#query-body");
-        // 删除所有子节点
-        tableParentNode.children().remove();
-        for (var i = 0; i < advDatas.length; i++) {
-            var advData = advDatas[i];
-            var trNode = $("<tr></tr>");
-            var name = $("<td></td>");
-            var url = $("<td></td>");
-            var startTime = $("<td></td>");
-            var endTime = $("<td></td>");
-            var type = $("<td></td>");
-            var isVaild = $("<td></td>");
-            var tags = $("<td></td>");
-            var displayDetail = $("<td></td>");
-            var btnTd = $("<td></td>");
-            name.html(advData.name);
-            url.html(advData.homepage);
-            startTime.html(advData.startDate);
-            endTime.html(advData.endDate);
-            type.html(typeDict[parseInt(advData.type)]);
-            isVaild.html(validDict[advData.isValid]);
-            if (typeof advData.userTagIds != "undefined") {
-                var tagStr = "";
-                for (var j in advData.userTagIds) {
-                    var tagId = advData.userTagIds[j];
-                    tagStr += tagDict[tagId];
-                    if (j != advData.userTagIds.length) {
-                        tagStr += ",";
-                    }
+    function uploadAdvFile() {
+        $.ajaxFileUpload({
+            url: "<%=request.getContextPath()%>/advAction/uploadAdvFile",
+            secureuri: false, //是否需要安全协议，一般设置为false
+            fileElementId: 'adv-file', //文件上传域的ID
+            dataType: 'json', //返回值类型 一般设置为json
+            // contentType: "text/html; charset=utf-8",
+            success: function (result) {
+                if (result.code === 0) {
+                    addAdv();
+                } else {
+                    alertErrorMsg(result.msg);
                 }
-                tags.html(tagStr);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown);
             }
-            if (typeof advData.displayDetail != "undefined") {
-                var displayDataList = JSON.parse(advData.displayDetail);
-                var displayStr = "";
-                for (var j in displayDataList) {
-                    var displayData = displayDataList[j];
-                    var detail = displayDetailDict[parseInt(displayData)];
-                    displayStr += detail;
-                    if (j != displayDataList.length) {
-                        displayStr += ",";
-                    }
+        });
+    }
+
+    function addAdv() {
+        $.ajax({
+            type: "POST",
+            url: '<%=request.getContextPath()%>/advAction/addAdv',
+            dataType: 'json',
+            cache: false,
+            success: function (result) {
+                if (result.code === 0) {
+                    alertSuccessMsg();
+                } else {
+                    alertErrorMsg(result.msg);
                 }
-                displayDetail.html(displayStr);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown);
             }
-            var btn = $("<button type='button' class='am-btn am-btn-secondary' onclick='changeInfo(this.value)'>详细</button>");
-            btn.val(advData.id);
-            btnTd.append(btn);
-            trNode.append(name);
-            trNode.append(url);
-            trNode.append(startTime);
-            trNode.append(endTime);
-            trNode.append(type);
-            trNode.append(isVaild);
-            trNode.append(tags);
-            trNode.append(displayDetail);
-            trNode.append(btnTd);
-            tableParentNode.append(trNode);
-        }
+        })
     }
 
     function checkAdv() {
+        var filePath = $("#adv-file").val()
         var advName = $("#adv_name").val();
         var startDate = $("#start_time").val();
         var endDate = $("#end_time").val();
@@ -503,6 +488,7 @@
         $('input[name="user_tag_check_box"]:checked').each(function () {
             userTags.push(parseInt($(this).val()));
         });
+        var displayDetail = $("#adv-display-time").val();
 
 
         if (dStart < minDate || dStart > maxDate) {
@@ -523,11 +509,67 @@
             });
             return false;
         }
-        // 判断是否为空
-        if ((startDate == null || startDate === "") && (endDate == null || endDate === "")
-            && (advUrl == null || advUrl == "") && (advName == null || advName === "")
-            && (userTags.length == 0)) {
-            alertErrorMsg("请输入查询内容");
+        if (filePath == null || filePath == "") {
+            $("#adv-file").tips({
+                side: 2,
+                msg: '文件为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (advName == null || advName === "") {
+            $("#adv_name").tips({
+                side: 2,
+                msg: '广告名不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (startDate == null || startDate === "") {
+            $("#end_time").tips({
+                side: 2,
+                msg: '日期不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (endDate == null || endDate === "") {
+            $("#end_time").tips({
+                side: 2,
+                msg: '日期不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (advUrl == null || advUrl == "") {
+            $("#adv-url-input").tips({
+                side: 2,
+                msg: '广告主页不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (userTags.length == 0) {
+            $("#user_tag").tips({
+                side: 2,
+                msg: '目标用户群体不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
+            return false;
+        }
+        if (displayDetail == null || displayDetail.length == 0) {
+            $("#adv-display-time").tips({
+                side: 2,
+                msg: '广告投放时间段不能为空',
+                bg: '#ff293f',
+                time: 3
+            });
             return false;
         }
         return true;
@@ -538,7 +580,7 @@
         $("#error-alert").modal({
             relatedTarget: this,
             onConfirm: function () {
-            }
+            },
         });
     }
 
@@ -551,25 +593,5 @@
         });
     }
 
-    function changeInfo(advId) {
-        $.ajax({
-            type: "POST",
-            url: '<%=request.getContextPath()%>/advAction/changeInfoRequest',
-            data: {advId: advId},
-            dataType: 'json',
-            cache: false,
-            success: function (result) {
-                if (result.code === 0) {
-                    window.location.href =('<%=request.getContextPath()%>/adv/changeAdv?advId='+advId);
-                } else {
-                    alertErrorMsg(result.msg);
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                ajaxErrorAlert(XMLHttpRequest, textStatus, errorThrown);
-            }
-
-        });
-    }
 </script>
 </html>

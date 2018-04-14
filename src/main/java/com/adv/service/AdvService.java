@@ -296,11 +296,27 @@ public class AdvService {
     }
 
     public ResultObj<Void> checkUpdateId(Long advId) {
+        if(advId==null){
+            return new ResultObj<>(ResultCodes.PARAM_ERROR,"id为空");
+        }
         int count = advDao.checkIdCount(advId);
         if (count <= 0) {
-            return new ResultObj<>(ResultCodes.DATABASE_ERROR,"");
+            return new ResultObj<>(ResultCodes.DATABASE_ERROR,"id不存在");
         }
         return new ResultObj<>(ResultCodes.SUCCESS);
+    }
+
+    public ResultObj<AdvObj> queryAdvById(Long advId){
+        if (advId == null) {
+            return new ResultObj<>(ResultCodes.PARAM_ERROR, "广告ID为空");
+        }
+        AdvObj advObj = advDao.getAdv(advId);
+        if(advObj==null){
+            return new ResultObj<>(ResultCodes.ADV_INFO_ERROR,"找不到广告");
+        }
+        List<Long> tagList = advTagDao.getTag(advId);
+        advObj.setUserTagIds(tagList);
+        return new ResultObj<>(ResultCodes.SUCCESS,advObj);
     }
 
     /**

@@ -128,7 +128,7 @@
         SELECT COUNT(*)
         FROM `adv`
         WHERE
-        `id` = #{id};
+        `id` = #{advId};
     </select>
 
 </mapper>
