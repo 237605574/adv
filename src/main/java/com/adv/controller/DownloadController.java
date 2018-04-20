@@ -1,5 +1,6 @@
 package com.adv.controller;
 
+import com.adv.constants.ResultCodes;
 import com.adv.pojo.ResultObj;
 import com.adv.pojo.User;
 import com.adv.service.AdvService;
@@ -42,7 +43,7 @@ public class DownloadController {
     /**
      * 根据文件名下载广告
      */
-    @RequestMapping(value = "/getAdvFile", method = RequestMethod.POST,produces = {"application/json; charset=utf-8"})
+    @RequestMapping(value = "/getAdvFile", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
     public String getAdvFile(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileName") String fileName) {
         ResultObj<File> fileResultObj = advService.getFile(fileName);
         if (fileResultObj.isSuccess()) {
@@ -74,6 +75,7 @@ public class DownloadController {
                     LOG.error("关闭文件错误", e);
                 }
             }
+            return GsonUtils.toJson(new ResultObj<>(ResultCodes.SUCCESS));
         }
         return GsonUtils.toJson(fileResultObj);
     }

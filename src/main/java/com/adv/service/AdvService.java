@@ -162,7 +162,7 @@ public class AdvService {
                 }
             }
             //  更新目标用户的广告列表
-            int userDaoResult = userAdvDao.addAdvByTag(advObj);
+            updateUserAdv(advObj);
             return new ResultObj<>(ResultCodes.SUCCESS);
         }
     }
@@ -224,6 +224,11 @@ public class AdvService {
                 advObj.setValid(false);
             }
             Long advId = advObj.getId();
+            //  获取数据库中原广告信息
+            AdvObj dbAdv = advDao.getAdv(advId);
+            if (dbAdv == null) {
+                return new ResultObj<>(ResultCodes.PARAM_ERROR, "广告ID有误");
+            }
             if (advFile != null) {
                 //  检查文件合法性
                 ResultObj<Void> fileResult = checkAdvFile(advObj, advFile);
@@ -241,13 +246,13 @@ public class AdvService {
             }
 
             //  插入到数据库
-
             int advDaoResult = advDao.updateAdv(advObj);
             if (advDaoResult <= 0) {
                 return new ResultObj<>(ResultCodes.DATABASE_ERROR, "更新广告信息到数据库错误");
             } else {
-                //  TODO 保存广告标签
+                //  先删除原本的标签，再添加新的标签
                 if (advObj.getUserTagIds() != null && advObj.getUserTagIds().size() != 0) {
+                    int delResult = advDao.deleteAdv(advId);
                     int advTagDaoResult = advTagDao.addTag(advObj);
                     if (advTagDaoResult <= 0) {
                         return new ResultObj<>(ResultCodes.DATABASE_ERROR, "保存广告标签信息到数据库错误");
@@ -255,16 +260,21 @@ public class AdvService {
                 }
             }
             //  更新目标用户的广告列表
-            int userDaoResult = userAdvDao.addAdvByTag(advObj);
+            updateUserAdv(advObj);
             int result = advDao.updateAdv(advObj);
             if (result <= 0) {
                 return new ResultObj<>(ResultCodes.DATABASE_ERROR, "更新数据库错误");
             }
-            if (advFile != null) {
-                //  todo 删除原本的url
+            if (advFile != null && !dbAdv.getFileUrl().equals(advObj.getFileUrl())) {
+                //  删除原本的广告文件
+                fileDao.deleteFile(dbAdv.getFileUrl());
             }
             return new ResultObj<>(ResultCodes.SUCCESS);
         }
+    }
+
+    private void updateUserAdv(AdvObj advObj) {
+        int userDaoResult = userAdvDao.addAdvByTag(advObj);
     }
 
     /**
@@ -301,7 +311,7 @@ public class AdvService {
         }
         int count = advDao.checkIdCount(advId);
         if (count <= 0) {
-            return new ResultObj<>(ResultCodes.DATABASE_ERROR,"id不存在");
+            return new ResultObj<>(ResultCodes.DATABASE_ERROR, "id不存在");
         }
         return new ResultObj<>(ResultCodes.SUCCESS);
     }
@@ -318,6 +328,7 @@ public class AdvService {
         advObj.setUserTagIds(tagList);
         return new ResultObj<>(ResultCodes.SUCCESS,advObj);
     }
+
 
     /**
      * 用于定时更新数据库中的过期广告

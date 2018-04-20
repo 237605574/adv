@@ -99,6 +99,7 @@ public class AdvController {
             "application/json; charset=utf-8"})
     @ResponseBody
     public String updateAdvInfo(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("tags[]") List<Long> tags, HttpSession session) {
+        AdvUtils.printAdv(advObj);
         ResultObj resultObj = advService.checkUpdateAdvInfo(advObj);
         if (resultObj.getCode() == ResultCodes.SUCCESS) {
             session.setAttribute(SessionStr.UPDATE_ADV_INFO, advObj);

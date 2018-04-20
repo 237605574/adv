@@ -10,7 +10,6 @@
         (`adv_id`, `user_id`)
         SELECT
         #{advObj.id} as `adv_id`,
-        DISTINCT
         ( `user_id` )
         FROM
         `user_id_tag` t1
@@ -27,6 +26,7 @@
                 1!=1
             </otherwise>
         </choose>
+        GROUP BY `user_id`
     </insert>
     <delete id="removeAdv">
         DELETE

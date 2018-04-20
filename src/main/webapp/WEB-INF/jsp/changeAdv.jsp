@@ -233,7 +233,7 @@
 </div>
 <div class="am-modal am-modal-prompt" tabindex="-1" id="success-alert">
     <div class="am-modal-dialog">
-        <div class="am-modal-hd">提交成功</div>
+        <div class="am-modal-hd">修改成功</div>
         <div class="am-modal-footer">
             <span class="am-modal-btn" data-am-modal-confirm>确定</span>
         </div>
@@ -241,12 +241,32 @@
 </div>
 </body>
 <script>
+    //  网上找的js时间format
+    Date.prototype.format = function (format) {
+        var o = {
+            "M+": this.getMonth() + 1, //month
+            "d+": this.getDate(),    //day
+            "h+": this.getHours(),   //hour
+            "m+": this.getMinutes(), //minute
+            "s+": this.getSeconds(), //second
+            "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+            "S": this.getMilliseconds() //millisecond
+        };
+        if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
+            (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o) if (new RegExp("(" + k + ")").test(format))
+            format = format.replace(RegExp.$1,
+                RegExp.$1.length == 1 ? o[k] :
+                    ("00" + o[k]).substr(("" + o[k]).length));
+        return format;
+    };
+    var formatter = "yyyy-MM-ddThh:mm";
     var advId = <%=(String)request.getParameter("advId")%>;
     var advInfo = null;
     var hasInitTag = false;
     var hasGetInfo = false;
     var isSelected = false;
-
+    var isFileUpdate = false;   //  表示是否更新过广告文件
     function initAdvInfo() {
         if (!(hasInitTag && hasGetInfo)) {
             return;
@@ -266,8 +286,8 @@
         }
         updateTagInput();
         $("#adv_name").val(advInfo.name);
-        $("#start_time").val(advInfo.startDate);
-        $("#end_time").val(advInfo.endDate);
+        $("#start_time").val((new Date(advInfo.startDate)).format(formatter));
+        $("#end_time").val((new Date(advInfo.endDate)).format(formatter));
         $("#adv-url-input").val(advInfo.homepage);
         var displayList = JSON.parse(advInfo.displayDetail);
         $("#adv-display-time").val(displayList);
@@ -317,6 +337,24 @@
         }
     });
 
+    function getAdvFile() {
+        var fileUrl = advInfo.fileUrl;
+        var fileExt = fileUrl.split(".")[1];
+        var url = '<%=request.getContextPath()%>/download/getAdvFile';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.responseType = "blob";
+        xhr.onload = function () {
+            console.log(this);
+            if (this.status == 200) {
+                var blob = this.response;
+                $("#adv-file-view").attr("src", window.URL.createObjectURL(blob));
+            }
+        };
+        xhr.send("fileName=" + fileUrl);
+    }
+
     //  获取广告信息
     $.ajax({
         type: "POST",
@@ -327,6 +365,7 @@
         success: function (result) {
             advInfo = result.data;
             hasGetInfo = true;
+            getAdvFile();
             initAdvInfo();
         },
         error: function (msg) {
@@ -361,6 +400,7 @@
     $(function () {
         $("#file-body").delegate('#adv-file', 'change', function () {
             // $('#adv-file').on('change', function () {
+            isFileUpdate = true;
             var fileNames = '';
             $.each(this.files, function () {
                 fileNames += '<span class="am-badge">' + this.name + '</span> ';
@@ -411,19 +451,24 @@
             startDate: startDate,
             endDate: endDate,
             homepage: advUrl,
-            displayDetail: JSON.stringify(displayDetail)
+            displayDetail: JSON.stringify(displayDetail),
+            id:advId
         };
         var jsonData = JSON.stringify(advData);
         var parseData = JSON.parse(jsonData);
         $.ajax({
             type: "POST",
-            url: '<%=request.getContextPath()%>/advAction/addInfo',
+            url: '<%=request.getContextPath()%>/advAction/updateAdvInfo',
             data: advData,
             dataType: 'json',
             cache: false,
             success: function (result) {
                 if (result.code === 0) {
-                    uploadAdvFile();
+                    if (isFileUpdate) {
+                        uploadAdvFile();
+                    } else {
+                        updateAdv();
+                    }
                 } else {
                     alertErrorMsg(result.msg);
                 }
@@ -437,14 +482,14 @@
 
     function uploadAdvFile() {
         $.ajaxFileUpload({
-            url: "<%=request.getContextPath()%>/advAction/uploadAdvFile",
+            url: "<%=request.getContextPath()%>/advAction/updateAdvFile",
             secureuri: false, //是否需要安全协议，一般设置为false
             fileElementId: 'adv-file', //文件上传域的ID
             dataType: 'json', //返回值类型 一般设置为json
             // contentType: "text/html; charset=utf-8",
             success: function (result) {
                 if (result.code === 0) {
-                    addAdv();
+                    updateAdv();
                 } else {
                     alertErrorMsg(result.msg);
                 }
@@ -455,10 +500,10 @@
         });
     }
 
-    function addAdv() {
+    function updateAdv() {
         $.ajax({
             type: "POST",
-            url: '<%=request.getContextPath()%>/advAction/addAdv',
+            url: '<%=request.getContextPath()%>/advAction/updateAdv',
             dataType: 'json',
             cache: false,
             success: function (result) {
@@ -509,15 +554,15 @@
             });
             return false;
         }
-        if (filePath == null || filePath == "") {
-            $("#adv-file").tips({
-                side: 2,
-                msg: '文件为空',
-                bg: '#ff293f',
-                time: 3
-            });
-            return false;
-        }
+        // if (filePath == null || filePath == "") {
+        //     $("#adv-file").tips({
+        //         side: 2,
+        //         msg: '文件为空',
+        //         bg: '#ff293f',
+        //         time: 3
+        //     });
+        //     return false;
+        // }
         if (advName == null || advName === "") {
             $("#adv_name").tips({
                 side: 2,

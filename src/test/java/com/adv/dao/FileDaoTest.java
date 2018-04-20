@@ -61,7 +61,7 @@ public class FileDaoTest {
     public void testGetFile() throws IOException {
         FileDao fileDao = FileDao.getInstance();
 //        fileDao.getFile("1002.txt");
-        AdvUtils.printFileResult(fileDao.getFile("1002.txt"));
+        AdvUtils.printFileResult(fileDao.getFile("19003.png"));
     }
 
     @Test

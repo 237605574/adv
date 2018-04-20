@@ -73,11 +73,11 @@
         SET
         `name` = #{advObj.name},
         `start_date` = #{advObj.startDate},
-        `end_date` = #{advObj.end_date},
+        `end_date` = #{advObj.endDate},
         `type` = #{advObj.type},
         `homepage` = #{advObj.homepage},
-        `display_detail` = #{advObj.diplayDetial}
-        <if test="advObj.fileUrl!+=null">
+        `display_detail` = #{advObj.displayDetail}
+        <if test="advObj.fileUrl!=null">
             ,`file_url` = #{advObj.fileUrl}
         </if>
         WHERE
@@ -102,10 +102,10 @@
                 adv.homepage = #{advObj.homepage} AND
             </if>
             <if test="advObj.startDate!=null">
-                 adv.start_date >= #{advObj.startDate}AND
+                adv.start_date >= #{advObj.startDate}AND
             </if>
             <if test="advObj.endDate!=null">
-                #{advObj.endDate}>= adv.endDate   AND
+                #{advObj.endDate}>= adv.endDate AND
             </if>
             <if test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
                 adv.id = adv_tag.adv_id AND
@@ -128,7 +128,7 @@
         SELECT COUNT(*)
         FROM `adv`
         WHERE
-        `id` = #{advId};
+            `id` = #{advId};
     </select>
 
 </mapper>

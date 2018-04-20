@@ -32,10 +32,15 @@ public class AdvDaoTest {
     private AdvDao advDao;
 
     @Test
-    public void addAdvTest() {
+    public void addAdvTest() throws ParseException {
         AdvObj advObj = new AdvObj();
         advObj.setId(66L);
         advObj.setName("hahahahah");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        String dateStr = "0200-01-01T07:11";
+        Date date = sdf.parse(dateStr);
+        System.out.println(date);
+        advObj.setStartDate(date);
         int result = advDao.addAdv(advObj);
         System.out.println("-------------test-------------\n" +
                 result +
@@ -81,4 +86,16 @@ public class AdvDaoTest {
         AdvUtils.printAdvList(advObjs);
     }
 
+    @Test
+    public void testCountID(){
+        int result = advDao.checkIdCount(19002L);
+        System.out.println(result);
+    }
+
+    @Test
+    public void testUpdateAdv(){
+        AdvObj advObj = advDao.getAdv(2L);
+        advObj.setName("测试修改");
+        advDao.updateAdv(advObj);
+    }
 }
