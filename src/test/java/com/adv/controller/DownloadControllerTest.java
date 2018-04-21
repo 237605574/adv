@@ -70,7 +70,7 @@ public class DownloadControllerTest {
     public void getFileTest() throws Exception {
         String url = "/download/getAdvFile";
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post(url)
-                .param("fileName","2703.txt"))
+                .param("fileName","19502.jpg"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -78,11 +78,11 @@ public class DownloadControllerTest {
         result.getResponse().setCharacterEncoding("utf-8");
         result.getResponse().setCharacterEncoding("utf-8");
         result.getResponse().setContentType("text/html;charset=UTF-8");
-        System.out.println("----------------------------------------------");
-        System.out.println(result.getResponse().getContentType());
-        System.out.println(result.getResponse().getContentAsString());
-//        File file = new File(result.getResponse().getContentAsByteArray());
-        System.out.println("----------------------------------------------");
+//        System.out.println("----------------------------------------------");
+//        System.out.println(result.getResponse().getContentType());
+//        System.out.println(result.getResponse().getContentAsString());
+////        File file = new File(result.getResponse().getContentAsByteArray());
+//        System.out.println("----------------------------------------------");
 
     }
     @Test
