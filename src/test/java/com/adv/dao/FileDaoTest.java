@@ -1,7 +1,7 @@
 package com.adv.dao;
 
-import com.adv.constants.FilePaths;
-import com.adv.utils.AdvUtils;
+import com.adv.common.constants.FilePaths;
+import com.adv.common.utils.AdvUtils;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;

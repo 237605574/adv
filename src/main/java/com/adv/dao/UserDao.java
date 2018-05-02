@@ -1,6 +1,6 @@
 package com.adv.dao;
 
-import com.adv.pojo.User;
+import com.adv.entity.User;
 
 /**
  * @author lurongzhi

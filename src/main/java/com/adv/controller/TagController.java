@@ -1,8 +1,8 @@
 package com.adv.controller;
 
-import com.adv.pojo.Tag;
+import com.adv.entity.Tag;
 import com.adv.service.TagService;
-import com.adv.utils.GsonUtils;
+import com.adv.common.utils.GsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -31,7 +31,7 @@
             `tag_id` = #{id}
         </foreach>
     </delete>
-    <resultMap id="tag" type="com.adv.pojo.Tag">
+    <resultMap id="tag" type="com.adv.entity.Tag">
         <id column="tag_id" property="id"/>
         <result column="name" property="name"/>
     </resultMap>

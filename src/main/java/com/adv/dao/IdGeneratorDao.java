@@ -1,7 +1,7 @@
 package com.adv.dao;
 
 
-import com.adv.pojo.IdGenObj;
+import com.adv.entity.IdGenObj;
 
 import java.io.Serializable;
 import java.util.List;

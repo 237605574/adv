@@ -1,6 +1,6 @@
 package com.adv.controller;
 
-import com.adv.pojo.Administrator;
+import com.adv.entity.Administrator;
 import com.adv.service.TagService;
 import org.junit.Before;
 import org.junit.Test;

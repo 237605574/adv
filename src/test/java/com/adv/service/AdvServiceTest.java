@@ -2,10 +2,10 @@ package com.adv.service;
 
 import com.adv.dao.FileDao;
 import com.adv.dao.IdGeneratorDao;
-import com.adv.idgenerator.IdMgr;
-import com.adv.pojo.AdvObj;
-import com.adv.pojo.ResultObj;
-import com.adv.utils.AdvUtils;
+import com.adv.common.idgenerator.IdMgr;
+import com.adv.entity.AdvObj;
+import com.adv.entity.ResultObj;
+import com.adv.common.utils.AdvUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

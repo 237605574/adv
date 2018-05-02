@@ -220,7 +220,21 @@
             <version>4.3.5.RELEASE</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>${kafka-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>${kafka-version}</version>
+        </dependency>
 
     </dependencies>
 
@@ -239,6 +253,8 @@
         <redis.clients.version>2.7.3</redis.clients.version>
         <com.dyuproject.protostuff.version>1.0.8</com.dyuproject.protostuff.version>
         <developer.organization><![CDATA[scengine]]></developer.organization>
+        <kafka-version>1.1.0</kafka-version>
+        <spring-kafka-version>2.1.5.RELEASE</spring-kafka-version>
     </properties>
     <build>
         <finalName>ssm-demo</finalName>

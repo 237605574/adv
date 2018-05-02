@@ -1,11 +1,11 @@
 package com.adv.controller;
 
-import com.adv.constants.ResultCodes;
-import com.adv.pojo.ResultObj;
-import com.adv.pojo.User;
+import com.adv.common.constants.ResultCodes;
+import com.adv.entity.ResultObj;
+import com.adv.entity.User;
 import com.adv.service.AdvService;
-import com.adv.utils.GsonUtils;
-import com.adv.utils.TimeCostUtils;
+import com.adv.common.utils.GsonUtils;
+import com.adv.common.utils.TimeCostUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

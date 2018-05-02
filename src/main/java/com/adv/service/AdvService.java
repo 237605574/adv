@@ -1,11 +1,11 @@
 package com.adv.service;
 
-import com.adv.constants.ResultCodes;
+import com.adv.common.constants.ResultCodes;
 import com.adv.dao.*;
-import com.adv.idgenerator.IdMgr;
-import com.adv.pojo.AdvObj;
-import com.adv.pojo.ResultObj;
-import com.adv.pojo.User;
+import com.adv.common.idgenerator.IdMgr;
+import com.adv.entity.AdvObj;
+import com.adv.entity.ResultObj;
+import com.adv.entity.User;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

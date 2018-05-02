@@ -1,6 +1,6 @@
 package com.adv.dao;
 
-import com.adv.pojo.Administrator;
+import com.adv.entity.Administrator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

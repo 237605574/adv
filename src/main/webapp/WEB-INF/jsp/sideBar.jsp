@@ -38,7 +38,7 @@
                     <li><a href="<%=request.getContextPath()%>/adv/queryAdv" class="am-cf"> 查询/修改/删除</a></li>
                 </ul>
             </li>
-            <li><a href="<%=request.getContextPath()%>/adv/home"><span class="am-icon-home"></span> 退出登录</a></li
+            <li><a href="<%=request.getContextPath()%>/userAction/logout"><span class="am-icon-home"></span> 退出登录</a></li
         </ul>
     </div>
 </div>

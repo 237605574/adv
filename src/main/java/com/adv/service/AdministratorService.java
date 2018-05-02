@@ -1,11 +1,11 @@
 package com.adv.service;
 
-import com.adv.constants.LocalAddrs;
-import com.adv.constants.ResultCodes;
-import com.adv.constants.SessionStr;
+import com.adv.common.constants.LocalAddrs;
+import com.adv.common.constants.ResultCodes;
+import com.adv.common.constants.SessionStr;
 import com.adv.dao.AdministratorDao;
-import com.adv.pojo.Administrator;
-import com.adv.pojo.ResultObj;
+import com.adv.entity.Administrator;
+import com.adv.entity.ResultObj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

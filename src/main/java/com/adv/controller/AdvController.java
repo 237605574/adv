@@ -1,12 +1,12 @@
 package com.adv.controller;
 
-import com.adv.constants.ResultCodes;
-import com.adv.constants.SessionStr;
-import com.adv.pojo.AdvObj;
-import com.adv.pojo.ResultObj;
+import com.adv.common.constants.ResultCodes;
+import com.adv.common.constants.SessionStr;
+import com.adv.entity.AdvObj;
+import com.adv.entity.ResultObj;
 import com.adv.service.AdvService;
-import com.adv.utils.AdvUtils;
-import com.adv.utils.GsonUtils;
+import com.adv.common.utils.AdvUtils;
+import com.adv.common.utils.GsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

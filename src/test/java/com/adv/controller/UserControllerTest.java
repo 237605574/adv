@@ -1,6 +1,6 @@
 package com.adv.controller;
 
-import com.adv.pojo.Administrator;
+import com.adv.entity.Administrator;
 import com.adv.service.AdministratorService;
 import org.junit.Assert;
 import org.junit.Before;

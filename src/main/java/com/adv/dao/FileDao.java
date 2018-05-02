@@ -1,8 +1,8 @@
 package com.adv.dao;
 
-import com.adv.constants.FilePaths;
-import com.adv.constants.ResultCodes;
-import com.adv.pojo.ResultObj;
+import com.adv.common.constants.FilePaths;
+import com.adv.common.constants.ResultCodes;
+import com.adv.entity.ResultObj;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;

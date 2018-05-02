@@ -1,7 +1,7 @@
 package com.adv.dao;
 
-import com.adv.pojo.AdvObj;
-import com.adv.pojo.User;
+import com.adv.entity.AdvObj;
+import com.adv.entity.User;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

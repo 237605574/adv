@@ -1,10 +1,10 @@
 package com.adv.service;
 
-import com.adv.constants.ResultCodes;
+import com.adv.common.constants.ResultCodes;
 import com.adv.dao.AdvTagDao;
 import com.adv.dao.TagDao;
-import com.adv.pojo.ResultObj;
-import com.adv.pojo.Tag;
+import com.adv.entity.ResultObj;
+import com.adv.entity.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

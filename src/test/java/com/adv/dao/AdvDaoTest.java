@@ -1,9 +1,9 @@
 package com.adv.dao;
 
 
-import com.adv.pojo.AdvObj;
-import com.adv.pojo.User;
-import com.adv.utils.AdvUtils;
+import com.adv.entity.AdvObj;
+import com.adv.entity.User;
+import com.adv.common.utils.AdvUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
