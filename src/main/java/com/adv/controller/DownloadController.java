@@ -6,6 +6,7 @@ import com.adv.entity.User;
 import com.adv.service.AdvService;
 import com.adv.common.utils.GsonUtils;
 import com.adv.common.utils.TimeCostUtils;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class DownloadController {
     /**
      * 用户获取广告流程：用户获取广告列表 -> 客户端根据获取到的广告信息再决定要拉取哪些广告
      */
-    @RequestMapping(value = "/getAdvList", method = RequestMethod.POST, produces = {
+    @RequestMapping(value = "/getAdvListByUser", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
     public String getAdvList(HttpServletRequest request, HttpServletResponse response, User user, HttpSession session) {
@@ -42,10 +43,26 @@ public class DownloadController {
     }
 
     /**
+     * 获取全部有效广告
+     */
+    @RequestMapping(value = "/getAllAdvList", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getAllAdvList(String callback) {
+        return new JSONPObject(callback, advService.getAllAdvList());
+
+    }
+
+
+    /**
      * 根据文件名下载广告
      */
     @RequestMapping(value = "/getAdvFile", method = RequestMethod.POST, produces = {"application/json; charset=utf-8"})
     public String getAdvFile(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "fileName") String fileName) {
+//        header('Access-Control-Allow-Origin:http://localhost:8008');//设置允许访问的域
+//        header('Access-Control-Allow-Credentials: true');//设置是否发送cookie，需要在客户端同时设置才会生效
+//        header('Access-Control-Allow-Headers:X-Requested-With');//允许的访问头部，也需要在客户端同时设置，同时为了避免跨域访问出错，客户端最好不要设置该项信息，避免服务端不允许
+//        header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE');//支持的请求方式
+//        response.addHeader("Access-Control-Allow-Origin");
         TimeCostUtils.getInstance().start();
         ResultObj<File> fileResultObj = advService.getFile(fileName);
         TimeCostUtils.getInstance().setPoint("从dao中获取文件");

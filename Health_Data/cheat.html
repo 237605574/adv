@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<style>
+			html,
+			body {
+				height: 100%;
+				margin: 0px;
+				padding: 0px;
+				overflow: hidden;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+			}
+			
+			footer {
+				position: fixed;
+				width: 100%;
+				height: 50px;
+				min-height: 50px;
+				border-top: solid 1px #bbb;
+				left: 0px;
+				bottom: 0px;
+				overflow: hidden;
+				padding: 0px 50px;
+				background-color: #fafafa;
+			}
+			
+			.clearfix {
+				zoom: 1;
+			}
+			
+			.clearfix:after {
+				display: table;
+				clear: both;
+				content: "";
+			}
+			
+			.footer-left {
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				left: 0px;
+				bottom: 0px;
+				text-align: center;
+				vertical-align: middle;
+				line-height: 100%;
+				padding: 12px 4px;
+			}
+			
+			.footer-right {
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				right: 0px;
+				bottom: 0px;
+				text-align: center;
+				vertical-align: middle;
+				line-height: 100%;
+				display: inline-block;
+				padding-top: 18px;
+			}
+			
+			.footer-center {
+				height: 100%;
+				padding: 5px 0px;
+			}
+			
+			.footer-center [class*=input] {
+				width: 100%;
+				height: 100%;
+				border-radius: 5px;
+			}
+			
+			.footer-center .input-text {
+				background: #fff;
+				border: solid 1px #ddd;
+				padding: 10px !important;
+				font-size: 16px !important;
+				line-height: 18px !important;
+				font-family: verdana !important;
+				overflow: hidden;
+			}
+			
+			.footer-center .input-sound {
+				background-color: #eee;
+			}
+			
+			.mui-content {
+				height: 100%;
+				padding: 44px 0px 50px 0px;
+				overflow: auto;
+				background-color: #eaeaea;
+			}
+			
+			.header-title span {
+				font-family: "PingFangSC";
+				color: #FFFFFF;
+				font-size: 16px;
+				display: block;
+				margin-left: 144px;
+			}
+			
+			.header-back {
+				float: left;
+				width: 40px;
+				margin-top: 2px;
+			}
+			
+			.header-back img {
+				width: 8px;
+				height: 16px;
+			}
+			
+			.other-cheat {
+				width: 90%;
+				height: auto;
+				margin-bottom: 25px;
+			}
+			
+			.other-cheat img {
+				margin-left: 12px;
+				width: 44px;
+				height: 44px;
+				float: left;
+				border-radius: 6px;
+			}
+			
+			.other-cheat-con {
+				float: left;
+				padding: 13px;
+				background: #D8D8D8;
+				margin-left: 10px;
+				border-radius: 6px;
+				width: auto;
+			}
+			
+			.other-cheat-con span {
+				margin-left: 10px;
+			}
+			
+			.myself-cheat {
+				width: 100%;
+				height: auto;
+				margin-bottom: 25px;
+			}
+			
+			.myself-cheat img {
+				margin-right: 12px;
+				width: 44px;
+				height: 44px;
+				background: #0099CC;
+				float: right;
+				border-radius: 6px;
+			}
+			
+			.myself-cheat-con {
+				width: auto;
+				max-width: 70%;
+				float: right;
+				padding: 13px;
+				background: #D8D8D8;
+				margin-right: 10px;
+				border-radius: 6px;
+			}
+			
+			.myself-cheat-con span {
+				float: right;
+				margin-right: 10px;
+			}
+		</style>
+	</head>
+
+	<body contextmenu="return false;">
+		<div class="header" style="height: 52px;background-image: url(img/background.svg);
+			background-size:cover; ">
+			<div class="header-title">
+				<a class="header-back" id="back">
+					<img src="img/return.png" />
+				</a>
+				<span>刘禾-医生</span>
+			</div>
+		</div>
+		<div class="mui-content" id="cheat-content" style="background: white;position: relative;" >
+			<div class="mui-scroll-wrapper"  style="position: fixed;margin-top:60px;bottom: 50px;">
+			<div class="mui-scroll">
+			<div id='msg-list'>
+				<!--提问
+				<div class="myself-cheat clearfix">
+					<img src="img/family2.png" />
+					<div class="myself-cheat-con">
+						<span>在吗，刘医生？</span>
+					</div>
+
+				</div>
+				<!--提问
+				<div class="myself-cheat clearfix">
+					<img src="img/family2.png" />
+					<div class="myself-cheat-con">
+						<span>刘医生，最近血糖异常了</span>
+					</div>
+
+				</div>
+				<!--回复
+				<div class="other-cheat clearfix">
+					<img src="img/myself.png" />
+					<div class="other-cheat-con">
+						<span>让我先看看你最近的家庭检测</span>
+					</div>
+				</div>-->
+
+			</div>
+			</div>
+			</div>
+		</div>
+
+		<footer>
+			<div class="footer-left">
+				<i id='msg-type' class="mui-icon mui-icon-mic"></i>
+			</div>
+			<div class="footer-center">
+				<textarea id="neirong" type="text" class='input-text'></textarea>
+
+			</div>
+			<label class="footer-right">
+				<a style="color:#9B9B9B" id="fasong">发送</a>
+			</label>
+		</footer>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+
+				//滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true,
+					deceleration: 0.0003,
+					indicators: false
+				});
+				//第一次加载 
+				asd();
+
+				//定时刷新
+
+				//            setTimeout(
+				//            	function(){
+				//            	getMessage();	
+				//            	}
+				//            	,5000);
+
+			});
+			var time = setInterval(
+				function() {
+					getMessage();
+				}, 500);
+			//发送消息
+			var span1 = document.getElementById("fasong");
+			var cheat1 = document.getElementById('msg-list');
+			span1.onclick = function() {
+				//聊天
+
+				var neirong = document.getElementById('neirong').value;
+				var html1 = '<div class="myself-cheat clearfix">' +
+					'<img src="img/family2.png" />' +
+					'<div class="myself-cheat-con">' +
+					'<span>' + neirong + '</span>' +
+					'</div>' +
+					'</div>'
+				cheat1.insertAdjacentHTML("beforeEnd", html1);
+				document.getElementById('neirong').value = '';
+				//cheat1.scrollTop = cheat1.scrollHeight;
+				mui('.mui-scroll-wrapper').scroll().scrollToBottom(100);
+				//第一个0是病人，
+				mui.ajax('http://192.168.0.122:11001/health/chat/sendMsg?value=' + neirong + '001', {
+					data: {
+
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+
+					},
+					error: function(xhr, type, errorThrown) {
+
+					}
+				});
+
+			}
+
+			function getMessage() {
+				//循环接收消息
+
+				mui.ajax('http://192.168.0.122:11001/health/chat/getMsg?role=1', {
+					data: {
+
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if(data.errno == 0) {
+							if(data.data.value.indexOf('http') != -1) {
+								var neirong = data.data.value;
+								var html2 = '<div class="other-cheat clearfix">' +
+									'<img src="img/myself.png" />' +
+									'<div class="other-cheat-con">' +
+									'<span><img style="width:140px;height:100px" src="' + neirong.substring(0, neirong.length - 3) + '"/></span>' +
+									'</div>' +
+									'</div>'
+								cheat1.insertAdjacentHTML("beforeEnd", html2);
+								mui('.mui-scroll-wrapper').scroll().scrollToBottom(0);
+								window.clearInterval(time);
+								var key = data.data.key;
+								var value = neirong.substring(0, neirong.length - 2) + "11";
+								mui.ajax('http://192.168.0.122:11001/health/chat/sendMsgByKey?key=' + key + '&&value=' + value, {
+									data: {
+
+									},
+									dataType: 'json', //服务器返回json格式数据
+									type: 'get', //HTTP请求类型
+									timeout: 10000, //超时时间设置为10秒；
+									success: function(data) {
+										time = setInterval(
+											function() {
+												getMessage();
+											}, 500);
+
+									},
+									error: function(xhr, type, errorThrown) {
+
+									}
+								});
+
+							} else {
+								var neirong = data.data.value;
+								var html2 = '<div class="other-cheat clearfix">' +
+									'<img src="img/myself.png" />' +
+									'<div class="other-cheat-con">' +
+									'<span>' + neirong.substring(0, neirong.length - 3) + '</span>' +
+									'</div>' +
+									'</div>'
+								cheat1.insertAdjacentHTML("beforeEnd", html2);
+								mui('.mui-scroll-wrapper').scroll().scrollToBottom(0);
+								window.clearInterval(time);
+								var key = data.data.key;
+								var value = neirong.substring(0, neirong.length - 2) + "11";
+								mui.ajax('http://192.168.0.122:11001/health/chat/sendMsgByKey?key=' + key + '&&value=' + value, {
+									data: {
+
+									},
+									dataType: 'json', //服务器返回json格式数据
+									type: 'get', //HTTP请求类型
+									timeout: 10000, //超时时间设置为10秒；
+									success: function(data) {
+										time = setInterval(
+											function() {
+												getMessage();
+											}, 500);
+
+									},
+									error: function(xhr, type, errorThrown) {
+
+									}
+								});
+
+							}
+						} else {
+
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+
+					}
+				});
+			}
+
+			function asd() {
+				//第一次接收
+
+				mui.ajax('http://192.168.0.122:11001/health/chat/getMsgStart', {
+					data: {
+
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'get', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {					
+						for(var i = 0; i < 4; i++) {
+						  if(data.data[i].indexOf('http') != -1) {
+						  	var neirong = data.data[i];
+							if(neirong.charAt(neirong.length - 3) == 1) {
+								var html2 = '<div class="other-cheat clearfix">' +
+									'<img src="img/myself.png" />' +
+									'<div class="other-cheat-con">' +
+									'<span><img style="width:140px;height:100px" src="' + neirong.substring(0, neirong.length - 3) + '"/></span>' +
+									'</div>' +
+									'</div>'
+								cheat1.insertAdjacentHTML("beforeEnd", html2);
+								mui('.mui-scroll-wrapper').scroll().scrollToBottom(100);
+							} else if(neirong.charAt(neirong.length - 3) == 0) {
+								var html1 = '<div class="myself-cheat clearfix">' +
+									'<img src="img/family2.png" />' +
+									'<div class="myself-cheat-con">' +
+									'<span><img style="width:140px;height:100px" src="' + neirong.substring(0, neirong.length - 3) + '"/></span>' +
+									'</div>' +
+									'</div>'
+								cheat1.insertAdjacentHTML("beforeEnd", html1);
+								mui('.mui-scroll-wrapper').scroll().scrollToBottom(100);
+							}
+						
+						  	
+						  	
+						  }else{
+							var neirong = data.data[i];
+							if(neirong.charAt(neirong.length - 3) == 1) {
+								var html2 = '<div class="other-cheat clearfix">' +
+									'<img src="img/myself.png" />' +
+									'<div class="other-cheat-con">' +
+									'<span>' + neirong.substring(0, neirong.length - 3) + '</span>' +
+									'</div>' +
+									'</div>'
+								cheat1.insertAdjacentHTML("beforeEnd", html2);
+								mui('.mui-scroll-wrapper').scroll().scrollToBottom(100);
+							} else if(neirong.charAt(neirong.length - 3) == 0) {
+								var html1 = '<div class="myself-cheat clearfix">' +
+									'<img src="img/family2.png" />' +
+									'<div class="myself-cheat-con">' +
+									'<span>' + neirong.substring(0, neirong.length - 3) + '</span>' +
+									'</div>' +
+									'</div>'
+								cheat1.insertAdjacentHTML("beforeEnd", html1);
+								mui('.mui-scroll-wrapper').scroll().scrollToBottom(100);
+							}
+						
+						}
+						
+						
+						
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+
+					}
+				});
+			}
+
+			//返回
+			document.getElementById('back').addEventListener('tap', function() {
+				mui.back();
+			});
+		</script>
+	</body>
+
+</html>

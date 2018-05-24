@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>健康智慧移动终端</title>
+		
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/swiper.min.css" />
+ 		<style>
+ 		body{
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			background: #fbfbfb;
+		}
+		.mall-scroll {
+			position: relative;
+			
+		}
+		.mall-header{
+			width: 100%;
+			height:224px;
+			background: linear-gradient(to right, #57B8FD , #635AFE);
+			padding-top:20px ;
+			 
+		}
+		.mall-header-title {
+			width: 100%;
+			height: 34px;
+		}
+		.mall-header-title img{
+			width:27px ;
+			height: 34px;
+			margin-left: 15px;
+			margin-top: 0px;
+			float: left;
+		}
+		.mall-header-search{
+			width: 288px;
+			height: 29px;
+			background-color:rgba(255,255,255,0.3) ;
+			border-radius: 4px;
+			float: left;
+			margin-left:15px;
+			margin-top: 2px;
+		}
+		.mall-header-search input{
+			font-family: "微软雅黑";
+		    font-size: 12px;
+		    border: none;
+		    background: none;
+		    width: 200px;
+		    margin-left: 15px;
+		    line-height: 29px;
+		  
+		}
+		.mall-header-search img{
+			width: 14px;
+			height: 14px;
+			margin-top: 8px;
+			margin-right: 15px;
+			float: right;
+		}
+	  	input::-webkit-input-placeholder{
+	            color:white;
+	    }
+		.mall-header-option {
+			width: 100%;
+			height: 20px;
+			margin-left: 0px;
+			margin-top: 20px;
+			float: left;
+		}
+		
+		.mall-header-option span {
+			color:rgba(255, 255, 255, 0.7);
+			margin-left: 8px;
+			margin-right: 0px;
+			font-family: "微软雅黑";
+			font-size: 14px;
+			
+		}
+		.mall-header-option .span1 {
+			color: white;
+			margin-left: 15px;
+		}
+		
+		.mall-header-option-line hr{
+			height: 2px;
+			width: 14px;
+			float: left;
+			border:none;
+			border-top:2px solid rgba(255,255,255,0.5);
+			margin-left: 36px;
+			margin-top: 3px;
+		}
+		
+		
+		/*
+		 图片轮播
+		 * */
+		.mall-swiper{
+			box-sizing: border-box;
+			position: absolute;
+			padding: 20px 0 53px;
+			width: 100%;
+			height:210px;
+			overflow-x: hidden;
+			overflow-y: hidden;
+			top: 90px;
+			left:0px;
+		}
+		.mall-swiper .swiper-container {
+			width: 100%;
+			height:144px;
+			margin-bottom: 53px;
+			overflow: visible!important;
+		}
+		.swiper-container .swiper-wrapper .swiper-slide{ width: 270px; border-radius: 6px;}
+		.swiper-container .swiper-wrapper .swiper-slide img{width: 100%; height: 150px; border-radius: 6px; }
+		.swiper-container .swiper-wrapper .swiper-slide-prev{  height: 150px!important;}
+		.swiper-container .swiper-wrapper .swiper-slide-prev img{ height: 150px!important;}
+		.swiper-container .swiper-wrapper .swiper-slide-next{ height: 150px!important;}
+		.swiper-container .swiper-wrapper .swiper-slide-next img{ height: 150px!important;}
+		.swiper-container .swiper-wrapper .swiper-slide-active{ width: 271px;}
+		.swiper-pagination{
+			bottom: -30px!important;
+		}
+		.swiper-container .swiper-wrapper img {
+			box-shadow: -2px 10px 30px rgba(87, 185, 253, 0.3);
+		}
+
+		.mall-top-categories {
+			margin-top: 70px;
+			width: 100%;
+			height: 292px;
+		}
+		.mall-top-categories-title {
+			font-family: "微软雅黑";
+		    font-size: 18px;
+		    color: rgba(0, 0, 0, 0.7);
+		    font-weight: bold;
+		    margin-left: 15px;
+		}
+		.mall-top-categories-block {
+			margin:10px 5px 0px 15px;
+			float: none;
+		}
+ 		.mall-top-categories-content {
+ 			width: 75px;
+ 			float: left;
+ 			margin-right: 10px;
+ 			margin-bottom: 15px;
+ 		}
+ 		.mall-top-categories-content img {
+			width:75px;
+			height: 75px;
+		}
+ 		.mall-top-categories-content span {
+ 			display: block;
+ 			font-family: "微软雅黑";
+		    font-size: 12px;
+		    margin-top: 8px;
+ 		}
+ 		.mall-foot {
+ 			width:100%;
+ 			height: 100%;
+ 		}
+ 		</style>
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab" style="box-shadow: none;border-top: 1px solid #F0F0F0;">
+			<a class="mui-tab-item" id="main">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="health">
+				<span class="mui-icon mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">家庭健康</span>
+			</a>
+			<a class="mui-tab-item  mui-active" id="shop">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a class="mui-tab-item" href="#">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll mall-scroll">
+				<div class="mall-header" style="background-image: url(img/background.svg);
+					background-size:cover;">
+					<div class="mall-header-title"><img src="img/Group 5.png" />
+						<div class="mall-header-search">
+							<input placeholder="请输入 药品/疾病 进行搜索"/>
+							<img src="img/Shape.png" />
+						</div>
+					</div>
+					<div class="mall-header-option">
+						<span class="span1">推荐分类</span>
+						<span>常用药品</span>
+						<span>日常保健</span>
+						<span>健康膳食</span>
+						<span>运动设备</span>
+					</div>	
+					<div class="mall-header-option-line">
+						<hr />
+					</div>
+				</div>
+		
+		
+		<!--轮播-->
+		<div class="mall-swiper">
+			<div class="swiper-container">
+				<div class="swiper-wrapper" style="margin-left: -30px;">
+					<div class="swiper-slide"><img src="img/banner6.jpg" /></div>
+					<div class="swiper-slide"><img src="img/banner5.jpg" /></div>
+					<div class="swiper-slide"><img src="img/banner1.jpg" /></div>
+				</div>
+			</div>
+		</div>
+		<!--轮播结束-->
+		
+		</div>
+		<div class="mall-top-categories">
+			<div class="mall-top-categories-title">热门分类</div>
+			<div class="mall-top-categories-block">
+				<a class="mall-top-categories-content" id="shopList">
+					<img src="img/jiangxuetang2.jpg" />
+					<span>降血糖药</span>
+				</a>
+				<div class="mall-top-categories-content">
+					<img src="img/mall_top_categories/bjp_example.jpg" />
+					<span>降血压药</span>
+				</div>
+				<div class="mall-top-categories-content">
+					<img src="img/mall_top_categories/gmy_example.jpg" />
+					<span>感冒药</span>
+				</div>
+				<div class="mall-top-categories-content">
+					<img src="img/mall_top_categories/ccg_example.jpg" />
+					<span>痤疮膏</span>
+				</div>
+				<div class="mall-top-categories-content">
+					<img src="img/mall_top_categories/zcg_example.jpg" />
+					<span>痔疮膏</span>
+				</div>
+				<div class="mall-top-categories-content">
+					<img src="img/mall_top_categories/yys_example.jpg" />
+					<span>眼药水</span>
+				</div>
+				<div class="mall-top-categories-content">
+					<img src="img/mall_top_categories/xsp_exmaple.jpg" />
+					<span>消食片</span>
+				</div>
+				<div class="mall-top-categories-content">
+					<img src="img/mall_top_categories/cwy_example.jpg" />
+					<span>肠胃药</span>
+				</div>
+			</div>
+		</div>
+		<div class="mall-foot"></div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/swiper.min.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function() {
+
+				//滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true,
+					deceleration: 0.0003,
+					indicators:false
+				});
+			});
+			
+			//监听家庭健康
+				document.getElementById('health').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'familyHealth.html',
+						id: 'familyHealth'
+					})
+				});
+				
+				//监听主页
+				document.getElementById('main').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'index.html',
+						id: 'index'
+					})
+				});
+				
+				//监听商城
+				document.getElementById('shop').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'shop.html',
+						id: 'shop'
+					})
+				});
+				
+				//监听商城列表
+				document.getElementById('shopList').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'shopList.html',
+						id: 'shopList'
+					})
+				});
+			
+			var mySwiper = new Swiper('.swiper-container', {
+				direction: 'horizontal',
+				loop: true,
+				autoplay: 5000,
+				slidesPerView: "auto",
+				centeredSlides: true,
+				spaceBetween: 20,
+			})
+		</script>
+	</body>
+
+</html>

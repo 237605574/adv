@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+</head>
+<style>
+	body{
+		background: #FBFBFB;
+	}
+	span{
+		font-family: "微软雅黑";
+	}
+	.mall-list-header{
+		background: linear-gradient(to right, #57B8FD , #635AFE);
+		height: 105px;
+		overflow-x: hidden;
+	}
+	.mall-list-title{
+		height: 58px;
+	}
+	.mui-icon{
+		color: #FFFFFF;
+		height: 17px;
+		width: 9px;
+		margin-top: 32px;
+		float: left;
+		margin-left:15px ;
+	}
+	.mall-list-search{
+		float: left;
+		font-size: 16px;
+		width: 64px;
+		height: 23px;
+		margin-top:35px;
+		margin-left: 124px;
+		color: #FFFFFF;
+		
+	}
+	.mall-list-search-img{
+		float: right;
+		width: 15px;
+		height: 15px;
+		margin-top:37px;
+		margin-right: 15px;
+	}
+	.mui-scroll-wrapper{
+		font-family: "微软雅黑";
+		margin-top: 20px;
+		height: 40px;
+		margin-left: 5px;
+		color: RGBA(255, 255, 255, 0.7);
+	}
+	::-webkit-scrollbar {
+            width: 0px;
+        }
+	.mui-control-item{
+		width: 42px !important;
+		height:33px;
+		padding-left:0px !important;
+		padding-right:0px !important;
+		font-size: 14px;
+		color: #CDE3FE;
+		margin-left:21px ;
+		margin-top: -10px;
+	}
+	.first-item{
+		margin-left: 15px !important;
+	}
+	.last-item{
+		margin-right: 15px !important;
+	}
+	.mui-active{
+		color: #FFFFFF !important;
+		border-bottom: 2px solid RGBA(255, 255, 255, 0.5) !important;
+	}
+	.mall-list-line{
+		width: 340px;
+		margin-left: 10px;
+		border-bottom: 1px solid #F1F1F1;
+	}
+	.mall-list{
+		margin-top: 10px;
+		margin-left: 15px;
+		height: 100px;
+	}
+	.mall-list img{
+		width: 126px;
+		height: 90px;
+		float: left;
+	}
+	.mall-list-introduce{
+		float: left;
+		margin-left: 13px;
+		margin-top: 4px;
+		font-size:16px;
+		font-family: "微软雅黑";
+	}
+	.mall-list-introduce-check{
+		margin-right: 15px;
+		margin-top:4px ;
+		width: 64px;
+		height: 24px;
+		float: right;
+		font-size: 12px;
+		text-align: right;
+		color: #FF7171;
+	}
+	.mall-list-introduce-detail{
+		font-family: "微软雅黑";
+		width: 191px;
+		height: 50px;
+		float: left;
+		margin-left: 13px;
+		margin-top: 10px;
+		font-size: 12px;
+		line-height: 15px;
+		padding-top: 1px;
+		color: #9B9B9B;
+	}
+</style>
+<body>
+	<div class="mall-list-header">
+		<div class="mall-list-title">
+			<span class="mui-icon mui-icon-arrowleft" id="back"></span>
+			<span class="mall-list-search">推荐分类</span>
+			<img class="mall-list-search-img" src="img/Shape.png" />
+		</div>
+			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        		<div class="mui-scroll" >
+            		<span class="mui-control-item first-item mui-active">降血糖</span>
+					<span class="mui-control-item">降血压</span>
+					<span class="mui-control-item">感冒药</span>
+					<span class="mui-control-item">痤疮膏</span>
+					<span class="mui-control-item">痔疮膏</span>
+					<span class="mui-control-item">眼药水</span>
+					<span class="mui-control-item">消食片</span>
+					<span class="mui-control-item last-item">肠胃药</span>
+        		</div>
+        </div>
+	</div>
+	<div class="mall-list">
+		<img src="img/jiangxuetang1.jpg" />
+		<div class="mall-list-introduce">青钱柳降糖茶</div>
+		<div class="mall-list-introduce-check">￥99.90</div>
+		<div class="mall-list-introduce-detail">青钱神茶是以珍稀植物青钱柳叶为主要原料，辅以药食两用的黄芪、山药和绿茶…</div>
+	</div>
+	<div class="mall-list-line"></div>
+	<div class="mall-list">
+		<img src="img/jiangxuetang2.jpg" />
+		<div class="mall-list-introduce">伊能启元胶囊</div>
+		<div class="mall-list-introduce-check">￥259.90</div>
+		<div class="mall-list-introduce-detail">伊能启元胶囊中含有桑叶提取物，苦瓜、黄芪、麦门冬等全天然植物精华 …</div>
+	</div>
+	<div class="mall-list-line"></div>
+	<div class="mall-list">
+		<img src="img/jiangxuetang3.jpg" />
+		<div class="mall-list-introduce">百合康牌苦瓜洋参软胶囊</div>
+		<div class="mall-list-introduce-check">￥48.80</div>
+		<div class="mall-list-introduce-detail">主要含西洋参提取物，苦瓜提取物，有辅助降血糖作用…</div>
+	</div>
+	<div class="mall-list-line"></div>
+	<div class="mall-list">
+		<img src="img/jiangxuetang4.jpg" />
+		<div class="mall-list-introduce">拜唐苹阿卡波糖片</div>
+		<div class="mall-list-introduce-check">￥54.90</div>
+		<div class="mall-list-introduce-detail">主要成分为阿卡波糖，适应症为配合饮食控制治疗糖尿病。…</div>
+	</div>
+	<div class="mall-list-line"></div>
+	<div class="mall-list">
+		<img src="img/jiangxuetang5.jpg" />
+		<div class="mall-list-introduce">格华止盐酸二甲双胍片</div>
+		<div class="mall-list-introduce-check">￥35.00</div>
+		<div class="mall-list-introduce-detail">适用症状：用于单纯饮食控制不满意的Ⅱ型糖尿病患者…</div>
+	</div>
+	<div class="mall-list-line"></div>
+	<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/swiper.min.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function() {
+
+			});
+			
+	  //返回
+			document.getElementById('back').addEventListener('tap', function() {
+				mui.back();
+			});
+	
+	   </script>
+</body>
+</html>

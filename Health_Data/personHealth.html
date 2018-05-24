@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>健康智慧移动终端</title>
+
+		<link href="css/mui.min.css" rel="stylesheet" />
+		
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<style>
+			body{
+				background-color: #FFFFFF;
+				overflow-y: hidden;
+			}
+			
+			.shadow {
+				width: 330px;
+				height: 163px;
+				background-color: #57B9FD;
+				border-radius: 4px 4px 4px 4px;
+				position: absolute;
+				z-index:-1;
+				/*高斯模糊效果*/
+				filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+		        -webkit-filter: blur(14px); /* Chrome, Opera */
+		           -moz-filter: blur(14px);
+		            -ms-filter: blur(14px);   
+		                filter: blur(14px);
+		        filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+				opacity: 0.3;
+			}
+			
+			.header-title span{
+				font-family: "PingFangSC";
+				color: #FFFFFF;
+				font-size:16px;
+				margin-left: 128px;
+			}
+			
+			.header-card {
+				width: 330px;
+				height: 163px;
+				background-color: #FFFFFF;
+				border-radius: 4px 4px 4px 4px;
+				margin-left: 14px;
+				margin-top: 27px;
+				padding-top: 7px;
+				/*box-shadow: 0 4px 1px 1px rgba(87,185,253, 0.1);->del*/
+			}
+			
+			.header-card #span1{
+				font-family: "PingFangSC";
+				color: #000000;
+				font-size: 12px;
+				display: inline-block;
+				padding-top: 20px;
+				padding-left: 15px;
+				float: left;
+			}
+			
+			.header-card #span2{
+				font-family: "PingFangSC";
+				color:#9B9B9B;
+				font-size:10px;
+				display: inline-block;
+				padding-top: 21px;
+				padding-left: 51px;
+				opacity: 0.7;
+			}
+			
+			.card-content{
+				width: 300px;
+				height: 40px;
+				font-family: "PingFangSC";
+				color: #000000;
+				font-size: 12px;
+				margin-left: 15px;
+				margin-top: 30px;
+				opacity: 0.7;
+			}
+			
+			.card-star {
+				float: left;
+				margin-top: 21px;
+				margin-left: 10px;
+				width: 100px;
+			}
+			
+			.card-star img{
+				width: 15px;
+				height: 14px;
+			}
+			
+			.card-line {
+				width: 310px;
+				margin-left: 12px;
+				margin-top: 17px;
+				border-bottom: 1px solid #000000;
+				opacity: 0.08;
+			}
+			
+		
+			
+			.footer {
+				width: 360px;
+				height: 44px;
+				background-color: #D8D8D8;
+			}
+			.header-back{
+				float: left;
+				width: 40px;
+				margin-top: 2px;
+			}
+			.header-back img{
+				width:8px ;
+				height: 16px;
+			}
+			.card-more{
+				width: 83px;
+				height: 24px;
+				font-size: 13px;
+				line-height: 100%;
+				margin: 18px 10px 0px 63px;
+				background: linear-gradient(to bottom, #FF5B84 , #FF2450);
+				color: white;
+				border: none;
+			}
+			.person-card{
+				margin-top: 60px;
+				background: white;
+			}
+			.week-data{
+				height: 25px;
+			}
+			#person-title{
+				font-family: '微软雅黑';
+             	float: left;
+	            font-size: 18px;
+	            margin-left: 15px;
+			}
+			#person-title2{
+				font-family: '微软雅黑';
+				color:#FF7171;
+				float: right;
+				font-size: 10px;
+				margin-right:15px ;
+			}
+			.person-card-con{
+			   width: 92%;
+			   margin-left: 4%;
+			   height: auto;
+			   margin-top: 20px;
+			}
+			.person-card-one{
+				width: 329px;
+				height: 209px;
+				box-shadow: #f0f0f0 0px 0px 18px; 	
+			}
+			.person-title-main{
+				width: 100%;
+               text-align: right;
+               font-weight: bold;
+               padding-top: 5px;
+               font-size: 14px;
+               padding-right: 10px;
+			}
+			.person-card-one-top{
+				display: flex;
+				justify-content: space-between;
+				width: 310px;
+				height: 165px;
+				margin-left: 10px;
+				border-bottom: 1px solid #F0F0F0;
+			}
+			.pic-long{
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				width: 27px;
+				height: 161px;
+			}
+			.pic-long span{
+				display: block;
+				height: 20px;
+				font-size:10px ;
+				color:#9B9B9B ;
+				text-align: center;
+			}
+			.pic-long-bottom{
+				width: 66.7%;
+				margin: 0 auto;
+				background: linear-gradient(to bottom, #FF672D,#FF935D  );
+			}
+			
+			.color-red{
+				background: linear-gradient(to bottom, #5B9DFF ,#21FFC5);
+			}
+			.color-pink{
+				background: linear-gradient(to bottom, #FF2195 , #FF5BAF);
+				
+			}
+			.height10{
+				height: 10%;
+			}
+			.height20{
+				height: 20%;
+			}
+			.height30{
+				height: 30%;
+			}
+			.height40{
+				height: 40%;
+			}
+			.height50{
+				height: 50%;
+			}
+			.height60{
+				height: 60%;
+			}
+			.height70{
+				height: 70%;
+			}
+			.height80{
+				height: 80%;
+			}
+			.height90{
+				height: 90%;
+			}
+			.height100{
+				height: 100%;
+			}
+			.health-foot{
+				width: 100%;
+				height: 48px;
+			}
+			.person-title-main img{
+				width: 18px;
+				height: 18px;
+				margin-right: 10px;
+				float: right;
+				
+			}
+			.person-title-main span{
+				float: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab" style="box-shadow: none;border-top: 1px solid #F0F0F0;">
+			<a class="mui-tab-item" id="main">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item  mui-active" id="health">
+				<span class="mui-icon mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">家庭健康</span>
+			</a>
+			<a class="mui-tab-item" id="shop">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a class="mui-tab-item" href="#">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+		<div class="header" style="background-image: url(img/background.svg);
+			background-size:cover;">			
+			<div class="header-title">
+				<a class="header-back" id="back">
+					<img src="img/return.png"/>
+				</a>
+				<span>刘霞</span>	
+			</div>
+			
+			<!--卡片-->
+			<div class="header-card">
+				<div class="shadow"></div>
+				<span id="span1">健康指数</span>
+				<div class="card-star">
+					<img src="img/Star Copy 2.png" />
+					<img src="img/Star Copy 2.png" />
+					<img src="img/Star Copy 2.png" />
+					<img src="img/Star Copy 2.png" />
+				</div>
+				<button class="card-more" id="person-more">查看更多</button>
+				<div class="card-line"></div>
+				<div class="card-content">“今日血糖有所升高，
+					需要安排好自己的作息时间，少吃甜食
+					早睡早起尽量不要熬夜，将有利于血糖稳定”</div>
+			</div>
+			<!--卡片结束-->
+		</div>
+			<!--主要内容-->
+		<div class="person-card">
+			<div class="week-data">
+				<span id="person-title">近一周数据</span>
+				<span id="person-title2">本周血糖有上涨趋势，请注意！</span>
+			</div>
+			
+			<div class="person-card-con">
+				<div class="person-card-one">
+					<div class="person-title-main">
+						步数
+					</div>
+					<div class="person-card-one-top" >
+						<div class="pic-long">
+							<span>6333</span>
+							<div class="pic-long-bottom height80 color-red">
+							</div>
+						</div>
+						<div class="pic-long">
+						<span>7333</span>
+							<div class="pic-long-bottom height100 color-red">			
+							</div></div>
+						<div class="pic-long">
+							<span>6123</span>
+							<div class="pic-long-bottom height60 color-red" >			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span>4888</span>
+							<div class="pic-long-bottom height50 color-red">			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span>3333</span>
+							<div class="pic-long-bottom height30 color-red">			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span>5888</span>
+							<div class="pic-long-bottom height60 color-red">			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span>2333</span>
+							<div class="pic-long-bottom height20 color-red">			
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="person-card-con">
+				<div class="person-card-one">
+					<div class="person-title-main">
+						血压
+					</div>
+					<div class="person-card-one-top" >
+						<div class="pic-long">
+							<span>110/80</span>
+							<div class="pic-long-bottom color-red height80">
+							</div>
+						</div>
+						<div class="pic-long">
+						<span>120/76</span>
+							<div class="pic-long-bottom color-red height100">			
+							</div></div>
+						<div class="pic-long">
+							<span>105/80</span>
+							<div class="pic-long-bottom color-red height70" >			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span>106/6</span>
+							<div class="pic-long-bottom color-red height70">			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span>110/80</span>
+							<div class="pic-long-bottom color-red height80">			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span style="color: red;">126/75</span>
+							<div class="pic-long-bottom color-pink height90">			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span>115/70</span>
+							<div class="pic-long-bottom color-red height80">			
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="person-card-con">
+				<div class="person-card-one">
+					<div class="person-title-main" style="color:#FF7171;">
+						<span>血糖</span><img src="img/tip.png" />
+					</div>
+					<div class="person-card-one-top" >
+						<div class="pic-long">
+							<span>6.1</span>
+							<div class="pic-long-bottom color-red height60">
+							</div>
+						</div>
+						<div class="pic-long">
+						<span style="color:red">8.1</span>
+							<div class="pic-long-bottom color-pink height100">			
+							</div></div>
+						<div class="pic-long">
+							<span style="color:red">7.0</span>
+							<div class="pic-long-bottom color-pink height70" >			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span style="color:red">6.5</span>
+							<div class="pic-long-bottom color-pink height60">			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span >6.1</span>
+							<div class="pic-long-bottom color-red height50">			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span style="color:red">7.3</span>
+							<div class="pic-long-bottom color-pink height70">			
+							</div>
+						</div>
+						<div class="pic-long">
+							<span style="color:red">6.9</span>
+							<div class="pic-long-bottom color-pink height70">			
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+			<!--主要内容结束-->
+			<div class="health-foot"></div>
+		
+		</div>
+		</div>
+				<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				
+				//滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true,
+					deceleration: 0.0003,
+					indicators:false
+				});
+			});
+			//监听家庭健康
+				document.getElementById('health').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'familyHealth.html',
+						id: 'familyHealth'
+					})
+				});
+				
+				//监听主页
+				document.getElementById('main').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'index.html',
+						id: 'index'
+					})
+				});
+				
+				//监听商城
+				document.getElementById('shop').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'shop.html',
+						id: 'shop'
+					})
+				});
+				//查看更多个人消息
+				document.getElementById('person-more').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'personHealthOne.html',
+						id: 'personHealthOne'
+					})
+				});
+			
+			//返回
+				document.getElementById('back').addEventListener('tap', function() {
+					mui.back();
+				});
+		</script>
+	</body>
+
+</html>

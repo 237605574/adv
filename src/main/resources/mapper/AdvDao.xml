@@ -25,6 +25,14 @@
     </select>
 
     <!--resultMap填type-->
+    <select id="getAllValidAdv" resultMap="AdvObj">
+        SELECT adv.*
+        FROM
+            `adv`
+        WHERE
+            adv.is_valid = 1;
+    </select>
+
     <select id="getAdvListByUser" resultMap="AdvObj">
         SELECT adv.*
         FROM

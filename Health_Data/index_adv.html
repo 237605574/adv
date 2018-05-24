@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>健康智慧移动终端</title>
+
+	<script>
+		(function (designWidth, maxWidth) {
+			var doc = document,
+				win = window;
+			var docEl = doc.documentElement;
+			var metaEl,
+				metaElCon;
+			var styleText,
+				remStyle = document.createElement("style");
+			var tid;
+
+			function refreshRem() {
+				// var width = parseInt(window.screen.width); // uc有bug
+				var width = docEl.getBoundingClientRect().width;
+				if (!maxWidth) {
+					maxWidth = 540;
+				};
+				if (width > maxWidth) { // 淘宝做法：限制在540的屏幕下，这样100%就跟10rem不一样了
+					width = maxWidth;
+				}
+				var rem = width * 100 / designWidth;
+				// var rem = width / 10; // 如果要兼容vw的话分成10份 淘宝做法
+				//docEl.style.fontSize = rem + "px"; //旧的做法，在uc浏览器下面会有切换横竖屏时定义了font-size的标签不起作用的bug
+				remStyle.innerHTML = 'html{font-size:' + rem + 'px;}';
+			}
+
+			// 设置 viewport ，有的话修改 没有的话设置
+			metaEl = doc.querySelector('meta[name="viewport"]');
+			// 20171219修改：增加 viewport-fit=cover ，用于适配iphoneX
+			metaElCon = "width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no,viewport-fit=cover";
+			if (metaEl) {
+				metaEl.setAttribute("content", metaElCon);
+			} else {
+				metaEl = doc.createElement("meta");
+				metaEl.setAttribute("name", "viewport");
+				metaEl.setAttribute("content", metaElCon);
+				if (docEl.firstElementChild) {
+					docEl.firstElementChild.appendChild(metaEl);
+				} else {
+					var wrap = doc.createElement("div");
+					wrap.appendChild(metaEl);
+					doc.write(wrap.innerHTML);
+					wrap = null;
+				}
+			}
+
+			//要等 wiewport 设置好后才能执行 refreshRem，不然 refreshRem 会执行2次；
+			refreshRem();
+
+			if (docEl.firstElementChild) {
+				docEl.firstElementChild.appendChild(remStyle);
+			} else {
+				var wrap = doc.createElement("div");
+				wrap.appendChild(remStyle);
+				doc.write(wrap.innerHTML);
+				wrap = null;
+			}
+
+			win.addEventListener("resize", function () {
+				clearTimeout(tid); //防止执行两次
+				tid = setTimeout(refreshRem, 300);
+			}, false);
+
+			win.addEventListener("pageshow", function (e) {
+				if (e.persisted) { // 浏览器后退的时候重新计算
+					clearTimeout(tid);
+					tid = setTimeout(refreshRem, 300);
+				}
+			}, false);
+
+			if (doc.readyState === "complete") {
+				doc.body.style.fontSize = "16px";
+			} else {
+				doc.addEventListener("DOMContentLoaded", function (e) {
+					doc.body.style.fontSize = "16px";
+				}, false);
+			}
+		})(750, 750);
+	</script>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/swiper.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+	<nav class="mui-bar mui-bar-tab" style="box-shadow: none;border-top: 1px solid #F0F0F0;">
+		<a class="mui-tab-item mui-active" id="main">
+			<span class="mui-icon mui-icon-home"></span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a class="mui-tab-item" id="health">
+			<span class="mui-icon mui-icon mui-icon-chatbubble"></span>
+			<span class="mui-tab-label">家庭健康</span>
+		</a>
+		<a class="mui-tab-item" id="shop">
+			<span class="mui-icon mui-icon-star"></span>
+			<span class="mui-tab-label">商城</span>
+		</a>
+		<a class="mui-tab-item" href="#">
+			<span class="mui-icon mui-icon-contact"></span>
+			<span class="mui-tab-label">我的</span>
+		</a>
+	</nav>
+	<div class="mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<div class="header" style="background-image: url(img/background.svg);
+			background-size:cover;">
+				<div class="header-title">
+					<div class="scan">
+						<img src="img/Group 5.png" />
+					</div>
+
+					<div class="header-search">
+						<img src="img/Shape.png" />
+						<input placeholder="请输入医院/医生/科室/疾病 进行搜索"></input>
+					</div>
+					<img src="img/Group 6.png" />
+				</div>
+
+			</div>
+
+			<!--轮播-->
+			<div class="swiper">
+				<div class="swiper-container">
+					<div class="swiper-wrapper" id="adv-container">
+						<div class="swiper-slide" class="adv-slide">
+							<div class="swiper-shadow"></div>
+							<img src="img/banner6.jpg" onclick="" />
+						</div>
+						<div class="swiper-slide" class="adv-slide">
+							<div class="swiper-shadow"></div>
+							<img src="img/banner5.jpg" onclick="" />
+						</div>
+						<div class="swiper-slide">
+							<div class="swiper-shadow" class="adv-slide"></div>
+							<img src="img/banner1.jpg" onclick="" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--轮播结束-->
+			<div class="main-mid">
+				<div class="main-mid-title">
+					<span id="data-title">今日数据</span>
+					<span id="data-title2">今天23:59 手环同步</span>
+				</div>
+				<div class="main-mid-con">
+					<span>健康指数</span>
+					<img src="img/Star Copy 2.png" />
+					<img src="img/Star Copy 2.png" />
+					<img src="img/Star Copy 2.png" />
+					<img src="img/Star Copy 2.png" />
+
+					<button id="todayData">查看更多</button>
+				</div>
+
+			</div>
+			<div class="main-icon">
+				<a class="main-icon-one" id="healthEncyclopedia" style="margin-right: 57px;">
+					<img src="img/Group 22.png" />
+					<span>健康百科</span>
+				</a>
+				<a class="main-icon-one" id="healthCheck" style="margin-right: 57px;">
+					<img src="img/Group 8.png" />
+					<span>健康体检</span>
+				</a>
+				<a class="main-icon-one" id="marjorAsk">
+					<img src="img/Group 9.png" />
+					<span>专家咨询</span>
+				</a>
+				<div class="main-icon-one" style="margin-right: 57px;">
+					<img src="img/Group 11.png" />
+					<span>预约挂号</span>
+				</div>
+				<div class="main-icon-one" style="margin-right: 57px;">
+					<img src="img/Group 10.png" />
+					<span>报告查询</span>
+				</div>
+				<div class="main-icon-one">
+					<img src="img/Group 11 Copy.png" />
+					<span>运动康复</span>
+				</div>
+			</div>
+			<div class="min-br"></div>
+			<div class="main-foot">
+				<div class="main-foot-title">
+					<span class="title-active">推荐</span>
+					<span>慢性</span>
+					<span>母婴</span>
+					<span>健身</span>
+					<span>生活</span>
+					<span>星座</span>
+					<span>两性</span>
+				</div>
+				<div class="main-foot-con">
+					<div class="main-foot-p">
+						<p style="width: 170px;height: 70px;color: #4a4a4a">享用少许黑巧克力，促进血管扩得更大，从而降低血压。</p>
+						<span>环球网 106评</span>
+						<span style="float: right;">...</span>
+					</div>
+					<div class="main-foot-img">
+						<img src="img/wenzhang1.jpg" />
+					</div>
+				</div>
+				<div class="main-foot-con">
+					<div class="main-foot-p">
+						<p style="width: 170px;height: 70px;color: #4a4a4a">快速走路的高血压患者的血压会降低8/6毫米汞柱。</p>
+						<span>环球网 331评</span>
+						<span style="float: right;">...</span>
+					</div>
+					<div class="main-foot-img">
+						<img src="img/wenzhang2.jpg" />
+					</div>
+				</div>
+				<div class="main-foot-con">
+					<div class="main-foot-p">
+						<p style="width: 170px;height: 70px;color: #4a4a4a">木槿茶降低血压有奇效！？</p>
+						<span>环球网 206评</span>
+						<span style="float: right;">...</span>
+					</div>
+					<div class="main-foot-img">
+						<img src="img/wenzhang3.jpg" />
+					</div>
+				</div>
+
+			</div>
+			<div class="fool">
+				<span>——没有更多了——</span>
+			</div>
+		</div>
+	</div>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript" src="js/swiper.min.js"></script>
+	<script>
+		mui.init();
+		mui.plusReady(function () {
+
+			//滚动
+			mui('.mui-scroll-wrapper').scroll({
+				scrollY: true,
+				deceleration: 0.0003,
+				indicators: false
+			});
+		});
+
+		//监听今日数据
+		document.getElementById('todayData').addEventListener('tap', function () {
+			mui.openWindow({
+				url: 'informationState.html',
+				id: 'informationState'
+			})
+		});
+		//监听健康体检
+		document.getElementById('healthCheck').addEventListener('tap', function () {
+			mui.openWindow({
+				url: 'healthCheck.html',
+				id: 'healthCheck'
+			})
+		});
+
+		//监听专家咨询
+		document.getElementById('marjorAsk').addEventListener('tap', function () {
+			mui.openWindow({
+				url: 'majorAsk.html',
+				id: 'majorAsk'
+			})
+		});
+		//监听健康百科
+		document.getElementById('healthEncyclopedia').addEventListener('tap', function () {
+			mui.openWindow({
+				url: 'healthyEncyclopedia.html',
+				id: 'healthyEncyclopedia'
+			})
+		});
+
+		//监听家庭健康
+		document.getElementById('health').addEventListener('tap', function () {
+			mui.openWindow({
+				url: 'familyHealth.html',
+				id: 'familyHealth'
+			})
+		});
+
+		//监听主页
+		document.getElementById('main').addEventListener('tap', function () {
+			mui.openWindow({
+				url: 'index.html',
+				id: 'index'
+			})
+		});
+
+		//监听商城
+		document.getElementById('shop').addEventListener('tap', function () {
+			mui.openWindow({
+				url: 'shop.html',
+				id: 'shop'
+			})
+		});
+
+		var mySwiper = new Swiper('.swiper-container', {
+			direction: 'horizontal',
+			loop: true,
+			autoplay: 5000,
+			slidesPerView: "auto",
+			centeredSlides: true,
+			spaceBetween: 20,
+			observer: true,
+			observerParents: true,
+		})
+
+
+
+	</script>
+
+
+	<!-- 广告文件js -->
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script>
+		// $.ajax({
+		// 	url: "http://www.baidu.com",
+		// 	type: "get",
+		// 	dataType: "jsonp",
+		// 	success: function (data) {
+		// 		alert(data);//请求成功
+		// 	},
+		// 	error: function (XMLHttpRequest, textStatus, errorThrown) {
+		// 		var msg = "状态码:" + XMLHttpRequest.status + "\n"
+		// 			+ "ready state:" + XMLHttpRequest.readyState + "\n"
+		// 			+ "text status:" + textStatus + "\n"
+		// 			+ "error thrown" + errorThrown;
+		// 		alert(msg);
+		// 	}
+		// });
+		$.ajax({
+			type: "POST",
+			url: 'http://localhost:8080/download/getAllAdvList',
+			dataType: "jsonp",
+			jsonp: "callback",//一般默认为:callback
+			success: function (result) {
+				if (result.code === 0) {
+					for (var i = 0; i < result.data.length; i++) {
+						var advObj = result.data[i];
+						var hour = new Date().getHours();
+						//	判断是否处于该广告的播放时间
+						var displayDetail = JSON.parse(advObj.displayDetail);
+						if (displayDetail == null) {
+							continue;
+						}
+						for (var j = 0; j < displayDetail.length; j++) {
+							var displayHour = Number(displayDetail[j]);
+							if (displayHour == hour) {
+								//	下载广告图片并且显示
+								var fileUrl = advObj.fileUrl;
+								var homepage = advObj.homepage;
+								var newSlide = $('<div class="swiper-slide" class="adv-slide"><div class="swiper-shadow"></div><img src="img/banner6.jpg" /></div>');
+								var imgNode = newSlide.find("img");
+								imgNode.click(function () {
+									alert("你点击图片");
+									window.open(homepage);
+								})
+								var xhr = new XMLHttpRequest();
+								xhr.open('POST', "http://localhost:8080/download/getAdvFile", true);
+								xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+								xhr.responseType = "blob";
+								xhr.onload = function () {
+									console.log(this);
+									if (this.status == 200) {
+										var blob = this.response;
+										imgNode.attr("src", window.URL.createObjectURL(blob));
+										$(".swiper-wrapper").append(newSlide);
+										mySwiper.init();
+									}
+								};
+								xhr.send("fileName=" + fileUrl);
+								break;
+							}
+						}
+					}
+				} else {
+					alert(result.msg);
+				}
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				var msg = "状态码:" + XMLHttpRequest.status + "\n"
+					+ "ready state:" + XMLHttpRequest.readyState + "\n"
+					+ "text status:" + textStatus + "\n"
+					+ "error thrown" + errorThrown;
+				alert(msg);
+			}
+		});
+
+
+	</script>
+</body>
+
+</html>

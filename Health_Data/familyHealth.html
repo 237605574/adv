@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>健康智慧移动终端</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+
+		<link rel="stylesheet" href="css/style.css" />
+		<style>
+			body{
+				background-color: #FFFFFF;
+				overflow-y: hidden;
+			}
+			
+			.header-title {
+				font-family: "PingFangSC";
+				color: #FFFFFF;
+				font-size: 16px;
+				line-height: 23px;
+			}
+			.header-title span{
+                margin-left: 110px;
+			}
+			
+			.shadow {
+				width: 330px;
+				height: 180px;
+				background-color: #000000;
+				border-radius: 4px 4px 4px 4px;
+				position: absolute;
+				z-index: -1;
+				/*高斯模糊效果*/
+				/* FireFox, Chrome, Opera */
+				-webkit-filter: blur(3px);
+				/* Chrome, Opera */
+				-moz-filter: blur(3px);
+				-ms-filter: blur(3px);
+				filter: blur(3px);
+				filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+				/* IE6~IE9 */
+				opacity: 0.08;
+			}
+			
+			.middle {
+				width: 330px;
+				margin-top: 19px;
+				margin-left: 15px;
+				font-family: "PingFangSC";
+			}
+			
+			.middle-card {
+				height: 180px;
+				margin-top: 10px;
+				background-color: #FFFFFF;
+			}
+			
+			.card-content {
+				padding-top: 15px;
+				padding-left: 15px;
+			}
+			
+			.card-label {
+				width: 300px;
+				height: 18px;
+				margin-top: 23px;
+			}
+			
+			.card-label #span1 {
+				color: #000000;
+				font-size: 12px;
+				line-height: 17px;
+				opacity: 0.7;
+				float: left;
+			}
+			
+			.card-label #span2 {
+				color: #9B9B9B;
+				font-size: 8px;
+				line-height: 17px;
+				float: right;
+				padding-right: 15px;
+				padding-top: 1px;
+			}
+			
+			.card-label #span3 {
+				color: #9B9B9B;
+				font-size: 12px;
+				line-height: 17px;
+				float: right;
+			}
+			
+			.card-label #span4 {
+				color: #FF7171;
+				font-size: 8px;
+				line-height: 17px;
+				float: right;
+				padding-right: 15px;
+				padding-top: 1px;
+			}
+			
+			.card-label #span5 {
+				color: #FF7171;
+				font-size: 12px;
+				line-height: 17px;
+				float: right;
+			}
+			
+			.card-row1 {
+				height: 18px;
+				margin-left: 16px;
+				float: left;
+				background: linear-gradient(to right, #21FFC5 , #5B9DFF);
+				border-radius: 4px;	
+			}
+			
+			.card-row2{				
+				height: 18px;
+				margin-left: 16px;
+				float: left;
+				background: linear-gradient(to right, #21FFC5 , #5B9DFF);
+				border-radius: 4px;
+			}
+			
+			.card-row3{
+				height: 18px;
+				margin-left: 16px;
+				float: left;
+				border-radius: 4px;
+				background: linear-gradient(to right, #FF5BE4 , #FF2450);
+			}
+			
+			.card-line {
+				width: 310px;
+				margin-top: 15px;
+				border-bottom: 1px solid #000000;
+				opacity: 0.08;
+			}
+			
+			.card-label2 {
+				width: 300px;
+				height: 40px;
+				margin-top: 5px;
+			}
+			
+			.card-label2 img {
+				width: 40px;
+				height: 40px;
+				float: left;
+			}
+			
+			.card-label2 #span1 {
+				width: 150px;
+				color: #000000;
+				font-size: 12px;
+				line-height: 17px;
+				margin-left: 10px;
+				opacity: 0.7;
+				float: left;
+			}
+			
+			.card-label2 #span2 {
+				color: #5D8AFE;
+				font-size: 10px;
+				line-height: 14px;
+				margin-left: 10px;
+				margin-top: 5px;
+				float: left;
+			}
+			
+			.card-label2 #span3 {
+				color: #FF7171;
+				font-size: 10px;
+				line-height: 14px;
+				margin-left: 10px;
+				margin-top: 5px;
+				float: left;
+			}
+			
+			.card-button {
+				width: 64px;
+				height: 24px;
+				color: #808080;
+				font-size: 12px;
+				line-height: 17px;
+    			background-color: #EEEEEE;
+				text-align: center;
+				border-radius: 12px;
+				padding-top: 3px;
+				margin-top: 9px;
+				float: right;			
+			}
+			.header-back {
+				float: left;
+				width: 40px;
+				margin-top: 6px;
+			}
+			
+			.header-back img {
+				width: 8px;
+				height: 16px;
+			}
+			.healthFam-foot{
+				width: 100%;
+				height: 50px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab" style="box-shadow: none;border-top: 1px solid #F0F0F0;">
+			<a class="mui-tab-item" id="main">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item  mui-active" id="health">
+				<span class="mui-icon mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">家庭健康</span>
+			</a>
+			<a class="mui-tab-item" id="shop">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a class="mui-tab-item" href="#">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+		<div class="header" style="height: 50px;padding-top: 15px;">
+			
+			<div class="header-title">
+			   <a class="header-back" id="back">
+					<img src="img/return.png"/>
+				</a>	
+			<span>家庭成员</span>
+			</div>
+		</div>
+		
+		<!--家庭成员状态卡片-->
+		<div class="middle">
+			<div class="middle-card">
+				<!--阴影部分-->
+					<div class="shadow"></div>
+				<!--阴影部分结束-->
+				<div class="card-content">
+					<div class="card-label" style="margin-top: 0px;">
+						<span id="span1">步数</span>
+						<div class="card-row1" style="width: 51px;"></div>
+						<span id="span2">步</span><span id="span3">2,333</span>
+					</div>
+					
+					<div class="card-label">
+						<span id="span1">血压</span>
+						<div class="card-row2" style="width: 150px;"></div>
+						<span id="span2">mmHg</span><span id="span3">115/70</span>
+					</div>
+					
+					<div class="card-label">
+						<span id="span1">血糖</span>
+						<div class="card-row3" style="width: 157px;"></div>
+						<span id="span4">mmo/l</span><span id="span5">6.9</span>
+					</div>
+					<div class="card-line"></div>
+					<div class="card-label2">
+						<img src="img/family2.png"/>
+						<span id="span1">刘霞</span>
+						<div class="card-button"  id="healthPerson">详情</div>
+						<span id="span3">预警：请注意！血糖偏高！</span>	
+					</div>
+				</div>	
+			</div>
+			<div class="middle-card">
+				<!--阴影部分-->
+					<div class="shadow"></div>
+				<!--阴影部分结束-->
+				<div class="card-content">
+					<div class="card-label" style="margin-top: 0px;">
+						<span id="span1">步数</span>
+						<div class="card-row1" style="width: 141px;"></div>
+						<span id="span2">步</span><span id="span3">6,333</span>
+					</div>
+					
+					<div class="card-label">
+						<span id="span1">血压</span>
+						<div class="card-row2" style="width: 156px;"></div>
+						<span id="span2">mmHg</span><span id="span3">118/76</span>
+					</div>
+					
+					<div class="card-label">
+						<span id="span1">血糖</span>
+						<div class="card-row1" style="width: 129px;"></div>
+						<span id="span2">mmo/l</span><span id="span3">6.1</span>
+					</div>
+					<div class="card-line"></div>
+					<div class="card-label2">
+						<img src="img/family1.png"/>
+						<span id="span1">刘应</span>
+						<a class="card-button">详情</a>
+						<span id="span2">今日身体健康，请继续保持！</span>	
+					</div>
+				</div>	
+			</div>
+			
+			
+			
+			<div class="middle-card">
+				<!--阴影部分-->
+					<div class="shadow"></div>
+				<!--阴影部分结束-->
+				<div class="card-content">
+					<div class="card-label" style="margin-top: 0px;">
+						<span id="span1">步数</span>
+						<div class="card-row1" style="width: 91px;"></div>
+						<span id="span2">步</span><span id="span3">4,333</span>
+					</div>
+					
+					<div class="card-label">
+						<span id="span1">血压</span>
+						<div class="card-row2" style="width: 150px;"></div>
+						<span id="span2">mmHg</span><span id="span3">110/69</span>
+					</div>
+					
+					<div class="card-label">
+						<span id="span1">血糖</span>
+						<div class="card-row1" style="width: 110px;"></div>
+						<span id="span2">mmo/l</span><span id="span3">5.8</span>
+					</div>
+					<div class="card-line"></div>
+					<div class="card-label2">
+						<img src="img/family3.png"/>
+						<span id="span1">刘青云</span>
+						<div class="card-button">详情</div>
+						<span id="span2">今日身体健康，请继续保持！</span>	
+					</div>
+				</div>	
+			</div>
+		</div>
+		<!--主要内容结束-->
+			<div class="healthFam-foot"></div>
+			</div>
+				</div>
+		
+			<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				
+				//滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true,
+					deceleration: 0.0003,
+					indicators:false
+				});
+			});
+			
+			//返回
+				document.getElementById('back').addEventListener('tap', function() {
+					mui.back();
+				});
+				
+				//监听家庭健康
+				document.getElementById('health').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'familyHealth.html',
+						id: 'familyHealth'
+					})
+				});
+				
+				//监听主页
+				document.getElementById('main').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'index.html',
+						id: 'index'
+					})
+				});
+				
+				//监听商城
+				document.getElementById('shop').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'shop.html',
+						id: 'shop'
+					})
+				});
+				
+				//监听个人健康详细页
+				document.getElementById('healthPerson').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'personHealth.html',
+						id: 'personHealth'
+					})
+				});
+		</script>
+	</body>
+
+</html>

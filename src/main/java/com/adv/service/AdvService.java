@@ -194,6 +194,13 @@ public class AdvService {
         return new ResultObj<>(ResultCodes.SUCCESS, advObjList);
     }
 
+    /**
+     * 获取全部广告列表
+     */
+    public ResultObj<List<AdvObj>> getAllAdvList() {
+        return new ResultObj<>(ResultCodes.SUCCESS, advDao.getAllValidAdv());
+    }
+
     private ResultObj<Void> checkUserTag(AdvObj advObj) {
         int result = tagDao.checkTagByAdv(advObj);
         if (result <= 0) {
@@ -306,8 +313,8 @@ public class AdvService {
     }
 
     public ResultObj<Void> checkUpdateId(Long advId) {
-        if(advId==null){
-            return new ResultObj<>(ResultCodes.PARAM_ERROR,"id为空");
+        if (advId == null) {
+            return new ResultObj<>(ResultCodes.PARAM_ERROR, "id为空");
         }
         int count = advDao.checkIdCount(advId);
         if (count <= 0) {
@@ -316,17 +323,17 @@ public class AdvService {
         return new ResultObj<>(ResultCodes.SUCCESS);
     }
 
-    public ResultObj<AdvObj> queryAdvById(Long advId){
+    public ResultObj<AdvObj> queryAdvById(Long advId) {
         if (advId == null) {
             return new ResultObj<>(ResultCodes.PARAM_ERROR, "广告ID为空");
         }
         AdvObj advObj = advDao.getAdv(advId);
-        if(advObj==null){
-            return new ResultObj<>(ResultCodes.ADV_INFO_ERROR,"找不到广告");
+        if (advObj == null) {
+            return new ResultObj<>(ResultCodes.ADV_INFO_ERROR, "找不到广告");
         }
         List<Long> tagList = advTagDao.getTag(advId);
         advObj.setUserTagIds(tagList);
-        return new ResultObj<>(ResultCodes.SUCCESS,advObj);
+        return new ResultObj<>(ResultCodes.SUCCESS, advObj);
     }
 
 

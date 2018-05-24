@@ -1,0 +1,98 @@
+{
+  "index.html": {
+    "refer": [
+      "informationState.html",
+      "healthCheck.html",
+      "majorAsk.html",
+      "healthyEncyclopedia.html",
+      "personHealth.html",
+      "familyHealth.html",
+      "shop.html"
+    ],
+    "resources": []
+  },
+  "majorAsk.html": {
+    "refer": [
+      "newdata.html",
+      "index.html",
+      "familyHealth.html"
+    ],
+    "resources": []
+  },
+  "healthCheck.html": {
+    "refer": [
+      "result.html",
+      "familyHealth.html",
+      "index.html"
+    ],
+    "resources": []
+  },
+  "healthyEncyclopedia.html": {
+    "refer": [
+      "drugEncyclopedia.html",
+      "familyHealth.html",
+      "index.html"
+    ],
+    "resources": []
+  },
+  "drugEncyclopedia.html": {
+    "refer": [
+      "drugDetails.html"
+    ],
+    "resources": []
+  },
+  "familyHealth.html": {
+    "refer": [
+      "personHealth.html",
+      "index.html",
+      "shop.html"
+    ],
+    "resources": []
+  },
+  "personHealth.html": {
+    "refer": [
+      "index.html",
+      "shop.html",
+      "personHealthOne.html"
+    ],
+    "resources": []
+  },
+  "shop.html": {
+    "refer": [
+      "index.html",
+      "shopList.html",
+      "familyHealth.html"
+    ],
+    "resources": []
+  },
+  "personHealthOne.html": {
+    "refer": [
+      "index.html",
+      "shop.html",
+      "newdata.html"
+    ]
+  },
+  "drugDetails.html": {
+    "refer": [
+      "index.html"
+    ]
+  },
+  "newdata.html": {
+    "refer": [
+      "index.html",
+      "familyHealth.html",
+      "cheat.html",
+      "shop.html"
+    ]
+  },
+  "result.html": {
+    "refer": [
+      "familyHealth.html"
+    ]
+  },
+  "informationState.html": {
+    "refer": [
+      "familyHealth.html"
+    ]
+  }
+}

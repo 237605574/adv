@@ -524,12 +524,12 @@
             return false;
         }
         // 判断是否为空
-        if ((startDate == null || startDate === "") && (endDate == null || endDate === "")
-            && (advUrl == null || advUrl == "") && (advName == null || advName === "")
-            && (userTags.length == 0)) {
-            alertErrorMsg("请输入查询内容");
-            return false;
-        }
+        // if ((startDate == null || startDate === "") && (endDate == null || endDate === "")
+        //     && (advUrl == null || advUrl == "") && (advName == null || advName === "")
+        //     && (userTags.length == 0)) {
+        //     alertErrorMsg("请输入查询内容");
+        //     return false;
+        // }
         return true;
     }
 

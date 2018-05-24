@@ -37,4 +37,6 @@ public interface AdvDao {
 
     int checkIdCount(@Param("advId")Long id);
 
+    List<AdvObj> getAllValidAdv();
+
 }

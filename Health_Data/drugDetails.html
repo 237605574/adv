@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>健康智慧移动终端</title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<style>
+			body {
+				background-color: #FFFFFF;
+				overflow-y: hidden;
+			}
+			
+			.header-title span {
+				font-family: "PingFangSC";
+				color: #FFFFFF;
+				font-size: 16px;
+				display: block;
+				margin-left: 158px;
+			}
+			
+			.header-card {
+				width: 330px;
+				height: 130px;
+				/*background-color: #635AFE;
+				border-radius: 4px 4px 4px 4px;*/
+				margin-left: 14px;
+				/*margin-top: 30px;*/
+				/*padding-top: 7px;*/
+			}
+			
+			.header-card img {
+				width: 330px;
+				height: 163px;
+			}
+			
+			
+			.card-body {
+				width: 330px;
+				height: 163px;
+				margin-top: 29px;
+			}
+			
+			.shadow {
+				width: 330px;
+				height: 163px;
+				background-color: #57B9FD;
+				border-radius: 4px 4px 4px 4px;
+				position: absolute;
+				z-index: -1;
+				/*高斯模糊效果*/
+				filter: url(blur.svg#blur);
+				/* FireFox, Chrome, Opera */
+				-webkit-filter: blur(14px);
+				/* Chrome, Opera */
+				-moz-filter: blur(14px);
+				-ms-filter: blur(14px);
+				filter: blur(14px);
+				filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+				/* IE6~IE9 */
+				opacity: 0.3;
+			}		
+		
+			.middle-abstract {
+				margin-top: 20px;
+				font-size: 12px;
+				color: #4A4A4A;
+				line-height: 17px;
+			}
+		
+			.card-line {
+				width: 310px;
+				/*margin-left: 12px;
+				margin-top: 17px;->del*/
+				margin-top: 20px;
+				border-bottom: 1px solid #000000;
+				opacity: 0.08;
+			}
+			
+			/*药品介绍*/
+			.middle {
+				margin-top: 60px;
+				margin-left: 15px;
+				font-family: "PingFangSC";
+				width: 330px;
+			}
+			
+			.middle-title {
+				color: #000000;
+				font-size: 18px;
+				font-weight: bold;
+				opacity: 0.7;
+				margin-top: 29px;
+			}
+			
+			
+			.middle-card {
+				height: 66px;
+				border-radius: 4px 4px 4px 4px;
+				/*padding-bottom: 90px;->del*/
+				margin-top: 10px;
+			}
+			
+			
+			.label {
+				margin-top: 10px;
+			}
+			
+			.label #span1 {
+				font-size: 14px;
+				color: #000000;
+				line-height: 20px;
+				opacity: 0.7;
+			}
+			
+			.label #span2 {
+				font-size: 10px;
+				line-height: 14px;
+				color: #4A4A4A;
+				display: block;
+				margin-top: 10px;
+			}
+						
+			.label .label-footer {
+				width: 310px;
+				/*margin-left: 12px;
+				margin-top: 17px;->del*/
+				margin-top: 10px;
+				border-bottom: 1px solid #000000;
+				opacity: 0.08;
+			}
+			.header-back {
+				float: left;
+				width: 40px;
+				margin-top: 2px;
+			}
+			
+			.header-back img {
+				width: 8px;
+				height: 16px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab" style="box-shadow: none;border-top: 1px solid #F0F0F0;">
+			<a class="mui-tab-item mui-active" id="main">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="health">
+				<span class="mui-icon mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">家庭健康</span>
+			</a>
+			<a class="mui-tab-item" id="shop">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a class="mui-tab-item" href="#">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+		<div class="header" style="height: 224px;background-image: url(img/background.svg);
+			background-size:cover; ">
+			<div class="header-title">
+				<a class="header-back" id="back">
+					<img src="img/return.png"/>
+				</a>
+				<span>板蓝根</span>
+			</div>
+
+			<!--卡片-->
+			<div class="header-card">		
+				<div class="card-body">
+					<!--高斯模糊阴影效果-->
+					<div class="shadow"></div>
+					<!--高斯模糊阴影效果-->
+					<img src="img/blg.png" />
+				</div>
+			</div>
+			<!--卡片结束-->
+		</div>
+		
+		<div class="middle">
+			<!--药品简介-->
+			<div class="middle-title">
+				药品简介
+			</div>
+			<div class="middle-abstract">
+				板蓝根，中药名。常用别名：靛青根、蓝靛根、大青根，是一种中药材。
+				苦，寒。具有清热解毒，凉血利咽之功效。
+				常用于温疫时毒，发热咽痛，温毒发斑，痄腮，烂喉丹痧，大头瘟疫，丹毒，痈肿。
+			</div>
+			<div class="card-line"></div>
+			
+			<div class="label" style="margin-top: 20px;">
+				<span id="span1">入药部位</span>
+				<span id="span2">十字花科植物菘蓝的干燥根。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">性味</span>
+				<span id="span2">苦，寒。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">功效</span>
+				<span id="span2">清热解毒，凉血，利咽。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">主治</span>
+				<span id="span2">温疫时毒，发热咽痛，温毒发斑，痄腮，烂喉丹痧，大头瘟疫，丹毒，痈肿。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">相关配伍</span>
+				<span id="span2">1、与玄参、马勃、牛蒡子等同用，可用于风热上攻，咽喉肿痛等症。<br/> 
+					2、与生地、紫草、黄芩等同用，可用于时行温病，温毒发斑等症。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">用法用量</span>
+				<span id="span2">煎服，9-15g。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">禁忌</span>
+				<span id="span2">体虚而无实火热毒者忌服，脾胃虚寒者慎用。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">炮制方法</span>
+				<span id="span2">1、除去杂质，洗净，润透，切厚片，干燥。<br/>
+					2、本品呈圆形的厚片。外表皮淡灰黄色至淡棕黄色，有纵皱纹。切面皮部黄白色，木部黄色。气微，味微甜后苦涩。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">生理特性</span>
+				<span id="span2">菘蓝，二年生草本，植株高50-2500px。光滑被粉霜。根肥厚，近圆锥形，直径2-75px，长20-750px，表面土黄色，具短横纹及少数须根。基生叶莲座状，叶片长圆形至宽倒披针形，长5-375px，宽1.5-100px，先端钝尖，边缘全缘，或稍具浅波齿，有圆形叶耳或不明显；茎顶部叶宽条形全缘，无柄。总状花序顶生或腋生，在枝顶组成圆锥状；萼片4，宽卵形或宽披针形，长2-3mm；花瓣4，黄色，宽楔形，长3-4mm，先端近平截边缘全缘，基部具不明显短爪；雄蕊6，4长2短，长雄蕊长3-3.2mm，短雄蕊长2-2.2mm；雌蕊1，子房近圆柱形，花柱界限不明显，柱头平截。短角果近长圆形，扁平，无毛，边缘具膜质翅，尤以两端的翅较宽，果瓣具中脉种子1颗，长圆形，淡褐色。花期4-5月，果期5-6月。喜湿暖环境，耐寒怕涝，宜选排水良好、疏松肥沃的砂质壤土。生于山地林缘较潮湿的地方。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">产地</span>
+				<span id="span2">主产于河北、江苏、安徽、河南亦产。</span>
+				<div class="label-footer"></div>
+			</div>
+			<div class="label">
+				<span id="span1">相关论述</span>
+				<span id="span2">《本草便读》：“板蓝根即靛青根，其功用性味与靛青叶同，能入肝胃血分，不过清热、解毒、辟疫、杀虫四者而已。但叶主散，根主降，此又同中之异耳。”</span>
+				<div class="label-footer"></div>
+			</div>
+		</div>
+		</div>
+		</div>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				
+				//滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true,
+					deceleration: 0.0003,
+					indicators:false
+				});
+			});
+			
+			//监听家庭健康
+				document.getElementById('health').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'familyHealth.html',
+						id: 'familyHealth'
+					})
+				});
+				
+				//监听主页
+				document.getElementById('main').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'index.html',
+						id: 'index'
+					})
+				});
+				
+				//监听商城
+				document.getElementById('shop').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'shop.html',
+						id: 'shop'
+					})
+				});
+			
+			//返回
+				document.getElementById('back').addEventListener('tap', function() {
+					mui.back();
+				});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>健康智慧移动终端</title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<style>
+			body{
+				background-color: #FFFFFF;
+				overflow-y: hidden;
+			}
+			
+			.header-option{
+				float: left;		
+			}
+			
+			.header-option .span1{
+				font-family: "PingFangSC";
+				color: #FAFAFA;
+				font-size: 14px;
+				margin-left: 14px;
+				padding-bottom: 2px;
+				border-bottom: 2px solid;
+			}
+			
+			.header-option span{
+				font-family: "PingFangSC";
+				color: #DDDDDD;
+				font-size: 14px;
+				margin-left: 22px;
+			}
+			
+			.header-search2 img{
+				margin-top: 3px;
+				margin-left: 16px;
+				width: 14px;
+				height: 14px;
+			}
+			
+			.swiper-title {
+				font-family: "PingFangSC";
+				color: #FFFFFF;
+				font-size:18px;
+				margin-left: 14px;
+				font-weight:bold;
+			}
+			
+			
+			.middle {
+				margin-top: 75px;
+				margin-left: 18px;
+				width: 330px;
+				border-top: 1px solid #F0F0F0;
+			}
+			
+			.middle-title {
+				margin-top: 20px;
+				font-family: "PingFangSC";
+				color: #000000;
+				font-size: 18px;
+				opacity: 0.7;
+				font-weight: bold;
+			}
+			
+			.middle-card {
+				height: 66px;
+				border-radius: 4px 4px 4px 4px;
+				/*padding-bottom: 90px;->del*/
+				margin-top: 10px;
+				color: #FFFFFF;
+			}
+			
+			.middle-card .message1 {
+				width: 70%;
+				color: #FFFFFF;
+				padding-top: 12px;
+				padding-left: 15px;
+				float: left;
+			}
+			
+			.middle-card .message1 #span1 {
+				font-size: 14px;
+			}
+			
+			.middle-card .message1 #span2 {
+				display: block;
+				font-size: 10px;
+				margin-top: 5px;
+				opacity: 0.7;
+			}
+								
+			.card-button {
+				width: 64px;
+				height: 24px;
+    			background-color: rgba(255,255,255,0.3);
+				margin-top: 22px;
+				margin-right: 15px;
+				text-align: center;
+				border-radius: 8px 8px 8px 8px;
+				float: right;			
+			}
+			
+			.card-button span{
+				font-size: 12px;
+			}
+			.header-back {
+				float: left;
+				width: 40px;
+				margin-top: 6px;
+			}
+			
+			.header-back img {
+				width: 8px;
+				height: 16px;
+			}
+			.header-search-input{
+				width: 305px;
+			height: 30px;
+			display: inline-block;
+			margin: 0 auto;
+			background: linear-gradient(to right, #8AC5FD 0%, #8885FE 100%);
+			border-radius: 5px;
+			}
+			
+			.header-search-input input{
+				background: none;
+			border: none;
+			line-height: 11px;
+			font-size: 12px;
+			width: 233px;
+			height: 17px;
+			margin: 6px 6px 6px 15px;
+			}
+			.header-search-input img{
+			width: 13px;
+			height: 14px;
+			margin-top: 8px;
+			margin-bottom: 2px;
+			vertical-align: text-bottom;
+			float: right;
+			margin-right: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab" style="box-shadow: none;border-top: 1px solid #F0F0F0;">
+			<a class="mui-tab-item mui-active" id="main">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="health">
+				<span class="mui-icon mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">家庭健康</span>
+			</a>
+			<a class="mui-tab-item" id="shop">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a class="mui-tab-item" href="#">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div class="header" style="background-image: url(img/background.svg);
+			background-size:cover;">			
+			<div class="header-title">
+				<a class="header-back" id="back">
+					<img src="img/return.png"/>
+				</a>
+				<div class="header-search-input">
+				<input placeholder="请输入 药品/疾病/健康常识  进行搜索"></input>
+				<img  src="img/Shape.png" />
+				</div>
+			</div>
+			
+			<!--轮播-->
+			<div class="swiper" style="margin-top: 1px; overflow: hidden;height: 240px;">
+				<div class="swiper-title">甄选推荐</div>
+				<div class="swiper-container" style="margin-top: 13px;">
+					<div class="swiper-wrapper" style="margin-left: -30px;">
+						
+						<div class="swiper-slide">
+							<div class="swiper-shadow"></div>
+							<img src="img/banner6.jpg" />
+						</div>
+						<div class="swiper-slide">
+							<div class="swiper-shadow"></div>
+							<img src="img/banner5.jpg" />
+						</div>
+						<div class="swiper-slide">
+							<div class="swiper-shadow"></div>
+							<img src="img/banner1.jpg" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--轮播结束-->
+		</div>
+		
+			<!--主要内容-->
+		<div class="middle">
+			<div class="middle-title">
+				药品知识小百科
+			</div>
+			
+			<div class="middle-card"  id="yaopinCheck" style="background: linear-gradient(to bottom, #42BDFF , #00A3F3); margin-top: 20px;">
+				<div class="message1">
+					<span id="span1">药品百科</span>
+					<span id="span2">提供全面的药品信息</span>
+				</div>
+				<div class="card-button"><span>查看</span></div>
+			</div>
+			
+			<div class="middle-card" style="background: linear-gradient(to bottom, #42BDFF , #00A3F3);">
+				<div class="message1">
+					<span id="span1">疾病百科</span>
+					<span id="span2">完善的疾病信息库</span>
+				</div>
+				<div class="card-button"><span>查看</span></div>
+			</div>
+			
+			<div class="middle-card" style="background: linear-gradient(to bottom, #42BDFF , #00A3F3);">
+				<div class="message1">
+					<span id="span1">健康保健</span>
+					<span id="span2">提供日常的健康知识与保健知识</span>
+				</div>
+				<div class="card-button"><span>查看</span></div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/swiper.min.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function() {
+
+			
+				
+			});
+			
+			//监听家庭健康
+				document.getElementById('health').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'familyHealth.html',
+						id: 'familyHealth'
+					})
+				});
+				
+				//监听主页
+				document.getElementById('main').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'index.html',
+						id: 'index'
+					})
+				});
+				
+				//监听商城
+				document.getElementById('shop').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'shop.html',
+						id: 'shop'
+					})
+				});
+			
+			//监听药品百科
+				document.getElementById('yaopinCheck').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'drugEncyclopedia.html',
+						id: 'drugEncyclopedia'
+					})
+				});
+			
+			//返回
+			document.getElementById('back').addEventListener('tap', function() {
+				mui.back();
+			});
+			var mySwiper = new Swiper('.swiper-container', {
+				direction: 'horizontal',
+				loop: true,
+				autoplay: 0,
+				slidesPerView: "auto",
+				centeredSlides: true,
+				spaceBetween: 20,
+				// 如果需要分页器
+				pagination: '.swiper-pagination',
+			})
+		</script>
+	</body>
+
+</html>

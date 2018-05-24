@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="720px" height="448px" viewBox="0 0 720 448" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle 2 Copy 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="50%" x2="100%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#57B8FD" offset="0%"></stop>
+            <stop stop-color="#635AFE" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Android-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M0,0 L720,0 C803.687651,98.6547857 808.835361,197.443496 735.44313,296.366131 C662.050898,395.288767 416.903188,445.83339 0,448 L0,0 Z" id="Rectangle-2-Copy-2" fill="url(#linearGradient-1)"></path>
+    </g>
+</svg>

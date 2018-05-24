@@ -23,6 +23,7 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
         String path = request.getRequestURI();
         if (path.matches(NO_INTERCEPTOR_PATH)) {
             //  不拦截
+
             return true;
         } else if (!administratorService.checkLogin(request.getSession())) {
             response.sendRedirect(request.getContextPath() + LocalAddrs.LOGIN);

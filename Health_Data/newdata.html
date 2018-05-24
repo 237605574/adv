@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>健康智慧移动终端</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<style>
+			body {
+				background-color: #FFFFFF;
+				overflow-y: hidden;
+			}
+			
+			.header-title span {
+				font-family: "PingFangSC";
+				color: #FFFFFF;
+				font-size: 16px;
+				display: block;
+				margin-left: 164px;
+			}
+			
+			.header-card {
+				width: 330px;
+				height: 130px;
+				/*background-color: #635AFE;
+				border-radius: 4px 4px 4px 4px;*/
+				margin-left: 14px;
+				margin-top: 30px;
+				/*padding-top: 7px;*/
+			}
+			
+			.header-card img {
+				width: 84px;
+				height: 84px;
+				margin-left: 125px;
+				float: left;
+			}
+			
+			.header-card #span1 {
+				font-family: "PingFangSC";
+				color: #4A4A4A;
+				font-size: 12px;
+				display: block;
+				margin-top: 37px;
+			}
+			
+			.card-body {
+				width: 330px;
+				height: 130px;
+				margin-top: 30px;
+				padding-top: 42px;
+			}
+			
+			.shadow {
+				width: 330px;
+				height: 88px;
+				background-color: #57B9FD;
+				border-radius: 4px 4px 4px 4px;
+				position: absolute;
+				z-index: -1;
+				/*高斯模糊效果*/
+				filter: url(blur.svg#blur);
+				/* FireFox, Chrome, Opera */
+				-webkit-filter: blur(14px);
+				/* Chrome, Opera */
+				-moz-filter: blur(14px);
+				-ms-filter: blur(14px);
+				filter: blur(14px);
+				filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+				/* IE6~IE9 */
+				opacity: 0.3;
+			}
+			
+			.card-content {
+				width: 330px;
+				height: 88px;
+				background-color: #FFFFFF;
+				padding-top: 60px;
+				text-align: center;
+				border-radius: 4px 4px 4px 4px;
+				/*margin-left: 15px;
+				margin-top: 30px;
+				opacity: 0.7;*/
+			}
+			
+			.card-content span {
+				font-family: "PingFangSC";
+				color: #000000;
+				font-size: 12px;
+				opacity: 0.7
+			}
+			
+			.card-line {
+				width: 310px;
+				/*margin-left: 12px;
+				margin-top: 17px;->del*/
+				margin-top: 20px;
+				border-bottom: 1px solid #000000;
+				opacity: 0.08;
+			}
+			/*问诊服务*/
+			
+			.middle {
+				margin-top: 128px;
+				margin-left: 15px;
+				font-family: "PingFangSC";
+				width: 330px;
+			}
+			
+			.middle-title {
+				color: #000000;
+				font-size: 18px;
+				font-weight: bold;
+				opacity: 0.7;
+				margin-top: 29px;
+			}
+			
+			.middle-tag {
+				margin-top: 20px;
+				height: 30px;
+				font-size: 14px;
+			}
+			
+			.middle-tag .tag {
+				width: 91px;
+				height: 30px;
+				text-align: center;
+				padding-top: 5px;
+				color: #808080;
+				background-color: #EBEBEB;
+				border-radius: 4px 4px 4px 4px;
+				margin-left: 10px;
+				float: left;
+			}
+			
+			.middle-card {
+				height: 66px;
+				border-radius: 4px 4px 4px 4px;
+				/*padding-bottom: 90px;->del*/
+				margin-top: 10px;
+			}
+			
+			.middle-card .message1 {
+				width: 70%;
+				color: #FFFFFF;
+				padding-top: 12px;
+				padding-left: 15px;
+				float: left;
+			}
+			
+			.middle-card .message1 #span1 {
+				font-size: 14px;
+			}
+			
+			.middle-card .message1 #span2 {
+				display: block;
+				font-size: 10px;
+				margin-top: 5px;
+				opacity: 0.7;
+			}
+			
+			.middle-card #span3 {
+				font-size: 12px;
+				color: #FFFFFF;
+				margin-top: 28px;
+				margin-right: 15px;
+				float: right;
+			}
+			
+			.middle-card #span4 {
+				font-size: 28px;
+				color: #FFFFFF;
+				margin-top: 25px;
+				float: right;
+			}
+			
+			.label {
+				height: 69px;
+				margin-top: 15px;
+			}
+			
+			.label-part {
+				width: 85%;
+				float: left;
+			}
+			
+			.label span {
+				font-size: 12px;
+				color: #202924;
+			}
+			
+			.label-part #span1 {
+				float: left;
+			}
+			
+			.label-part #span2 {
+				float: left;
+				display: block;
+				margin-top: 20px;
+			}
+			
+			.label #span3 {
+				float: right;
+			}
+			
+			.label .label-star {
+				margin-left: 10px;
+				float: left;
+			}
+			
+			.label .label-star img {
+				width: 15px;
+				height: 14px;
+			}
+			
+			.label .label-footer {
+				width: 310px;
+				/*margin-left: 12px;
+				margin-top: 17px;->del*/
+				margin-top: 15px;
+				border-bottom: 1px solid #000000;
+				opacity: 0.08;
+				float: left;
+			}
+			.header-back {
+				float: left;
+				width: 40px;
+				margin-top: 2px;
+			}
+			
+			.header-back img {
+				width: 8px;
+				height: 16px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab" style="box-shadow: none;border-top: 1px solid #F0F0F0;">
+			<a class="mui-tab-item mui-active" id="main">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="health">
+				<span class="mui-icon mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">家庭健康</span>
+			</a>
+			<a class="mui-tab-item" id="shop">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a class="mui-tab-item" href="#">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+		<div class="header" style="height: 192px;background-image: url(img/background.svg);
+			background-size:cover; ">
+			<div class="header-title">
+				<a class="header-back" id="back">
+					<img src="img/return.png"/>
+				</a>
+				<span>刘禾</span>
+			</div>
+
+			<!--卡片-->
+			<div class="header-card">
+				<img style="border-radius: 50%;" src="img/myself.png" />
+				<div class="card-body">
+					<!--高斯模糊阴影效果-->
+					<div class="shadow"></div>
+					<!--高斯模糊阴影效果-->
+					<div class="card-content">
+						<span>“ 擅长领域动脉硬化 ,遗传性高血脂症,高血压 ,糖尿病 ”</span>
+					</div>
+				</div>
+				<span id="span1">中山大学附属第一医院&nbsp;内分泌门诊&nbsp;主任医师</span>
+				<div class="card-line"></div>
+			</div>
+			<!--卡片结束-->
+		</div>
+		<div class="middle">
+			<!--问诊服务-->
+			<div class="middle-title">
+				问诊服务
+			</div>
+			<div class="middle-card" id="picCheat" style="background: linear-gradient(to bottom, #42BDFF , #00A3F3); margin-top: 20px;">
+				<div class="message1">
+					<span id="span1">图文资讯</span>
+					<span id="span2">可使用图文/语音与医生沟通</span>
+				</div>
+				<span id="span3">元/次</span><span id="span4">30</span>
+			</div>
+			<div class="middle-card" style="background: linear-gradient(to bottom, #FDB157 , #FE795A);">
+				<div class="message1">
+					<span id="span1">视频资讯</span>
+					<span id="span2">可预约时间与医生进行通话/视频咨询</span>
+				</div>
+				<span id="span3">元/次</span><span id="span4">200</span>
+			</div>
+			<div class="card-line"></div>
+			<!--问诊服务-->
+
+			<!--资讯评论-->
+			<div class="middle-title">
+				咨询评价（152）
+			</div>
+			<div class="middle-tag">
+				<div class="tag" style="margin-left: 0px;">高血压（10）</div>
+				<div class="tag">高血糖（50）</div>
+				<div class="tag">尿糖（21）</div>
+			</div>
+			
+			<div class="card-line"></div>
+			
+			<div class="label">
+				<div class="label-part">
+					<span id="span1">陈**</span>
+					<div class="label-star">
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+						<img src="img/Rectangle 6.png"/>
+					</div>
+					<span id="span2">医生非常认真，不厌其烦的回答了我的问题！</span>
+				</div>
+					<span id="span3">2018.3.12</span>
+				<div class="label-footer"></div>
+			</div>
+			
+			<div class="label">
+				<div class="label-part">
+					<span id="span1">林**</span>
+					<div class="label-star">
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+						<img src="img/Rectangle 6.png"/>
+					</div>
+					<span id="span2">医师真的是妙手回春，之前一直治不好的高血压现在痊愈了。</span>
+				</div>
+					<span id="span3">2018.5.01</span>
+				<div class="label-footer"></div>
+			</div>
+			
+			<div class="label">
+				<div class="label-part">
+					<span id="span1">黄**</span>
+					<div class="label-star">
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+						<img src="img/star.png"/>
+					</div>
+					<span id="span2">感谢医师的耐心指导，解答了我心中很多疑惑！</span>
+				</div>
+					<span id="span3">2018.5.08</span>
+				<div class="label-footer"></div>
+			</div>
+			<!--资讯评论-->
+
+		</div>
+		</div>
+		</div>
+			<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				
+				//滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true,
+					deceleration: 0.0003,
+					indicators:false
+				});
+			});
+			
+			//监听家庭健康
+				document.getElementById('health').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'familyHealth.html',
+						id: 'familyHealth'
+					})
+				});
+				
+				//监听主页
+				document.getElementById('main').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'index.html',
+						id: 'index'
+					})
+				});
+				
+				//监听商城
+				document.getElementById('shop').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'shop.html',
+						id: 'shop'
+					})
+				});
+				
+				//监听聊天窗口
+				document.getElementById('picCheat').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'cheat.html',
+						id: 'cheat'
+					})
+				});
+
+			//返回
+			document.getElementById('back').addEventListener('tap', function() {
+				mui.back();
+			});
+		</script>
+	</body>
+
+</html>

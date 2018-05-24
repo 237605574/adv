@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <title>健康智慧移动终端</title>
+    <script>
+      (function (designWidth, maxWidth) {
+        var doc = document,
+          win = window;
+        var docEl = doc.documentElement;
+        var metaEl,
+          metaElCon;
+        var styleText,
+          remStyle = document.createElement("style");
+        var tid;
+
+        function refreshRem() {
+          // var width = parseInt(window.screen.width); // uc有bug
+          var width = docEl.getBoundingClientRect().width;
+          if (!maxWidth) {
+            maxWidth = 540;
+          }
+          ;
+          if (width > maxWidth) { // 淘宝做法：限制在540的屏幕下，这样100%就跟10rem不一样了
+            width = maxWidth;
+          }
+          var rem = width * 100 * 3 / designWidth;
+          // var rem = width / 10; // 如果要兼容vw的话分成10份 淘宝做法
+          //docEl.style.fontSize = rem + "px"; //旧的做法，在uc浏览器下面会有切换横竖屏时定义了font-size的标签不起作用的bug
+          remStyle.innerHTML = 'html{font-size:' + rem + 'px;}';
+        }
+
+        // 设置 viewport ，有的话修改 没有的话设置
+        metaEl = doc.querySelector('meta[name="viewport"]');
+        // 20171219修改：增加 viewport-fit=cover ，用于适配iphoneX
+        metaElCon = "width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no,viewport-fit=cover";
+        if (metaEl) {
+          metaEl.setAttribute("content", metaElCon);
+        } else {
+          metaEl = doc.createElement("meta");
+          metaEl.setAttribute("name", "viewport");
+          metaEl.setAttribute("content", metaElCon);
+          if (docEl.firstElementChild) {
+            docEl.firstElementChild.appendChild(metaEl);
+          } else {
+            var wrap = doc.createElement("div");
+            wrap.appendChild(metaEl);
+            doc.write(wrap.innerHTML);
+            wrap = null;
+          }
+        }
+
+        //要等 wiewport 设置好后才能执行 refreshRem，不然 refreshRem 会执行2次；
+        refreshRem();
+        if (docEl.firstElementChild) {
+          docEl.firstElementChild.appendChild(remStyle);
+        } else {
+          var wrap = doc.createElement("div");
+          wrap.appendChild(remStyle);
+          doc.write(wrap.innerHTML);
+          wrap = null;
+        }
+
+        win.addEventListener("resize", function () {
+          clearTimeout(tid); //防止执行两次
+          tid = setTimeout(refreshRem, 300);
+        }, false);
+
+        win.addEventListener("pageshow", function (e) {
+          if (e.persisted) { // 浏览器后退的时候重新计算
+            clearTimeout(tid);
+            tid = setTimeout(refreshRem, 300);
+          }
+        }, false);
+
+        if (doc.readyState === "complete") {
+          doc.body.style.fontSize = "16px";
+        } else {
+          doc.addEventListener("DOMContentLoaded", function (e) {
+            doc.body.style.fontSize = "16px";
+          }, false);
+        }
+      })(1080, 1200);
+    </script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script src="js/mui.min.js"></script>
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            background: #fbfbfb;
+            font-family: 微软雅黑;
+        }
+
+        .top {
+            padding-top: 0.1rem;
+            height: 3.05rem;
+            background: linear-gradient(to right, #57B8FD, #635AFE);
+            /*background-image: url("");*/
+        }
+
+        .top .title {
+            margin-top: 0.09rem;
+            height: 0.29rem;
+        }
+
+        .top .title .left {
+            width: 0.23rem;
+            float: left;
+            padding-right:0.35rem ;
+            padding-left: 0.15rem;
+            padding-top: 0.03rem;
+            
+        }
+
+        .top .title .left img {
+            height: 0.16rem;
+            width: 0.08rem;
+            background-color: #eee;
+            float: left;
+            background: none;
+        }
+
+        .top .title .right {
+            float: right;
+            padding-right: 0.15rem;
+        }
+
+        .top .title .right .switch {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .top .title .right span {
+            position: absolute;
+            color: #fff;
+            font-size: 0.1rem;
+            margin-left: -0.15rem;
+            margin-top: 0.05rem;
+        }
+
+        .top .circle {
+            position: relative;
+            height: 2.54rem;
+            width: 2.54rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 旋转特效*/
+        .rotate1 {
+            position: relative;
+            top: 0.4rem;
+            margin-left: auto;
+            margin-right: auto;
+            width: 1.6rem;
+            height: 1.6rem;
+            border: 0.04rem solid;
+            border-color: #fff  #fff RGBA(87, 185, 253, 0.3) #fff;
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: rotate1 2s linear infinite;
+        }
+
+        @keyframes rotate1 {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .rotate2 {
+            position: relative;
+            top: -1.35rem;
+            margin-left: auto;
+            margin-right: auto;
+            width: 1.9rem;
+            height: 1.9rem;
+            border: 0.04rem solid;
+            border-color: #fff #fff RGBA(87, 185, 253, 0.3) #fff ;
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: rotate2 2s linear infinite;
+        }
+
+        @keyframes rotate2 {
+            0% {
+                transform: rotate(30deg);
+            }
+            100% {
+                transform: rotate(-330deg);
+            }
+        }
+        .rotate3 {
+            position: relative;
+            top: -3.4rem;
+            margin-left: auto;
+            margin-right: auto;
+            width: 2.2rem;
+            height: 2.2rem;
+            border: 0.04rem solid;
+            border-color: #fff #fff RGBA(87, 185, 253, 0.3) #fff ;
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: rotate3 2s linear infinite;
+        }
+
+        @keyframes rotate3 {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        .top .circle .data{
+            position: absolute;
+            top: 1.05rem;
+            left:0.80rem;
+            font-size: 0.28rem;
+            color:#fff;
+        }
+        .top .circle .hhmg{
+            position: absolute;
+            top: 1.34rem;
+            left:1.08rem;
+            font-size: 0.12rem;
+            color:#fff;
+        }
+        .content {
+            height:2.85rem;
+        }
+        .content .message1{
+            position: relative;
+            margin-top: 0.3rem;
+            height:0.66rem;
+            width:3.3rem;
+            margin-left:auto;
+            margin-right:auto;
+            background: linear-gradient(to bottom, #FFAC40 , #FF6F4F);
+            border-radius:0.05rem;
+        }
+        .content .message1 .message1_left{
+            position: absolute;
+            left:0;
+            width: 50%;
+            height: 100%;
+            text-align: left;
+            color:#fff;
+        }
+        .content .message1 .message1_left .left1_title {
+            position:absolute;
+            top:0.10rem;
+            left:0.15rem;
+            font-size: 0.1rem;
+            font-size: 0.15rem;
+        }
+        .content .message1 .message1_left .evaluation {
+            position:absolute;
+            left:0.15rem;
+            bottom:0.10rem;
+            font-size: 0.1rem;
+        }
+        .content .message1 .message1_right{
+            position: absolute;
+            width: 50%;
+            right:0;
+            height:0.66rem;
+            text-align: right;
+            padding-top: 0.18rem;
+            color:#fff;
+        }
+        .content .message1 .right1_num{
+            float:right;
+            text-align: right;
+            margin-top:0.10rem;
+            font-size: 0.28rem;
+        }
+        .content .message1 .right1_mmhg{
+            float:right;
+            width:0.2rem;
+            text-align: right;
+            padding-top: 0.18rem;
+            margin-right: 0.28rem;
+            font-size: 0.10rem;
+        }
+        .content .message2{
+            position: relative;
+            margin-top: 0.1rem;
+            height:0.66rem;
+            width:3.3rem;
+            margin-left:auto;
+            margin-right:auto;
+            background: linear-gradient(to bottom, #FFAC40 , #FF6F4F);
+            border-radius:0.05rem;
+        }
+        .content .message2 .message2_left{
+            position: absolute;
+            left:0;
+            height: 100%;
+            width: 50%;
+            text-align: left;
+            padding-left: 0.15rem;
+            padding-top: 0.12rem;
+            font-size: 0.14rem;
+            color:#fff;
+        }
+        .content .message2 .message2_left .evaluation {
+            margin-top: 0.15rem;
+            font-size: 0.1rem;
+        }
+        .content .message2 .message2_left .left1_title {
+            position:absolute;
+            top:0.10rem;
+            left:0.15rem;
+            font-size: 0.1rem;
+            font-size: 0.15rem;
+        }
+        .content .message2 .message2_left .evaluation {
+            position:absolute;
+            left:0.15rem;
+            bottom:0.10rem;
+            font-size: 0.1rem;
+        }
+        .content .message2 .message2_right{
+            position: absolute;
+            width: 50%;
+            right:0;
+            height:0.66rem;
+            text-align: right;
+            padding-top: 0.18rem;
+            color:#fff;
+        }
+        .content .message2 .right2_num{
+            float:right;
+            text-align: right;
+            margin-top:0.10rem;
+            font-size: 0.28rem;
+        }
+        .content .message2 .right2_mmhg {
+            float: right;
+            width: 0.2rem;
+            text-align: right;
+            padding-top: 0.18rem;
+            margin-right: 0.28rem;
+            font-size: 0.10rem;
+        }
+        .content .message3{
+            position:relative;
+            margin-top: 0.1rem;
+            height:0.66rem;
+            width:3.3rem;
+            margin-left:auto;
+            margin-right:auto;
+            background: linear-gradient(to bottom, #FFAC40 , #FF6F4F);
+            border-radius:0.05rem;
+        }
+        .content .message3 .message3_left{
+            position: absolute;
+            left:0;
+            height: 100%;
+            width: 50%;
+            text-align: left;
+            padding-left: 0.15rem;
+            padding-top: 0.12rem;
+            font-size: 0.14rem;
+            color:#fff;
+        }
+        .content .message3 .message3_left .evaluation {
+            margin-top: 0.15rem;
+            font-size: 0.1rem;
+        }
+        .content .message3 .message3_left .left1_title {
+            position:absolute;
+            top:0.10rem;
+            left:0.15rem;
+            font-size: 0.1rem;
+            font-size: 0.15rem;
+        }
+        .content .message3 .message3_left .evaluation {
+            position:absolute;
+            left:0.15rem;
+            bottom:0.10rem;
+            font-size: 0.1rem;
+        }
+        .content .message3 .message3_right{
+            position: absolute;
+            width: 50%;
+            right:0;
+            height:0.66rem;
+            text-align: right;
+            padding-top: 0.18rem;
+            color:#fff;
+        }
+        .content .message3 .right3_num{
+            float:right;
+            text-align: right;
+            margin-top:0.10rem;
+            font-size: 0.28rem;
+        }
+        .content .message3 .right3_mmhg {
+            float: right;
+            width: 0.2rem;
+            text-align: right;
+            padding-top: 0.18rem;
+            margin-right: 0.28rem;
+            font-size: 0.10rem;
+        }
+			
+    </style>
+</head>
+
+<body>
+	<nav class="mui-bar mui-bar-tab" style="box-shadow: none;border-top: 1px solid #F0F0F0;">
+			<a class="mui-tab-item mui-active" id="main">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="health">
+				<span class="mui-icon mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">家庭健康</span>
+			</a>
+			<a class="mui-tab-item" id="shop">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a class="mui-tab-item" href="#">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+<div class="top">
+    <div class="title">
+        <div class="left" id="back">
+            <!--下面img标签放返回图标-->
+            <a class="header-back" >
+					<img src="img/return.png"/>
+				</a>
+        </div>
+        <div class="right">
+            <div class="switch">
+                <div class="mui-switch mui-switch-mini mui-active" style="height:0.14rem;width:0.30rem">
+                    <div class="mui-switch-handle" style="height:0.13rem;width:0.13rem"></div>
+                </div>
+            </div>
+            <div>
+                <span>已连接</span>
+            </div>
+        </div>
+    </div>
+    <div class="circle">
+        <!--转起来-->
+        <div>
+            <div class="rotate1"></div>
+            <div class="rotate2"></div>
+            <div class="rotate3"></div>
+        </div>
+        <div>
+            <div class="data">
+                115/70
+            </div>
+            <div class="hhmg">
+                mmHg
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="message1">
+        <div class="message1_left">
+            <div class="left1_title">SYS</div>
+            <div class="evaluation">较正常偏高 ↑↓</div>
+        </div>
+        <div class="message1_right">
+            <div class="right1_mmhg">mmHg</div>
+            <div class="right1_num">115</div>
+        </div>
+    </div>
+    <div class="message2">
+        <div class="message2_left">
+            <div class="left2_title">DIA</div>
+            <div class="evaluation">较正常偏低 ↓</div>
+        </div>
+        <div class="message2_right">
+            <div class="right2_mmhg">mmHg</div>
+            <div class="right2_num">70</div>
+        </div>
+    </div>
+    <div class="message3">
+        <div class="message3_left">
+        <div>HR</div>
+        <div class="evaluation">良好  --</div>
+    </div>
+        <div class="message3_right">
+            <div class="right3_mmhg">BPM</div>
+            <div class="right3_num">84</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				
+			});
+			
+			//监听家庭健康
+				document.getElementById('health').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'familyHealth.html',
+						id: 'familyHealth'
+					})
+				});
+				
+				//监听主页
+				document.getElementById('main').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'index.html',
+						id: 'index'
+					})
+				});
+				
+				//监听商城
+				document.getElementById('shop').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'shop.html',
+						id: 'shop'
+					})
+				});
+
+			//返回
+			document.getElementById('back').addEventListener('tap', function() {
+				mui.back();
+			});
+		</script>
+</body>
+
+</html>

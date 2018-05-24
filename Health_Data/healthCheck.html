@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>健康智慧移动终端</title>
+
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/swiper.min.css" />
+		<style>
+			body {
+				background-color: #FFFFFF;
+				overflow-y: hidden;
+			}
+			
+			.shadow {
+				width: 330px;
+				height: 163px;
+				background-color: #57B9FD;
+				border-radius: 4px 4px 4px 4px;
+				position: absolute;
+				z-index: -1;
+				/*高斯模糊效果*/
+				filter: url(blur.svg#blur);
+				/* FireFox, Chrome, Opera */
+				-webkit-filter: blur(14px);
+				/* Chrome, Opera */
+				-moz-filter: blur(14px);
+				-ms-filter: blur(14px);
+				filter: blur(14px);
+				filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false);
+				/* IE6~IE9 */
+				opacity: 0.3;
+			}
+			
+			.header-title span {
+				font-family: "PingFangSC";
+				color: #FFFFFF;
+				font-size: 16px;
+				margin-left: 108px;
+			}
+			
+			.header-card {
+				width: 330px;
+				height: 163px;
+				background-color: #FFFFFF;
+				border-radius: 4px 4px 4px 4px;
+				margin-left: 14px;
+				margin-top: 27px;
+				padding-top: 7px;
+				/*box-shadow: 0 4px 1px 1px rgba(87,185,253, 0.1);->del*/
+			}
+			
+			.header-card #span1 {
+				font-family: "PingFangSC";
+				color: #000000;
+				font-size: 12px;
+				display: inline-block;
+				padding-top: 20px;
+				padding-left: 15px;
+				float: left;
+			}
+			
+			.header-card #span2 {
+				font-family: "PingFangSC";
+				color: #9B9B9B;
+				font-size: 10px;
+				display: inline-block;
+				padding-top: 21px;
+				padding-left: 51px;
+				opacity: 0.7;
+			}
+			
+			.card-content {
+				width: 300px;
+				height: 95px;
+				font-family: "PingFangSC";
+				color: #000000;
+				font-size: 12px;
+				margin-left: 13px;
+				margin-top: 18px;
+				opacity: 0.7;
+			}
+			
+			.card-star {
+				float: left;
+				margin-top: 21px;
+				margin-left: 10px;
+			}
+			
+			.card-star img {
+				width: 15px;
+				height: 14px;
+			}
+			
+			.card-line {
+				width: 310px;
+				margin-left: 12px;
+				margin-top: 10px;
+				border-bottom: 1px solid #000000;
+				opacity: 0.08;
+			}
+			
+			.card-title {
+				width: 100%;
+				height: 38px;
+				padding-left: 15px;
+				padding-top: 10px;
+				font-family: "PingFangSC";
+			}
+			
+			.header-back {
+				float: left;
+				width: 40px;
+				margin-top: 2px;
+			}
+			
+			.header-back img {
+				width: 8px;
+				height: 16px;
+			}
+			
+			.card-add {
+				width: 66px;
+				height: 66px;
+				border-radius: 50%;
+				float: left;
+				margin-right: 11px;
+			}
+			
+			.card-add img {
+				width: 100%;
+				border-radius: 50%;
+			}
+			
+			.expert-main {
+				height: 380px;
+			}
+			
+			.expert-main-title {
+				font-size: 20px;
+				margin-left: 15px;
+				margin-top: 30px;
+			}
+			
+			.expert-main-all {
+				font-size: 14px;
+				margin-left: 140px;
+				margin-right: 15px;
+				color: #5D8AFE;
+			}
+			
+			.mui-scroll-wrapper,
+			.mui-slider-indicator,
+			.mui-segmented-control,
+			.mui-segmented-control-inverted {
+				height: 98px !important;
+				margin-top: 10px;
+			}
+			
+			.mui-control-item {
+				width: 327px !important;
+				background: #FFFFFF;
+				height: 96px;
+				border-radius: 5px;
+				margin-top: 1px;
+				box-shadow: 0px 0px 9px #E1E4E9;
+				margin-right: 8px;
+			}
+			
+			.expert-first-item {
+				margin-left: 15px !important;
+			}
+			
+			.expert-last-item {
+				margin-right: 5px;
+			}
+			
+			.mui-control-item img {
+				float: left;
+				width: 86px;
+				height: 86px;
+				margin-top: 5px;
+				margin-left: -13px;
+			}
+			
+			.expert-item-info {
+				float: left;
+				margin-top: 5px;
+				height: 86px;
+				width: 127px;
+				margin-left: 15px;
+			}
+			
+			.expert-item-info span {
+				font-size: 15px !important;
+				margin-right: 175px !important;
+			}
+			
+			.expert-item-info div {
+				width: 120px;
+				line-height: 12px;
+				height: 33px;
+				text-align: left;
+				font-size: 11px;
+				word-wrap: break-word;
+				word-break: break-all;
+				color: #9B9B9B;
+				white-space: pre-wrap;
+			}
+			
+			.expert-item-check {
+				display: inline-block;
+				text-align: center;
+				line-height: 22px;
+				border-radius: 15px;
+				margin-right: 0px;
+				margin-top: 37px;
+				background: #EEEEEE;
+				height: 24px;
+				width: 64px;
+			}
+			
+			.expert-item-check span {
+				font-size: 11px;
+				color: #808080;
+			}
+			
+			.expert-bottom {
+				height: 45px;
+				background: #D8D8D8;
+			}
+			.health-contianer{
+				margin-top: 55px;
+				width: 100%;
+				height: 400px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<nav class="mui-bar mui-bar-tab" style="box-shadow: none;border-top: 1px solid #F0F0F0;">
+			<a class="mui-tab-item mui-active" id="main">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" id="health">
+				<span class="mui-icon mui-icon mui-icon-chatbubble"></span>
+				<span class="mui-tab-label">家庭健康</span>
+			</a>
+			<a class="mui-tab-item" id="shop">
+				<span class="mui-icon mui-icon-star"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a class="mui-tab-item" href="#">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div class="header" style="background-image: url(img/background.svg);
+			background-size:cover;">
+			<div class="header-title">
+				<a class="header-back" id="back">
+					<img src="img/return.png" />
+				</a>
+				<span>健康体检</span>
+			</div>
+
+			<!--卡片-->
+			<div class="header-card">
+				<div class="shadow"></div>
+				<div class="card-title">
+					成员选择
+				</div>
+				<div class="card-line"></div>
+				<div class="card-content">
+					<div class="card-add">
+						<img src="img/family1.png" />
+					</div>
+					<div class="card-add">
+						<img src="img/family2.png" />
+					</div>
+					<div class="card-add">
+						<img src="img/family3.png" />
+					</div>
+					<div class="card-add" style="margin-right: 1px;">
+						<img src="img/Group 3.png" />
+					</div>
+				</div>
+			</div>
+			<!--卡片结束-->
+		</div>
+		<!--主要内容-->
+		<div class="health-contianer">
+			<div class="expert-main">
+				<div>
+					<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-scroll">
+							<a class="mui-control-item expert-first-item" id="xueya">
+								<img src="img/Rectangle 14.png" />
+								<div class="expert-item-info">
+									<span>血压检测</span>
+									<div>跟踪你的血压，和及时检测你的身体。</div>
+								</div>
+								<div class="expert-item-check">
+									<span>进入</span>
+								</div>
+							</a>
+							<div class="mui-control-item">
+								<img src="img/Rectangle 14.png" />
+								<div class="expert-item-info">
+									<span>血压检测</span>
+									<div>跟踪你的血压，和及时检测你的身体。</div>
+								</div>
+								<div class="expert-item-check">
+									<span>进入</span>
+								</div>
+							</div>
+							<div class="mui-control-item expert-last-item">
+								<img src="img/Rectangle 14.png" />
+								<div class="expert-item-info">
+									<span>血压检测</span>
+									<div>跟踪你的血压，和及时检测你的身体。</div>
+								</div>
+								<div class="expert-item-check">
+									<span>进入</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-scroll">
+							<div class="mui-control-item expert-first-item">
+								<img src="img/Rectangle 141.png" />
+								<div class="expert-item-info">
+									<span>血糖检测</span>
+									<div>可以更好的掌控糖尿病患者的血糖变化。</div>
+								</div>
+								<div class="expert-item-check">
+									<span>进入</span>
+								</div>
+							</div>
+							<div class="mui-control-item">
+								<img src="img/Rectangle 141.png" />
+								<div class="expert-item-info">
+									<span>血糖检测</span>
+									<div>可以更好的掌控糖尿病患者的血糖变化。</div>
+								</div>
+								<div class="expert-item-check">
+									<span>进入</span>
+								</div>
+							</div>
+							<div class="mui-control-item expert-last-item">
+								<img src="img/Rectangle 141.png" />
+								<div class="expert-item-info">
+									<span>血糖检测</span>
+									<div>可以更好的掌控糖尿病患者的血糖变化。</div>
+								</div>
+								<div class="expert-item-check">
+									<span>进入</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-scroll">
+							<div class="mui-control-item expert-first-item">
+								<img src="img/Rectangle 142.png" />
+								<div class="expert-item-info">
+									<span>体重检测</span>
+									<div>帮助你记录你每天的体重并计算体脂比。</div>
+								</div>
+								<div class="expert-item-check">
+									<span>进入</span>
+								</div>
+							</div>
+							<div class="mui-control-item">
+								<img src="img/Rectangle 142.png" />
+								<div class="expert-item-info">
+									<span>体重检测</span>
+									<div>帮助你记录你每天的体重并计算体脂比。</div>
+								</div>
+								<div class="expert-item-check">
+									<span>进入</span>
+								</div>
+							</div>
+							<div class="mui-control-item expert-last-item">
+								<img src="img/Rectangle 142.png" />
+								<div class="expert-item-info">
+									<span>体重检测</span>
+									<div>帮助你记录你每天的体重并计算体脂比。</div>
+								</div>
+								<div class="expert-item-check">
+									<span>进入</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--主要内容结束-->
+
+		<!--底部-->
+		<div class="footer">
+
+		</div>
+		
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				
+				//滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true,
+					deceleration: 0.0003,
+					indicators:false
+				});
+			});
+				//监听血压检测
+				document.getElementById('xueya').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'result.html',
+						id: 'result'
+					})
+				});
+				
+				//监听家庭健康
+				document.getElementById('health').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'familyHealth.html',
+						id: 'familyHealth'
+					})
+				});
+				
+				//监听主页
+				document.getElementById('main').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'index.html',
+						id: 'index'
+					})
+				});
+				
+				//监听商城
+				document.getElementById('shop').addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'shop.html',
+						id: 'shop'
+					})
+				});
+
+			//返回
+			document.getElementById('back').addEventListener('tap', function() {
+				mui.back();
+			});
+		</script>
+	</body>
+
+</html>
