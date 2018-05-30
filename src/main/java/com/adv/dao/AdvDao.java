@@ -31,7 +31,9 @@ public interface AdvDao {
 
     List<AdvObj> getAdvListByUser(@Param("user") User user);
 
-    int updateState();
+    int updateStateInvalid();
+
+    int updateStateValid();
 
     List<AdvObj> queryAdv(@Param("advObj") AdvObj advObj, @Param("offset") int offset, @Param("limit") int limit);
 

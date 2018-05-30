@@ -78,7 +78,7 @@ public class DownloadController {
                 response.setContentType("multipart/form-data");
                 bufferedOutputStream = new BufferedOutputStream(response.getOutputStream());
                 int len = 0;
-                byte buf[] = new byte[1024];
+                byte buf[] = new byte[102400];
                 TimeCostUtils.getInstance().setPoint("创建bufferoutputsream");
                 while ((len = inputStream.read(buf)) != -1) {
                     bufferedOutputStream.write(buf, 0, len);

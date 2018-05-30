@@ -67,13 +67,21 @@
         DELETE FROM `adv`
         WHERE adv.id = #{advId}
     </delete>
-    <update id="updateState">
+    <update id="updateStateInvalid">
         UPDATE
             `adv`
         SET
             `is_valid` = 0
         WHERE
-            NOW() > `end_date` AND `is_valid` = 1
+            NOW() > `end_date` AND `is_valid` = 1;
+    </update>
+    <update id="updateStateValid">
+        UPDATE
+        `adv`
+        SET
+        `is_valid` = 1
+        WHERE
+        NOW() > `start_date` AND `is_valid` = 0;
     </update>
     <update id="updateAdv">
         UPDATE
@@ -107,7 +115,7 @@
                 adv.type = #{advObj.type} AND
             </if>
             <if test="advObj.homepage!=null and advObj.homepage!=''">
-                adv.homepage = #{advObj.homepage} AND
+                adv.homepage LIKE CONCAT('%',#{advObj.homepage},'%' ) AND
             </if>
             <if test="advObj.startDate!=null">
                 adv.start_date >= #{advObj.startDate}AND

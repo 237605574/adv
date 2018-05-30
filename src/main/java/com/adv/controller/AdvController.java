@@ -138,7 +138,10 @@ public class AdvController {
     @RequestMapping(value = "/queryAdv", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String queryAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("offset") int offset, @RequestParam("limit") int limit, HttpSession session) {
+    public String queryAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("offset") int offset, @RequestParam("limit") int limit, @RequestParam(value = "tags[]",required=false) List<Long> tags,HttpSession session) {
+        if(tags!=null){
+            advObj.setUserTagIds(tags);
+        }
         AdvUtils.printAdv(advObj);
         System.out.println("offset：" + offset);
         System.out.println("limit：" + limit);

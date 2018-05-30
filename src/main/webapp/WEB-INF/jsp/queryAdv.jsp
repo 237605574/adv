@@ -161,7 +161,7 @@
                     <div class="card-box">
                         <h4 class="header-title m-t-0 m-b-30">查询结果显示</h4>
                         <div class="am-scrollable-horizontal">
-                            <table class="am-table am-table-bordered am-table-striped am-text-nowrap am-table-hover">
+                            <table class="am-table am-table-bordered am-table-striped am-table-hover">
                                 <thead>
                                 <tr>
                                     <th>广告名字</th>
@@ -282,7 +282,7 @@
             if (result.code == 0) {
                 tagDict = {};
                 var tagList = result.data;
-                var listN = 7;
+                var listN = 4;
                 var mainElement = $("#tag-action-container");
                 var divElement = document.createElement("div");
                 divElement.className = "am-checkbox";
@@ -402,6 +402,9 @@
         }
         $("#pageInput").val(++page);
         offset += limit;
+        var tableParentNode = $("#query-body");
+        // 删除所有子节点
+        tableParentNode.children().remove();
         querySubmit();
     }
 
@@ -415,6 +418,9 @@
         }
         $("#pageInput").val(--page);
         offset -= limit;
+        var tableParentNode = $("#query-body");
+        // 删除所有子节点
+        tableParentNode.children().remove();
         querySubmit();
     }
 
@@ -425,6 +431,9 @@
         }
         page--;
         offset = limit * page;
+        var tableParentNode = $("#query-body");
+        // 删除所有子节点
+        tableParentNode.children().remove();
         querySubmit();
     }
 

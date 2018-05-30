@@ -63,7 +63,7 @@ public class AdvDaoTest {
 
     @Test
     public void testUpadateState(){
-        int result = advDao.updateState();
+        int result = advDao.updateStateInvalid();
         System.out.println(result);
     }
 

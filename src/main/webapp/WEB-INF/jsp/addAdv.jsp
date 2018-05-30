@@ -281,7 +281,7 @@
         success: function (result) {
             if (result.code == 0) {
                 var tagList = result.data;
-                var listN = 7;
+                var listN = 4;
                 var mainElement = $("#tag-action-container");
                 var divElement = document.createElement("div");
                 divElement.className = "am-checkbox";

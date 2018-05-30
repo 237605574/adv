@@ -308,7 +308,7 @@
 		var mySwiper = new Swiper('.swiper-container', {
 			direction: 'horizontal',
 			loop: true,
-			autoplay: 5000,
+			autoplay: 500,
 			slidesPerView: "auto",
 			centeredSlides: true,
 			spaceBetween: 20,
@@ -324,21 +324,7 @@
 	<!-- 广告文件js -->
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script>
-		// $.ajax({
-		// 	url: "http://www.baidu.com",
-		// 	type: "get",
-		// 	dataType: "jsonp",
-		// 	success: function (data) {
-		// 		alert(data);//请求成功
-		// 	},
-		// 	error: function (XMLHttpRequest, textStatus, errorThrown) {
-		// 		var msg = "状态码:" + XMLHttpRequest.status + "\n"
-		// 			+ "ready state:" + XMLHttpRequest.readyState + "\n"
-		// 			+ "text status:" + textStatus + "\n"
-		// 			+ "error thrown" + errorThrown;
-		// 		alert(msg);
-		// 	}
-		// });
+		var src2UrlMap = [];
 		$.ajax({
 			type: "POST",
 			url: 'http://localhost:8080/download/getAllAdvList',
@@ -357,26 +343,32 @@
 						for (var j = 0; j < displayDetail.length; j++) {
 							var displayHour = Number(displayDetail[j]);
 							if (displayHour == hour) {
-								//	下载广告图片并且显示
 								var fileUrl = advObj.fileUrl;
-								var homepage = advObj.homepage;
-								var newSlide = $('<div class="swiper-slide" class="adv-slide"><div class="swiper-shadow"></div><img src="img/banner6.jpg" /></div>');
-								var imgNode = newSlide.find("img");
-								imgNode.click(function () {
-									alert("你点击图片");
-									window.open(homepage);
-								})
 								var xhr = new XMLHttpRequest();
 								xhr.open('POST', "http://localhost:8080/download/getAdvFile", true);
 								xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+								xhr.homepage = advObj.homepage;
 								xhr.responseType = "blob";
 								xhr.onload = function () {
 									console.log(this);
 									if (this.status == 200) {
+										//	下载广告图片并且显示
+										var homepage = this.homepage;
+										var newSlide = $('<div class="swiper-slide" class="adv-slide"><div class="swiper-shadow"></div><img src="img/banner6.jpg" /></div>');
+										var imgNode = newSlide.find("img");
+										// imgNode.click(function () {
+										// 	// alert("你点击图片");
+										// 	
+										// 	window.open(homepage);
+										// });
 										var blob = this.response;
-										imgNode.attr("src", window.URL.createObjectURL(blob));
+										var srcUrl = window.URL.createObjectURL(blob);
+										homepage = homepage.match(/^http[s]*:\/\//) ? homepage : 'http://' + homepage;
+										src2UrlMap[srcUrl] = homepage;
+										imgNode.attr("src", srcUrl);
 										$(".swiper-wrapper").append(newSlide);
 										mySwiper.init();
+										initAdvClick();
 									}
 								};
 								xhr.send("fileName=" + fileUrl);
@@ -393,10 +385,24 @@
 					+ "ready state:" + XMLHttpRequest.readyState + "\n"
 					+ "text status:" + textStatus + "\n"
 					+ "error thrown" + errorThrown;
-				alert(msg);
+				// alert(msg);
 			}
 		});
+		function initAdvClick() {
+			var imgNodeList = $("#adv-container").find("img");
+			for (var i = 0; i < imgNodeList.length; i++) {
+				var imgNode = $(imgNodeList[i]);
+				var src = imgNode.attr("src");
+				var homepage = src2UrlMap[src];
+				if (homepage != null) {
+					imgNode.attr("homepage",homepage);
+					imgNode.click(function () {
+						window.open($(this).attr("homepage"));
+					})
+				}
 
+			}
+		}
 
 	</script>
 </body>

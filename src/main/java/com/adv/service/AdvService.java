@@ -341,7 +341,7 @@ public class AdvService {
      * 用于定时更新数据库中的过期广告
      */
     public int updateAdvState() {
-        return advDao.updateState();
+        return advDao.updateStateInvalid() + advDao.updateStateValid();
     }
 
 
