@@ -16,10 +16,10 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
         <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-test</artifactId>-->
-            <!--<version>2.0.0.RELEASE</version>-->
-            <!--<scope>test</scope>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-test</artifactId>-->
+        <!--<version>2.0.0.RELEASE</version>-->
+        <!--<scope>test</scope>-->
         <!--</dependency>-->
 
         <!-- 1.日志 -->
@@ -246,13 +246,19 @@
             <artifactId>java-property-utils</artifactId>
             <version>1.13</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jdbc</artifactId>
+            <version>${tomcat-jdbc.version}</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <!-- 配置可变版本号,也就是常说的版本管理 （Spring、SpringMvc、Mybatis、Gson、Druid） -->
     <!-- 要针对某个依赖进行升级的时候只需要更改下面对应的版本号 -->
     <!-- 在上面使用版本号的时候需要用固定格式,如: ${包名.version} -->
     <properties>
+        <tomcat-jdbc.version>7.0.52</tomcat-jdbc.version>
         <org.apache.logging.log4j.version>2.6.2</org.apache.logging.log4j.version>
         <mysql.version>8.0.8-dmr</mysql.version>
         <com.alibaba.druid.version>1.0.25</com.alibaba.druid.version>

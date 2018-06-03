@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定我们的到具体的bean -->
+<mapper namespace="com.communityserver.advertisement.dao.AdministratorDao">
+    <!-- 更新用户信息 -->
+    <update id="update" parameterType="Administrator">
+        UPDATE
+            `administrator`
+        SET
+            `name`      = #{name},
+            `password`  = #{password}
+        WHERE
+            `id` = #{id};
+    </update>
+    <select id="getUser" resultType="Administrator">
+        SELECT *
+        FROM
+            `administrator`
+    </select>
+</mapper>

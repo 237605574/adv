@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--
+        spring可以自动去扫描base-package下面或者子包下面的java文件，
+        如果扫描到有@Component @Controller @Service @Repository等这些注解的类，则把这些类注册为bean
+    -->
+    <context:component-scan base-package="com.communityserver.*"/>
+
+    <!-- 
+    	模型解析，在请求时为模型视图名称添加前后缀 
+    	比如在controller类中需要请求/WEB-INF/page/index.jsp文件，直接写index就可以了
+    -->
+
+    <mvc:annotation-driven/>
+
+    <!-- <mvc:resources mapping="/lib/**" location="/lib/" /> -->
+    <mvc:resources mapping="/view/**" location="/WEB-INF/view/"/>
+    <!--<mvc:resources mapping="/css/**" location="/css/"/>-->
+    <!--<mvc:resources mapping="/images/**" location="/images/"/>-->
+    <!--<mvc:resources mapping="/js/**" location="/js/"/>-->
+    <!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/page/" p:suffix=".jsp" />  -->
+
+    <mvc:default-servlet-handler/>
+    <!-- 访问拦截  -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/**"/>
+            <bean class="com.communityserver.advertisement.filter.LoginHandlerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <!-- 接口跨域配置 -->
+    <mvc:cors>
+        <mvc:mapping path="/**"
+                     allowed-origins="*"
+                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
+                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                     allow-credentials="true"/>
+    </mvc:cors>
+    <!-- 3.配置jsp 显示ViewResolver -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize">
+            <value>102400000</value>
+        </property>
+        <property name="maxInMemorySize">
+            <value>10240000</value>
+        </property>
+    </bean>
+
+    <context:property-placeholder ignore-unresolvable="true" file-encoding="utf-8"
+                                  location="classpath:jdbc.properties"/>
+
+    <!-- MyBatis配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 显式指定Mapper文件位置 -->
+        <property name="mapperLocations" value="classpath*:/mybatis/*Mapper.xml"/>
+        <!-- 扫描entity包 使用别名 -->
+        <property name="typeAliasesPackage" value="com.communityserver.advertisement.entity"/>
+        <!-- mybatis配置文件路径 -->
+        <property name="configLocation" value="classpath:/mybatis/config.xml"/>
+    </bean>
+
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+        <!-- 这个执行器会批量执行更新语句, 还有SIMPLE 和 REUSE -->
+        <constructor-arg index="1" value="BATCH"/>
+    </bean>
+
+
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置基于注解的声明式事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <!-- 数据源配置, 使用Tomcat JDBC连接池 -->
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <!-- Connection Info -->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- Connection Pooling Info -->
+        <property name="maxActive" value="${jdbc.pool.maxActive}"/>
+        <property name="maxIdle" value="${jdbc.pool.maxIdle}"/>
+        <property name="minIdle" value="0"/>
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
+    <!-- 扫描basePackage接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 给出需要扫描Dao接口包 -->
+        <property name="basePackage" value="com.communityserver.advertisement.dao"/>
+    </bean>
+
+</beans>

@@ -3,11 +3,11 @@
 <%@ page isELIgnored="false" %>
 
 <!DOCTYPE html>
-<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.ajaxfileupload.js"></script>
-<script type="text/javascript" src="/static/js/amazeui.min.js"></script>
-<script type="text/javascript" src="/static/js/app.js"></script>
-<script type="text/javascript" src="/static/js/blockUI.js"></script>
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery.ajaxfileupload.js"></script>
+<script type="text/javascript" src="/js/amazeui.min.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
+<script type="text/javascript" src="/js/blockUI.js"></script>
 <script type="text/javascript">
     var fileName;
 
@@ -44,14 +44,14 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>广告后台管理系统</title>
-    <link rel="stylesheet" href="/static/css/amazeui.css"/>
-    <link rel="stylesheet" href="/static/css/core.css"/>
-    <link rel="stylesheet" href="/static/css/menu.css"/>
-    <link rel="stylesheet" href="/static/css/index.css"/>
-    <link rel="stylesheet" href="/static/css/admin.css"/>
-    <link rel="stylesheet" href="/static/css/page/typography.css"/>
-    <link rel="stylesheet" href="/static/css/page/form.css"/>
-    <link rel="stylesheet" href="/static/css/component.css"/>
+    <link rel="stylesheet" href="/css/amazeui.css"/>
+    <link rel="stylesheet" href="/css/core.css"/>
+    <link rel="stylesheet" href="/css/menu.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/admin.css"/>
+    <link rel="stylesheet" href="/css/page/typography.css"/>
+    <link rel="stylesheet" href="/css/page/form.css"/>
+    <link rel="stylesheet" href="/css/component.css"/>
 </head>
 <body>
 

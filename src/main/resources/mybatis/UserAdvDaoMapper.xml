@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定我们的到具体的bean -->
+<mapper namespace="com.communityserver.advertisement.dao.UserAdvDao">
+    <!--广告匹配原则是用户所有标签都必须在广告目标用户标签中-->
+    <insert id="addAdvByTag">
+        INSERT IGNORE INTO
+        `user_adv`
+        (`adv_id`, `user_id`)
+        SELECT
+        #{advObj.id} as `adv_id`,
+        ( `user_id` )
+        FROM
+        `user_id_tag` t1
+        WHERE
+        <choose>
+            <when test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
+                NOT EXISTS ( SELECT `user_id` FROM `user_id_tag` t2 WHERE `tag_id` NOT IN
+                <foreach item="item" index="index" collection="advObj.userTagIds" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+                AND t1.user_id = t2.user_id )
+            </when>
+            <otherwise>
+                1!=1
+            </otherwise>
+        </choose>
+        GROUP BY `user_id`
+    </insert>
+    <delete id="removeAdv">
+        DELETE
+            `user_adv`
+        FROM
+            `adv`
+        WHERE
+            `adv_id` = #{advObj.id}
+    </delete>
+    <delete id="updateAdvState">
+        DELETE `user_adv`
+        FROM
+            `adv`,
+            `user_adv`
+        WHERE
+            adv.id = user_adv.adv_id
+            AND adv.is_valid != 1
+    </delete>
+</mapper>

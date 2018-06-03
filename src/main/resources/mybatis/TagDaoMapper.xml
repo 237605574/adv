@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定我们的到具体的bean -->
+<mapper namespace="com.communityserver.advertisement.dao.TagDao">
+    <insert id="addTag">
+        INSERT IGNORE INTO
+            `tag`
+            (`tag_id`, `name`)
+        VALUES
+            (#{tag.id}, #{tag.name})
+    </insert>
+    <insert id="addTagBatch">
+        INSERT IGNORE INTO
+        `tag`
+        (`tag_id`, `name`)
+        VALUES
+        <foreach item="item" collection="tagList" separator=",">
+            (#{item.id},#{item.name})
+        </foreach>
+    </insert>
+    <delete id="delTagById">
+        DELETE FROM `tag`
+        WHERE
+            `tag_id` = #{id}
+    </delete>
+    <delete id="delTagByIdBatch">
+        DELETE FROM `tag`
+        WHERE
+        <foreach item="id" collection="tagList" separator="and">
+            `tag_id` = #{id}
+        </foreach>
+    </delete>
+    <resultMap id="tag" type="com.communityserver.advertisement.entity.Tag">
+        <id column="tag_id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+    <select id="getAllTags" resultMap="tag">
+        SELECT *
+        FROM
+            `tag`
+    </select>
+    <select id="checkTagByAdv" resultType="Integer">
+        SELECT count(1)
+        FROM
+        `temp`
+        <choose>
+            <when test="advObj.userTagIds != null and advObj.userTagIds.size()>0">
+                WHERE
+                <foreach item="item" index="index" collection="advObj.userTagIds" separator="and">
+                    (exists(SELECT #{item} FROM `tag` WHERE tag_id = #{item}))
+                </foreach>
+            </when>
+        </choose>
+
+    </select>
+</mapper>

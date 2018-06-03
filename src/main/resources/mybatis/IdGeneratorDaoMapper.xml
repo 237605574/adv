@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定我们的到具体的bean -->
+<mapper namespace="com.communityserver.advertisement.dao.IdGeneratorDao">
+    <!-- 更新用户信息 -->
+    <update id="update" parameterType="IdGenObj">
+        UPDATE
+            `id_generator`
+        SET
+            `current_id` = #{currentId}
+        WHERE
+            `name` = #{name};
+    </update>
+    <resultMap id="IdGentors" type="IdGenObj">
+    </resultMap>
+    <select id="findAll" resultMap="IdGentors">
+        SELECT
+            *
+        FROM
+            `id_generator`
+    </select>
+</mapper>

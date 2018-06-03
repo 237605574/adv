@@ -4,7 +4,7 @@
         <!-- User -->
         <div class="user-box am-hide-sm-only">
             <div class="user-img">
-                <img src="/static/images/avatar-1.jpg" alt="user-img" title="管理员"
+                <img src="/images/avatar-1.jpg" alt="user-img" title="管理员"
                      class="img-circle img-thumbnail img-responsive" onclick="changeUserInfo()">
 
                 <div class="user-status offline">

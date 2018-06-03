@@ -4,11 +4,11 @@
 <%-- 上面这两行是java代码的引用 --%>
 
 <%--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">--%>
-<script type="text/javascript" src="/static/js/jquery-2.1.0.js"></script>
-<%--<script type="text/javascript" src="/static/js/jquery-2.1.0.js"></script>--%>
-<script type="text/javascript" src="/static/js/jquery.tips.js"></script>
-<script type="text/javascript" src="/static/js/login.js"></script>
-<%--<script type="text/javascript" src="/static/js/app.js"></script>--%>
+<script type="text/javascript" src="/js/jquery-2.1.0.js"></script>
+<%--<script type="text/javascript" src="/js/jquery-2.1.0.js"></script>--%>
+<script type="text/javascript" src="/js/jquery.tips.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
+<%--<script type="text/javascript" src="/js/app.js"></script>--%>
 <script type="text/javascript">
     function checkLoginInfo() {
         if ("" == $("#u").val()) {
@@ -189,7 +189,7 @@
     <title>仓库管理系统→登录</title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link href="/static/css/login2.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/login2.css" rel="stylesheet" type="text/css"/>
 </head>
 <html>
 <body>

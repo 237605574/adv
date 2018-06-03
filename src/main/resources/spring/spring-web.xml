@@ -20,15 +20,15 @@
         (1)加入对静态资源的处理：js,gif,png
         (2)允许使用"/"做整体映射
      -->
-    <mvc:resources  location="/static/css/"  mapping="/css/**" />
-    <mvc:resources mapping="/images/**" location="/static/images/" />
-    <mvc:resources mapping="/view/**" location="/static/view/" />
+    <mvc:resources mapping="/css/**" location="/css/" />
+    <mvc:resources mapping="/images/**" location="/images/" />
+    <mvc:resources mapping="/view/**" location="/WEB-INF/view/" />
     <mvc:default-servlet-handler/>
     <!-- 访问拦截  -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**/**"/>
-            <bean class="com.adv.filter.LoginHandlerInterceptor"/>
+            <bean class="com.communityserver.advertisement.filter.LoginHandlerInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
     <!-- 接口跨域配置 -->
@@ -54,9 +54,9 @@
         </property>
     </bean>
 
-    <bean class="com.adv.common.init.Init"/>
+    <bean class="com.communityserver.advertisement.common.init.Init"/>
     <!-- 4.扫描web相关的bean配置 -->
-    <context:component-scan base-package="com.adv">
+    <context:component-scan base-package="com.communityserver.advertisement">
         <!-- 制定扫包规则 ,只扫描使用@Controller注解的JAVA类 -->
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>

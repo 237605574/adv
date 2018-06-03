@@ -9,7 +9,7 @@
 <head>
     <title>广告后台管理系统</title>
     <meta charset="utf-8">
-    <link href="/static/css/login.css" rel='stylesheet' type='text/css'/>
+    <link href="/css/login.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
@@ -19,9 +19,9 @@
         window.scrollTo(0, 1);
     } </script>
 </head>
-<script type="text/javascript" src="/static/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.tips.js"></script>
-<script type="text/javascript" src="/static/js/login.js"></script>
+<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery.tips.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
 <script type="text/javascript">
     function checkLoginInfo() {
         if ("" == $("#u").val() || "输入用户名" == $("#u").val()) {
@@ -84,7 +84,7 @@
     <div class="login-form">
         <h1>管理员登录</h1>
         <div class="head">
-            <img src="/static/images/user.png" alt=""/>
+            <img src="/images/user.png" alt=""/>
         </div>
         <form>
             <input id="u" type="text" name="name" class="text" value="输入用户名"
