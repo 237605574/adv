@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author lurongzhi
  */
-@Service
+@Service("advService")
 public class AdvService {
     private static Logger LOG = LogManager.getLogger(AdvService.class.getName());
 

@@ -50,6 +50,7 @@
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
+    <context:component-scan base-package="com.communityserver.*"/>
     <!-- 数据源配置, 使用Tomcat JDBC连接池 -->
     <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
         <!-- Connection Info -->
@@ -73,5 +74,5 @@
     </bean>
     <!--初始化启动-->
     <bean class="com.communityserver.advertisement.common.init.Init"/>
-
+    <!--<bean id="springContextHelper" class="com.communityserver.advertisement.common.init.SystemInit"/>-->
 </beans>

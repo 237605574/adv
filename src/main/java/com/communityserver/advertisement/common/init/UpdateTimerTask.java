@@ -25,7 +25,7 @@ public class UpdateTimerTask {
     }
 
     public void init() {
-        advService = Init.getBean(AdvService.class);
+        advService =Init.getBean(AdvService.class);
     }
 
     public void start() {
