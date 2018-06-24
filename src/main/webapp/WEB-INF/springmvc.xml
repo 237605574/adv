@@ -33,12 +33,12 @@
 
     <mvc:default-servlet-handler/>
     <!-- 访问拦截  -->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**/**"/>
-            <bean class="com.communityserver.advertisement.filter.LoginHandlerInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**/**"/>-->
+            <!--<bean class="com.communityserver.advertisement.filter.LoginHandlerInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
     <!-- 接口跨域配置 -->
     <mvc:cors>
         <mvc:mapping path="/**"

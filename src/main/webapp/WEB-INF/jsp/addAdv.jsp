@@ -9,37 +9,6 @@
 <script type="text/javascript" src="/js/amazeui.min.js"></script>
 <script type="text/javascript" src="/js/app.js"></script>
 <script type="text/javascript" src="/js/blockUI.js"></script>
-<script type="text/javascript">
-    var fileName;
-
-    function uploadFile() {
-        fileName = document.getElementById('changeHeadPic').value;
-        $.ajaxFileUpload({
-            url: "<%=request.getContextPath()%>/userAction/uploadHeadPic",
-            secureuri: false, //是否需要安全协议，一般设置为false
-            fileElementId: 'changeHeadPic', //文件上传域的ID
-            dataType: 'json', //返回值类型 一般设置为json
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            success: function (data) {
-                alert(data.msg);
-            }
-
-        });
-    }
-
-    function changeUserInfo() {
-        $('#my-prompt').modal({
-            relatedTarget: this,
-            onConfirm: function () {
-                uploadFile();
-            },
-            onCancel: function (e) {
-            }
-        });
-    }
-
-
-</script>
 <html>
 <head>
     <meta charset="utf-8"/>

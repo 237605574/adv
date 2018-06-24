@@ -132,7 +132,7 @@ export const appRouter = [
         children: [
              { 
                 path: 'searchableTable', 
-                title: '广告列表', 
+                title: '广告查询/删除', 
                 name: 'as-list', 
                 icon: 'search', 
                 component: () => import('@/views/ad-manage/searchable-table.vue') 
@@ -169,8 +169,8 @@ export const appRouter = [
                 path: 'file-upload',
                 icon: 'android-upload',
                 name: 'as-upload',
-                title: '文件上传',
-                component: () => import('@/views/my-components/file-upload/file-upload.vue')
+                title: '广告添加',
+                component: () => import('@/views/my-components/file-upload/my_upload.vue')
             }
            /* {
                 path: 'scroll-bar',
