@@ -11,7 +11,9 @@ module.exports = {
     entry: {
         main: '@/main',
         'vender-base': '@/vendors/vendors.base.js',
-        'vender-exten': '@/vendors/vendors.exten.js'
+        'vender-exten': '@/vendors/vendors.exten.js',
+        'jquery.tips': '@/jquery.tips.js',
+        'jquery.ajaxfileupload': '@/jquery.ajaxfileupload.js'
     },
     output: {
         path: path.resolve(__dirname, '../dist/dist')

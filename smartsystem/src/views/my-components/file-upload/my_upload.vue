@@ -10,7 +10,7 @@
             <div style="margin-bottom: 20px">
                 <h2>选择图片</h2>
                 <a id='addPic' href="" v-on:click="addPic">添加图片 </a>
-                <input type="file" @change="onFileChange" multiple style="display: none;">
+                <input type="file" @change="onFileChange" multiple style="display: none;"  accept="image/*">
             </div>
             <div v-if="images.length >0">
                <ul>
@@ -32,21 +32,6 @@ export default {
   name: "my-upload",
   data() {
     return {
-      defaultList: [
-        {
-          name: "a42bdcc1178e62b4694c830f028db5c0",
-          url:
-            "https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar"
-        },
-        {
-          name: "bc7521e033abdd1e92222d733590f104",
-          url:
-            "https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar"
-        }
-      ],
-      imgName: "",
-      visible: false,
-      uploadList: [],
       images:[]
     };
   },

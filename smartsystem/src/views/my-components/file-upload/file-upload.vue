@@ -7,273 +7,292 @@
 <template>
     <div>
         <Row>
-            <Col span="8">
+            <Col span="12">
+            <div class="padding-left-10">
                 <Card>
                     <p slot="title">
-                        <Icon type="ios-cloud-upload-outline"></Icon>
-                        基本上传功能
+                        <Icon type="android-funnel"></Icon>
+                        广告基本信息
                     </p>
-                    <div class="height-120px">
-                        <Row type="flex" justify="center" align="middle" class="height-100">
-                            <Upload action="//jsonplaceholder.typicode.com/posts/">
-                                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-                            </Upload>
-                        </Row>
+                    <div>
+                        <Form ref="advForm"
+                            :model="advInfo"
+                            :rules="rule">
+                            <FormItem prop="name">
+                                <label style="display:inline-block;width:100px">广告名字: </label>
+                                <Input clearable
+                                    placeholder="输入广告名字"
+                                    style="width:400px"
+                                    v-model="advInfo.name" />
+                            </FormItem>
+                            <FormItem prop="homepage">
+                                <label style="display:inline-block;width:100px">广告主页: </label>
+                                <Input clearable
+                                    placeholder="输入广告主页"
+                                    style="width:400px"
+                                    v-model="advInfo.homepage" />
+                            </FormItem>
+                            <FormItem prop="startDate">
+                                <label style="display:inline-block;width:100px">开始有效时间: </label>
+                                <Input clearable
+                                    id="start_date"
+                                    type="datetime-local"
+                                    placeholder="输入起始有效时间"
+                                    style="width:400px"
+                                    v-model="advInfo.startDate" />
+                            </FormItem>
+                            <FormItem prop="endDate">
+                                <label style="display:inline-block;width:100px">结束有效时间: </label>
+                                <Input clearable
+                                    id="end_date"
+                                    type="datetime-local"
+                                    placeholder="输入结束有效时间"
+                                    style="width:400px"
+                                    v-model="advInfo.endDate" />
+                            </FormItem>
+                            <FormItem prop="displayDetail">
+                                <label style="display:inline-block;width:100px">播放时间段: </label>
+                                <select multiple="multiple"
+                                    v-model="advInfo.displayDetail"
+                                    id="detail_input"
+                                    style="width:400px">
+                                    <option value="0">0:00 —— 1:00</option>
+                                    <option value="1">1:00 —— 2:00</option>
+                                    <option value="2">2:00 —— 3:00</option>
+                                    <option value="3">3:00 —— 4:00</option>
+                                    <option value="4">4:00 —— 5:00</option>
+                                    <option value="5">5:00 —— 6:00</option>
+                                    <option value="6">6:00 —— 7:00</option>
+                                    <option value="7">7:00 —— 8:00</option>
+                                    <option value="8">8:00 —— 9:00</option>
+                                    <option value="9">9:00 —— 10:00</option>
+                                    <option value="10">10:00 —— 11:00</option>
+                                    <option value="11">11:00 —— 12:00</option>
+                                    <option value="12">12:00 —— 13:00</option>
+                                    <option value="13">13:00 —— 14:00</option>
+                                    <option value="14">14:00 —— 15:00</option>
+                                    <option value="15">15:00 —— 16:00</option>
+                                    <option value="16">16:00 —— 17:00</option>
+                                    <option value="17">17:00 —— 18:00</option>
+                                    <option value="18">18:00 —— 19:00</option>
+                                    <option value="19">19:00 —— 20:00</option>
+                                    <option value="20">20:00 —— 21:00</option>
+                                    <option value="21">21:00 —— 22:00</option>
+                                    <option value="22">22:00 —— 23:00</option>
+                                    <option value="23">23:00 —— 24:00</option>
+                                </select>
+                            </FormItem>
+                            <FormItem>
+                                <Button v-on:click="handleSubmit"
+                                    type="primary"
+                                    style="width:100x">添加广告</Button>
+                            </FormItem>
+                        </Form>
                     </div>
                 </Card>
-            </Col>
-            <Col span="8" class="padding-left-10">
-                <Card>
-                    <p slot="title">
-                        <Icon type="ios-copy-outline"></Icon>
-                        可多选的上传
-                    </p>
-                    <div class="height-120px">
-                        <Row type="flex" justify="center" align="middle" class="height-100">
-                            <Upload multiple action="//jsonplaceholder.typicode.com/posts/">
-                                <span>多选文件上传&nbsp;&nbsp;</span>
-                                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-                            </Upload>
-                        </Row>
-                    </div>
-                </Card>
-            </Col>
-            <Col span="8" class="padding-left-10">
-                <Card>
-                    <p slot="title">
-                        <Icon type="upload"></Icon>
-                        可限制文件类型
-                    </p>
-                    <div class="height-120px">
-                        <Row type="flex" justify="center" align="middle" class="height-100">
-                            <Upload
-                                action="//jsonplaceholder.typicode.com/posts/"
-                                :format="['jpg', 'png', 'jpeg', 'gif', 'bmp', 'svg']"
-                                :on-format-error="handleFormatError"
-                            >
-                                <span>选择图片上传&nbsp;&nbsp;</span>
-                                <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-                            </Upload>
-                        </Row>
-                    </div>
-                </Card>
+            </div>
             </Col>
         </Row>
         <div class="margin-top-10">
-            <Col span="8">
-                <div>
-                    <Card>
-                        <p slot="title">
-                            <Icon type="android-funnel"></Icon>
-                            可监听上传各个阶段
-                        </p>
-                        <div class="height-200px">
-                            <Row type="flex" justify="center" align="middle" class="height-100">
-                                <div style="display: block;width: 100%;text-align: center;">
-                                    <Upload
-                                        action="//jsonplaceholder.typicode.com/posts/"
-                                        :on-format-error="handleFormatError"
-                                        :before-upload="handleBeforeUpload"
-                                        :on-progress="handleProgress"
-                                        :on-success="handleSuccess"
-                                        :on-error="handleError"
-                                    >
-                                        <span>请选择文件&nbsp;&nbsp;</span>
-                                        <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-                                    </Upload>
-                                </div>
-                            </Row>
-                        </div>
-                    </Card>
-                </div>
-                <div class="margin-top-10">
-                    <Card>
-                        <p slot="title">
-                            <Icon type="android-hand"></Icon>
-                            可拖拽上传
-                        </p>
-                        <div class="height-200px">
-                            <Upload
-                                multiple
-                                type="drag"
-                                action="//jsonplaceholder.typicode.com/posts/">
-                                <div style="padding: 60px 0;height: 200px;">
-                                    <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-                                    <p>点击或将文件拖拽到这里上传</p>
-                                </div>
-                            </Upload>
-                        </div>
-                    </Card>
-                </div>
-            </Col>
-            <Col span="16">
-                <div class="padding-left-10">
-                    <Card>
-                        <p slot="title">
-                            <Icon type="ios-analytics"></Icon>
-                            综合实例
-                        </p>
-                        <div class="height-492px">
-                            <Col span="8">
-                                <Card>
-                                    <Upload
-                                        ref="upload"
-                                        :show-upload-list="false"
-                                        :default-file-list="defaultList"
-                                        :on-success="handleSuccess2"
-                                        :format="['jpg','jpeg','png']"
-                                        :max-size="2048"
-                                        :on-format-error="handleFormatError2"
-                                        :on-exceeded-size="handleMaxSize"
-                                        :before-upload="handleBeforeUpload2"
-                                        multiple
-                                        type="drag"
-                                        action="//jsonplaceholder.typicode.com/posts/"
-                                        style="display: inline-block;width:58px;">
-                                        <div style="width: 58px;height:58px;line-height: 58px;">
-                                            <Icon type="camera" size="20"></Icon>
-                                        </div>
-                                    </Upload>
-                                    <Modal title="查看图片" v-model="visible">
-                                        <img :src="'https://o5wwk8baw.qnssl.com/' + imgName + '/large'" v-if="visible" style="width: 100%">
-                                    </Modal>
-                                </Card>
-                            </Col>
-                            <Col span="16" class="padding-left-10">
-                                <Card>
-                                    <div class="height-460px">
-                                        <div class="admin-upload-list" v-for="item in uploadList" :key="item.url">
-                                            <template v-if="item.status === 'finished'">
-                                                <img :src="item.url">
-                                                <div class="admin-upload-list-cover">
-                                                    <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
-                                                    <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-                                                </div>
-                                            </template>
-                                            <template v-else>
-                                                <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
-                                            </template>
-                                        </div>
-                                    </div>
-                                </Card>
-                            </Col>
-                        </div>
-                    </Card>
-                </div>
+            <Col span="24">
+            <div class="padding-left-10">
+                <Card>
+                    <p slot="title">
+                        <Icon type="ios-analytics"></Icon>
+                        广告文件
+                    </p>
+                    <div style="margin-bottom: 20px">
+                        <Button type="primary"
+                            v-on:click="addPic">上传</Button>
+                        <input type="file"
+                            @change="onFileChange"
+                            multiple
+                            style="display: none;"
+                            accept="image/*"
+                            id="adv-file">
+
+                    </div>
+                    <div v-if="imageSrc != ''">
+                        <img :src="imageSrc"
+                            style="max-width:100%" />
+                    </div>
+                </Card>
+            </div>
+
             </Col>
         </div>
+        <Button @click="modalVal = true;modalText='hhhh'">Custom header and footer</Button>
+        <Modal v-model="modalVal"
+            width="360">
+            <p slot="header"
+                style="text-align:center">
+                <span>信息回馈</span>
+            </p>
+            <div style="text-align:center">
+                <p v-text="modalText"></p>
+            </div>
+            <div slot="footer">
+                <Button type="primary"
+                    size="large"
+                    long
+                    @click="modalVal = false">确定</Button>
+            </div>
+        </Modal>
     </div>
+
 </template>
 
 <script>
+var advWebUrl = "localhost:8081";
 export default {
   name: "file-upload",
   data() {
     return {
-      defaultList: [
-        {
-          name: "a42bdcc1178e62b4694c830f028db5c0",
-          url:
-            "https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar"
-        },
-        {
-          name: "bc7521e033abdd1e92222d733590f104",
-          url:
-            "https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar"
-        }
-      ],
-      imgName: "",
-      visible: false,
-      uploadList: []
+      imageSrc: "",
+      modalVal: false,
+      modalText: "",
+      advInfo: {
+        name: "",
+        startDate: "",
+        endDate: "",
+        homepage: "",
+        file: "",
+        displayDetail: ""
+      },
+      rule: {
+        name: [{ required: true, message: "请输入广告名字", trigger: "blur" }],
+        startDate: [
+          { required: true, message: "请输入广告起始时间", trigger: "blur" }
+        ],
+        endDate: [
+          { required: true, message: "请输入广告结束时间", trigger: "blur" }
+        ],
+        homepage: [
+          { required: true, message: "请输入广告跳转主页", trigger: "blur" }
+        ]
+      }
     };
   },
   methods: {
-    handleFormatError(file) {
-      this.$Notice.warning({
-        title: "文件格式不正确",
-        desc: "文件 " + file.name + " 格式不正确，请选择图片文件。"
-      });
-    },
-    handleBeforeUpload(file) {
-      this.$Notice.warning({
-        title: "文件准备上传",
-        desc: "文件 " + file.name + " 准备上传。"
-      });
-    },
-    handleProgress(event, file) {
-      this.$Notice.info({
-        title: "文件正在上传",
-        desc: "文件 " + file.name + " 正在上传。"
-      });
-    },
-    handleSuccess(evnet, file) {
-      this.$Notice.success({
-        title: "文件上传成功",
-        desc: "文件 " + file.name + " 上传成功。"
-      });
-    },
-    handleError(event, file) {
-      this.$Notice.error({
-        title: "文件上传成功",
-        desc: "文件 " + file.name + " 上传失败。"
-      });
-    },
-    handleView(name) {
-      this.imgName = name;
-      this.visible = true;
-    },
-    handleRemove(file) {
-      // 从 upload 实例删除数据
-      const fileList = this.$refs.upload.fileList;
-      this.$refs.upload.fileList.splice(fileList.indexOf(file), 1);
-    },
-    handleSuccess2(res, file) {
-      //   因为上传过程为实例，这里模拟添加 url
-      file.url =
-        "https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar";
-      file.name = "7eb99afb9d5f317c912f08b5212fd69a";
-      fileData = {
-        name: file.name,
-        url: file.url
-      };
-      defaultList.push(fileData);
-      //    console.log(file)
-    },
-    handleFormatError2(file) {
-      this.$Notice.warning({
-        title: "文件格式不正确",
-        desc:
-          "文件 " + file.name + " 格式不正确，请上传 jpg 或 png 格式的图片。"
-      });
-    },
-    handleMaxSize(file) {
-      this.$Notice.warning({
-        title: "超出文件大小限制",
-        desc: "文件 " + file.name + " 太大，不能超过 2M。"
-      });
-    },
-    handleBeforeUpload2(file) {
-      const check = this.uploadList.length < 5;
-      if (!check) {
-        this.$Notice.warning({
-          title: "最多只能上传 5 张图片。"
+    checkDisplayDetail() {
+      var detailInput = $("#detail_input").val();
+      if (detailInput == null || detailInput.length == 0) {
+        $("#detail_input").tips({
+          side: 2,
+          msg: "广告投放时间段不能为空",
+          bg: "#ff293f",
+          time: 3
         });
-      } else {
-        file.url =
-          "https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar";
-        file.name = "7eb99afb9d5f317c912f08b5212fd69a";
-        var fileData = {
-          name: "7eb99afb9d5f317c912f08b5212fd69a",
-          url:
-            "https://o5wwk8baw.qnssl.com/7eb99afb9d5f317c912f08b5212fd69a/avatar"
-        };
-        this.defaultList.push(fileData);
+        return false;
       }
-      return check;
+      this.advInfo.displayDetail = detailInput;
+      return true;
+    },
+    checkDate() {
+      var minDate = new Date(1900, 1, 1);
+      var maxDate = new Date(2200, 1, 1);
+      var dStart = new Date(Date.parse($("#start_date").val()));
+      var dEnd = new Date(Date.parse($("#end_date").val()));
+      if (dStart < minDate || dStart > maxDate) {
+        $("#start_time").tips({
+          side: 2,
+          msg: "日期超出限制",
+          bg: "#ff293f",
+          time: 3
+        });
+        return false;
+      }
+      if (dEnd < minDate || dEnd > maxDate) {
+        $("#end_time").tips({
+          side: 2,
+          msg: "日期超出限制",
+          bg: "#ff293f",
+          time: 3
+        });
+        return false;
+      }
+      return true;
+    },
+    checkAdvFile() {
+      var filePath = $("#adv-file").val();
+      if (filePath == null || filePath == "") {
+        $("#adv-file").tips({
+          side: 2,
+          msg: "文件不能为空",
+          bg: "#ff293f",
+          time: 3
+        });
+        return false;
+      }
+      return true;
+    },
+    addPic(e) {
+      e.preventDefault();
+      $("#adv-file").trigger("click");
+      return false;
+    },
+    handleSubmit() {
+      console.log("te");
+      this.$refs.advForm.validate(valid => {
+        if (!this.$options.methods.checkDisplayDetail()) {
+          return;
+        }
+         console.log("tooooo");
+        if (valid) {
+          //  检测广告文件
+          if (!this.$options.methods.checkAdvFile()) {
+            return;
+          }
+          //  检测有效时间段
+          if (!this.$options.methods.checkDate()) {
+            return;
+          }
+          //    发送ajax请求
+          $.ajax({
+            type: "POST",
+            url: advWebUrl + "/advAction/addInfo",
+            data: advData,
+            dataType: "json",
+            cache: false,
+            success: function(result) {
+              if (result.code === 0) {
+                this.$options.methods.uploadAdvFile();
+              } else {
+                this.$options.methods.alertMsg(result.msg);
+              }
+            }
+          });
+          //   this.$router.push({
+          //     name: "home_index"
+          //   });
+        }
+      });
+    },
+    alertMsg(msg) {
+      this.modalVal = true;
+      this.modalText = "msg";
+    },
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files);
+    },
+    createImage(file) {
+      if (typeof FileReader === "undefined") {
+        alert("您的浏览器不支持图片上传，请升级您的浏览器");
+        return false;
+      }
+      var image = new Image();
+      var vm = this;
+      var leng = file.length;
+      for (var i = 0; i < leng; i++) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file[i]);
+        reader.onload = function(e) {
+          vm.imageSrc = this.result;
+        };
+      }
     }
-  },
-  mounted() {
-    this.uploadList = this.$refs.upload.fileList;
   }
 };
 </script>

@@ -170,7 +170,7 @@ export const appRouter = [
                 icon: 'android-upload',
                 name: 'as-upload',
                 title: '广告添加',
-                component: () => import('@/views/my-components/file-upload/my_upload.vue')
+                component: () => import('@/views/my-components/file-upload/file-upload.vue')
             }
            /* {
                 path: 'scroll-bar',
