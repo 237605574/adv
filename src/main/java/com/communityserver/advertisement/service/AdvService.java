@@ -93,10 +93,10 @@ public class AdvService {
             return new ResultObj<>(ResultCodes.DATE_ERROR, "截止日期超出限制");
         } else {
             //  检查广告目标用户标签
-            ResultObj<Void> userTagResult = checkUserTag(advObj);
-            if (userTagResult.getCode() != ResultCodes.SUCCESS) {
-                return userTagResult;
-            }
+//            ResultObj<Void> userTagResult = checkUserTag(advObj);
+//            if (userTagResult.getCode() != ResultCodes.SUCCESS) {
+//                return userTagResult;
+//            }
         }
         //  广告信息没有错误
         return new ResultObj<>(ResultCodes.SUCCESS);

@@ -33,7 +33,7 @@ public class UpdateTimerTask {
             @Override
             public void run() {
                 int result = advService.updateAdvState();
-                System.out.println("upadte:" + result);
+//                System.out.println("upadte:" + result);
             }
         }, 0, TimerConfig.getInstance().getTimeHour() * 5000);
     }

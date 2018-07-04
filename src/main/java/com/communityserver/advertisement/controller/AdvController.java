@@ -38,18 +38,16 @@ public class AdvController {
     @RequestMapping(value = "/addInfo", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String addAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("tags[]") List<Long> tags, HttpSession session) {
-        // 测试
-        if (tags != null) {
-            advObj.setUserTagIds(tags);
-            System.out.println(tags);
-        }
-        System.out.println(tags);
+    public String addInfo(HttpServletRequest request, HttpServletResponse response, AdvObj advObj,/* @RequestParam("tags[]") List<Long> tags,*/ HttpSession session) {
         AdvUtils.printAdv(advObj);
         ResultObj resultObj = advService.checkAdvInfo(advObj);
         if (resultObj.getCode() == ResultCodes.SUCCESS) {
             session.setAttribute(SessionStr.ADD_ADV_INFO, advObj);
         }
+        System.out.println("------------------");
+        System.out.println("info result code:"+resultObj.getCode());
+        System.out.println("info result msg:"+resultObj.getMsg());
+        System.out.println("------------------");
         return GsonUtils.toJson(resultObj);
     }
 
@@ -71,6 +69,10 @@ public class AdvController {
         } else {
             session.setAttribute(SessionStr.ADD_ADV_FILE, file);
         }
+        System.out.println("------------------");
+        System.out.println("file result code:"+resultObj.getCode());
+        System.out.println("file result msg:"+resultObj.getMsg());
+        System.out.println("------------------");
         return GsonUtils.toJson(resultObj);
     }
 
@@ -138,8 +140,8 @@ public class AdvController {
     @RequestMapping(value = "/queryAdv", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String queryAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("offset") int offset, @RequestParam("limit") int limit, @RequestParam(value = "tags[]",required=false) List<Long> tags,HttpSession session) {
-        if(tags!=null){
+    public String queryAdv(HttpServletRequest request, HttpServletResponse response, AdvObj advObj, @RequestParam("offset") int offset, @RequestParam("limit") int limit, @RequestParam(value = "tags[]", required = false) List<Long> tags, HttpSession session) {
+        if (tags != null) {
             advObj.setUserTagIds(tags);
         }
         AdvUtils.printAdv(advObj);
@@ -163,7 +165,7 @@ public class AdvController {
     @RequestMapping(value = "/queryAdvById", method = RequestMethod.POST, produces = {
             "application/json; charset=utf-8"})
     @ResponseBody
-    public String queryAdvById(HttpServletRequest request, HttpServletResponse response,  @RequestParam("advId")Long advId,HttpSession session) {
+    public String queryAdvById(HttpServletRequest request, HttpServletResponse response, @RequestParam("advId") Long advId, HttpSession session) {
         ResultObj<AdvObj> resultObj = advService.queryAdvById(advId);
         return GsonUtils.toJson(resultObj);
     }
